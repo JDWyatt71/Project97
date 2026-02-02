@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4838c6adad0c36643b18bfe8ebc62bc6, type: 3}
-  m_Name: Advanced defend
+  m_Name: Default Defend
   m_EditorClassIdentifier: Assembly-CSharp::DefendSO
   sprite: {fileID: 0}
-  AP: 1
+  AP: 0
   height: 0
-  damageReductionPercentage: 20
+  damageReductionPercentage: 0
   deflect: 0

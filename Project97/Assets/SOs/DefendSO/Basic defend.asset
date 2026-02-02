@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4838c6adad0c36643b18bfe8ebc62bc6, type: 3}
   m_Name: Basic defend
   m_EditorClassIdentifier: Assembly-CSharp::DefendSO
-  damageReduction: 2
+  sprite: {fileID: 0}
+  AP: 1
+  height: 0
+  damageReductionPercentage: 10
+  deflect: 0

@@ -23,6 +23,7 @@ public class TurnManager : MonoBehaviour
     private bool running;
     private float moveDelay = 1f;
     private MovesUIScreen movesUIScreen;
+    public event Action RoundComplete;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Update()
     {
@@ -30,11 +31,19 @@ public class TurnManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             submittedMoves = true;
-            DeselectAllObjs();
+            ResetMoveSelection();
         }
 
 
     }
+
+    private void ResetMoveSelection()
+    {
+        DeselectAllObjs();
+        defenseMoves = 0;
+        attackMoves = 0;
+    }
+
     private IEnumerator Turns(Character pCharacter, Character cCharacter)
     {
         running = true;
@@ -44,6 +53,7 @@ public class TurnManager : MonoBehaviour
             Debug.Log("Turn start");
             yield return StartCoroutine(Turn(pCharacter, cCharacter)); //Waits for sub coroutine to finish before continuing to next turn.
         }
+        RoundComplete?.Invoke();
         Debug.Log("End game");
         if (playerCharacter == null)
         {
@@ -63,24 +73,34 @@ public class TurnManager : MonoBehaviour
         submittedMoves = false;
 
         //Get player moves from
-        List<MoveSO> pMoves = selectedMoves.Where(kvp => kvp.Value).Select(kvp => kvp.Key).ToList();
+        List<MoveSO> pMoves = new List<MoveSO>(selectedMoves); //Shallow copy of list
+        //Extracts AttackSO and single DefendSO from pMoves
+        List<AttackSO> pAMoves = pMoves.OfType<AttackSO>().ToList();
+        DefendSO pDMove = pMoves.OfType<DefendSO>().FirstOrDefault();
+
         List<MoveSO> cMoves = ScheduleRandomMoves(cCharacter);
+        List<AttackSO> cAMoves = cMoves.OfType<AttackSO>().ToList();
+        DefendSO cDMove = cMoves.OfType<DefendSO>().FirstOrDefault();
+        
         Debug.Log($"Player moves chosen: {pMoves.Count}, Computer moves chosen: {cMoves.Count}");
 
-        yield return StartCoroutine(PerformMoves(pMoves, cMoves, pCharacter, cCharacter));
+        yield return StartCoroutine(PerformMoves(pAMoves, cAMoves, pDMove, cDMove, pCharacter, cCharacter));
         Debug.Log("Turn end");
     }
-
+    /// <summary>
+    /// Returns defense move first
+    /// </summary>
+    /// <param name="c"></param>
+    /// <returns></returns>
     private List<MoveSO> ScheduleRandomMoves(Character c)
     {
         System.Random rnd = new System.Random();
         List<MoveSO> attackMoves = c.GetAMoves().OrderBy(x => rnd.Next()).Take(3).ToList<MoveSO>();
 
         MoveSO defenceMove = c.GetDMoves().OrderBy(x => rnd.Next()).Take(1).ToList()[0];
-        int rndI = rnd.Next(attackMoves.Count);
 
         List<MoveSO> moves = attackMoves;
-        moves.Insert(rndI, defenceMove);
+        moves.Insert(0, defenceMove);
 
         return moves;
     }
@@ -90,82 +110,113 @@ public class TurnManager : MonoBehaviour
         pAP = playerCharacter.AP;
         //Enable UI
         submittedMoves = false;
-        selectedMoves = c.GetAllMoves().ToDictionary(m => m, m => false);
+        selectedMoves = new List<MoveSO>();
         //Wait until done-condition?
         //Get
 
     }
-    private IEnumerator PerformMoves(List<MoveSO> ms1, List<MoveSO> ms2, Character c1, Character c2)
+    private IEnumerator PerformMoves(List<AttackSO> ms1, List<AttackSO> ms2, DefendSO d1, DefendSO d2, Character c1, Character c2)
     {
         for(int i = 0; i < ms1.Count; i++)
         {
             if(!running) yield break;
-            yield return StartCoroutine(PerformMovePair(ms1[i], ms2[i], c1, c2));
+            PerformMovePair(ms1[i], d2, c1, c2);
+            
+            yield return new WaitForSeconds(moveDelay);
+
+            PerformMovePair(ms2[i], d1, c2, c1);
+
             yield return new WaitForSeconds(moveDelay);
 
         }
     }
 
-    private IEnumerator PerformMovePair(MoveSO m1, MoveSO m2, Character c1, Character c2)
+    private void PerformMovePair(AttackSO a, DefendSO d, Character attacker, Character target)
     {
-        switch (m1, m2)
-        {
-            case (AttackSO a1, AttackSO a2):
-                PerformAttack(c2, a1);
+        PerformAttack(attacker, target, a, d);
 
-                //In this case we don't allow dead character to attack back when both attacking moves on turn.
-                if(!running) yield break; 
+        string aS = $"Attack on {target.name}: {a.name}, Damage: {a.damage}";
+          
 
-                yield return new WaitForSeconds(moveDelay);
-                PerformAttack(c1, a2);
-                break;
+        string dS = $"Defend: {d.name}, Damage Reduction percentage: {d.damageReductionPercentage}";
 
-            case (DefendSO, DefendSO):
-                //Nothing happens logically, only visuals.
-                break;
-
-            case (AttackSO a, DefendSO d):
-                PerformAttack(c2, a, d);
-                break;
-
-            case (DefendSO d, AttackSO a):
-                PerformAttack(c1, a, d);
-                break;
-            default:
-                Debug.Log("Should not be output.");
-                break;
-        }
-        //Temporary debug details for testing and no UI.
-        string m1Info = m1 switch
-        {
-            AttackSO a => $"Attack: {a.name}, Damage: {a.damage}",
-            DefendSO d => $"Defend: {d.name}, Damage Reduction: {d.damageReduction}",
-        };
-
-        string m2Info = m2 switch
-        {
-            AttackSO a => $"Attack: {a.name}, Damage: {a.damage}",
-            DefendSO d => $"Defend: {d.name}, Damage Reduction: {d.damageReduction}",
-        };
-
-        Debug.Log($"Move Details:\nPlayer Move: {m1Info}\nEnemy Move: {m2Info}\nPlayer Health: {c1.healthSystem.GetHealth()}, Enemy health: {c2.healthSystem.GetHealth()}");
+        Debug.Log($"Move Details:\n{aS}\n{dS}\nTarget Health: {target.healthSystem.GetHealth()}, Defender health: {attacker.healthSystem.GetHealth()}");
 
     }
 
-    private void PerformAttack(Character target, AttackSO attackSO, DefendSO defenseSO = null)
+    private void PerformAttack(Character attacker, Character target, AttackSO attackSO, DefendSO defendSO = null)
     {
-        int defense = defenseSO != null ? defenseSO.damageReduction : 0;
-
-        int calculatedDamage = attackSO.damage - defense;
-        if (target.healthSystem.TakeDamage(calculatedDamage))
+        if(defendSO == null)
         {
-            running = false;
+            defendSO = AssetsDatabase.I.defaultDefendSO;
         }
+        //player attacking damage
+        //Base damage of move
+        //Successful Block
+        int totalDamage;
+        if(defendSO.damageReductionPercentage == 0f && attackSO.height == defendSO.height) //Here I assume 0 damage reduction implies block defense type
+        {
+            totalDamage = 0;
+        }
+        else
+        {
+            //Calculate damage as non-zero damage inflicted on a character
+            totalDamage = totalDam(calculateInitialDamage(GetDamage(attackSO.damage), attacker.attack), 1-defendSO.damageReductionPercentage);
+
+        }
+        if (defendSO.deflect)
+        {
+            if (attacker.healthSystem.TakeDamage(totalDamage)) //Add Calculation on totalDamage
+            {
+                running = false;
+            }
+        }
+        else
+        {
+            if (target.healthSystem.TakeDamage(totalDamage))
+            {
+                running = false;
+            }
+        }
+        
     }
+    
+    #region Damage Calculation
+    private int GetDamage(Damage damage) //Not implemented completely
+    {
+        switch (damage)
+        {
+            case(Damage.Low):
+                return 5;
+            case(Damage.Medium):
+                return 6;
+            case(Damage.High):
+                return 7;
+        }
+        return 0;
+    }
+    private float calculateAttackMultiplier(float x)
+    {
+         return ( 1/1960 )*x*x + ( 5/196 )*x + 34/49;
+    }
+    private float calculateInitialDamage(int basedam, float attack)
+    {
+        return basedam * calculateAttackMultiplier(attack);
+    }
+    //(where grdred is 1 or 0.6 or 0)
+    private int totalDam(float initdam, float multiplier)
+    {
+        return (int)Mathf.Round( multiplier * ( initdam +  UnityEngine.Random.Range( -0.15f*initdam, 0.15f*initdam ) ));
+
+    }
+    #endregion
     #region Select player moves
     private int pAP;
     private bool submittedMoves;
-    private Dictionary<MoveSO, bool> selectedMoves;
+    private int maxAttackMoves = 3;
+    private int attackMoves;
+    private int defenseMoves;
+    private List<MoveSO> selectedMoves = new List<MoveSO>();
     private List<GameObject> selectedObjs = new List<GameObject>();
     
     /// <summary>
@@ -176,27 +227,46 @@ public class TurnManager : MonoBehaviour
     /// <param name="SelectGameObject"></param>
     public void TrySelectMove(MoveSO move, GameObject SelectGameObject)
     {
-        if (!selectedMoves[move])
+        if (!selectedMoves.Contains(move))
         {
             if (CanSelectMove(move))
             {
                 SelectGameObject.SetActive(true);
                 pAP -= move.AP;
-                selectedMoves[move] = true;
+                selectedMoves.Add(move);
+
                 selectedObjs.Add(SelectGameObject);
+                switch (move)
+                {
+                    case AttackSO a:
+                        attackMoves+=1;
+                        break;
+                    case DefendSO d:
+                        defenseMoves+=1;
+                        break;
+                }
             }
         }
         else
         {
             SelectGameObject.SetActive(false);
             pAP += move.AP;
-            selectedMoves[move] = false;
+            selectedMoves.Remove(move);
             selectedObjs.Remove(SelectGameObject);
-
+            switch (move)
+            {
+                case AttackSO a:
+                    attackMoves+=-1;
+                    break;
+                case DefendSO d:
+                    defenseMoves+=-1;
+                    break;
+            }
 
         }
         
     }
+    
     private void DeselectAllObjs()
     {
         foreach(GameObject selectedObj in selectedObjs)
@@ -207,7 +277,17 @@ public class TurnManager : MonoBehaviour
     }
     private bool CanSelectMove(MoveSO move)
     {
-        return move.AP <= pAP; 
+        bool limitMet = false;
+        switch (move)
+        {
+            case AttackSO a:
+                limitMet = attackMoves == maxAttackMoves;
+                break;
+            case DefendSO d:
+                limitMet = defenseMoves == 1;
+                break;
+        }
+        return move.AP <= pAP && !limitMet; 
     }
     #endregion
 }

@@ -11,6 +11,7 @@ public class Character : MonoBehaviour
         return aMoves;
     }
     private List<DefendSO> dMoves; //Defensive moves pool
+
     public List<DefendSO> GetDMoves()
     {
         return dMoves;
@@ -22,6 +23,8 @@ public class Character : MonoBehaviour
         return allMoves;
     }
     public int AP {private set; get;}
+    public float attack = 10f;
+
 
     void Awake()
     {
