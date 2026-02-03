@@ -1926,7 +1926,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6afab9cc4d3e30a4e8c7a42c57099ee2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  upgradeScreenUI: {fileID: 0}
+  pCSO: {fileID: 11400000, guid: a73199f1a4385df46ab734a13cad8599, type: 2}
+  cCSO: {fileID: 11400000, guid: 9f8988c692f6eec4aa986019f59badbc, type: 2}
 --- !u!114 &1719375499
 MonoBehaviour:
   m_ObjectHideFlags: 0

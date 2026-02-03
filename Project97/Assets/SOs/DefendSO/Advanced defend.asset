@@ -15,5 +15,6 @@ MonoBehaviour:
   sprite: {fileID: 0}
   AP: 1
   height: 0
-  damageReductionPercentage: 20
+  effects: []
+  damageReductionMultiplier: 0
   deflect: 0

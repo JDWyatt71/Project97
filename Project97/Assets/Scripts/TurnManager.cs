@@ -30,8 +30,12 @@ public class TurnManager : MonoBehaviour
         //Temporary for testing, to end player move selection
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            submittedMoves = true;
-            ResetMoveSelection();
+            if (CanAffordMoves())
+            {
+                submittedMoves = true;
+                ResetMoveSelection();
+            }
+            
         }
 
 
@@ -95,19 +99,31 @@ public class TurnManager : MonoBehaviour
     private List<MoveSO> ScheduleRandomMoves(Character c)
     {
         System.Random rnd = new System.Random();
-        List<MoveSO> attackMoves = c.GetAMoves().OrderBy(x => rnd.Next()).Take(3).ToList<MoveSO>();
+        int cAP = c.actionPoints;
+        List<MoveSO> moves = new List<MoveSO>();
+        int movesAP = 999999999;
 
-        MoveSO defenceMove = c.GetDMoves().OrderBy(x => rnd.Next()).Take(1).ToList()[0];
+        while(movesAP > cAP){
+            List<MoveSO> attackMoves = c.GetAMoves().OrderBy(x => rnd.Next()).Take(3).ToList<MoveSO>();
 
-        List<MoveSO> moves = attackMoves;
-        moves.Insert(0, defenceMove);
+            MoveSO defenceMove = c.GetDMoves().OrderBy(x => rnd.Next()).Take(1).ToList()[0];
 
+            moves = new List<MoveSO>(attackMoves);
+            moves.Insert(0, defenceMove);
+
+            //Count AP of all moves
+            movesAP = 0;
+            foreach(MoveSO moveSO in moves)
+            {
+                movesAP += moveSO.AP;
+        }
+        }
         return moves;
     }
 
     private void SchedulePlayerMoves(Character c)
     {
-        pAP = playerCharacter.AP;
+        pAPRemaining = playerCharacter.actionPoints;
         //Enable UI
         submittedMoves = false;
         selectedMoves = new List<MoveSO>();
@@ -138,7 +154,7 @@ public class TurnManager : MonoBehaviour
         string aS = $"Attack on {target.name}: {a.name}, Damage: {a.damage}";
           
 
-        string dS = $"Defend: {d.name}, Damage Reduction percentage: {d.damageReductionPercentage}";
+        string dS = $"Defend: {d.name}, Damage Reduction multiplier: {d.damageReductionMultiplier}";
 
         Debug.Log($"Move Details:\n{aS}\n{dS}\nTarget Health: {target.healthSystem.GetHealth()}, Defender health: {attacker.healthSystem.GetHealth()}");
 
@@ -146,6 +162,7 @@ public class TurnManager : MonoBehaviour
 
     private void PerformAttack(Character attacker, Character target, AttackSO attackSO, DefendSO defendSO = null)
     {
+        //Implement attacker.accuracy and target.evasion
         if(defendSO == null)
         {
             defendSO = AssetsDatabase.I.defaultDefendSO;
@@ -154,7 +171,7 @@ public class TurnManager : MonoBehaviour
         //Base damage of move
         //Successful Block
         int totalDamage;
-        if(defendSO.damageReductionPercentage == 1f && attackSO.height == defendSO.height) //Here I assume 0 damage reduction implies block defense type
+        if(defendSO.damageReductionMultiplier == 0f && attackSO.height == defendSO.height) //Here I assume 0 damage reduction implies block defense type
         {
             Debug.Log("Successful block");
             totalDamage = 0;
@@ -164,13 +181,9 @@ public class TurnManager : MonoBehaviour
             //Calculate damage as non-zero damage inflicted on a character
             int basedam = GetDamage(attackSO.damage);
             float initialDamage = calculateInitialDamage(basedam, attacker.attack);
-            totalDamage = totalDam(initialDamage, 1-defendSO.damageReductionPercentage);
+            totalDamage = totalDam(initialDamage, 1-defendSO.damageReductionMultiplier);
             Debug.Log($"basedam: {basedam}, initialDamage: {initialDamage}, total damage: {totalDamage}");
         }
-        /*if (attacker.healthSystem.TakeDamage(5)) //Add Calculation on totalDamage
-        {
-            running = false;
-        }*/
         if (defendSO.deflect)
         {
             if (attacker.healthSystem.TakeDamage(totalDamage)) //Add Calculation on totalDamage
@@ -215,25 +228,21 @@ public class TurnManager : MonoBehaviour
     }
     private float calculateInitialDamage(int basedam, int attack)
     {
-        Debug.Log($"Attack: {attack}");
         float attackMultiplier = calculateAttackMultiplier(attack);
-        Debug.Log($"Attack multiplier: {attackMultiplier}");
         return basedam * attackMultiplier;
     }
     //(where grdred is 1 or 0.6 or 0)
     private int totalDam(float initdam, float multiplier)
     {
         float rand = UnityEngine.Random.Range( -0.15f*initdam, 0.15f*initdam );
-        Debug.Log($"random additional damage: {rand}");
         float ans = multiplier * ( initdam + rand  );
         int roundedAns = (int)Mathf.Round( ans );
-        Debug.Log($"ans: {ans}, rounded answer: {roundedAns}");
         return roundedAns;
 
     }
     #endregion
     #region Select player moves
-    private int pAP;
+    private int pAPRemaining;
     private bool submittedMoves;
     private int maxAttackMoves = 3;
     private int attackMoves;
@@ -254,7 +263,7 @@ public class TurnManager : MonoBehaviour
             if (CanSelectMove(move))
             {
                 SelectGameObject.SetActive(true);
-                pAP -= move.AP;
+                pAPRemaining -= move.AP;
                 selectedMoves.Add(move);
 
                 selectedObjs.Add(SelectGameObject);
@@ -267,12 +276,14 @@ public class TurnManager : MonoBehaviour
                         defenseMoves+=1;
                         break;
                 }
+                Debug.Log($"Remaining AP: {pAPRemaining}");
+
             }
         }
         else
         {
             SelectGameObject.SetActive(false);
-            pAP += move.AP;
+            pAPRemaining += move.AP;
             selectedMoves.Remove(move);
             selectedObjs.Remove(SelectGameObject);
             switch (move)
@@ -284,7 +295,7 @@ public class TurnManager : MonoBehaviour
                     defenseMoves+=-1;
                     break;
             }
-
+            Debug.Log($"Remaining AP: {pAPRemaining}");
         }
         
     }
@@ -309,7 +320,12 @@ public class TurnManager : MonoBehaviour
                 limitMet = defenseMoves == 1;
                 break;
         }
-        return move.AP <= pAP && !limitMet; 
+        return move.AP <= pAPRemaining && !limitMet; 
+    }
+    private bool CanAffordMoves()
+    {
+        return pAPRemaining >= 0;
+
     }
     #endregion
 }

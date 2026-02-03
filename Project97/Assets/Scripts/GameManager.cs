@@ -5,22 +5,32 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager I;
     private Inventory pInventory;
-    [SerializeField] private UpgradeScreenUI upgradeScreenUI;
+    private UpgradeScreenUI upgradeScreenUI;
+    [SerializeField] private CharacterSO pCSO;
+    [SerializeField] private CharacterSO cCSO;
+
     void Awake()
     {
         I = this;
     }
     void Start()
     {
-        GameObject pCharacter = Instantiate(AssetsDatabase.I.characterPf);
-        pCharacter.name = "Player";
+        GameObject pCharacter = SetupCharacter("Player", pCSO);
         pInventory = pCharacter.GetComponent<Inventory>();
-        GameObject cCharacter = Instantiate(AssetsDatabase.I.characterPf);
-        cCharacter.name = "Computer";
+        GameObject cCharacter = SetupCharacter("Computer", cCSO);
+
         TurnManager turnManager = gameObject.AddComponent<TurnManager>();
         turnManager.Setup(pCharacter.GetComponent<Character>(), cCharacter.GetComponent<Character>());
         turnManager.RoundComplete += RoundComplete;
         upgradeScreenUI = GetComponent<UpgradeScreenUI>();
+    }
+
+    private GameObject SetupCharacter(String name, CharacterSO characterSO)
+    {
+        GameObject pCharacter = Instantiate(AssetsDatabase.I.characterPf);
+        pCharacter.name = name;
+        pCharacter.GetComponent<Character>().Setup(characterSO);
+        return pCharacter;
     }
 
     private void RoundComplete()

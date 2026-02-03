@@ -22,24 +22,25 @@ public class Character : MonoBehaviour
         allMoves.AddRange(dMoves);
         return allMoves;
     }
-    public int AP {private set; get;}
-    public int attack = 10;
+    public int actionPoints {private set; get;}
+    public int hitPoints;
+    public int attack;
+    public float accuracy;
+    public float evasion;
+   
+
     private List<Effect> effects = new List<Effect>();
     public void AddEffect(Effect effect)
     {
         effects.Add(effect);
     }
-
-    void Awake()
-    {
-        Setup();
-        
-    }
-    private void Setup()
+    public void Setup(CharacterSO characterSO = default(CharacterSO))
     {
         healthSystem = GetComponent<HealthSystem>();
         SetupMoves(AssetsDatabase.I.aMoves, AssetsDatabase.I.dMoves);
-        AP = 4;
+        actionPoints = characterSO.actionPoints;
+        aMoves = new List<AttackSO>(characterSO.aMoves); //Copy the character's starting moves to this character
+        dMoves = new List<DefendSO>(characterSO.dMoves);
     }
     private void SetupMoves(List<AttackSO> initialAMoves, List<DefendSO> initialDMoves)
     {
