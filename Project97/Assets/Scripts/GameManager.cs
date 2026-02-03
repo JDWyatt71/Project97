@@ -20,11 +20,12 @@ public class GameManager : MonoBehaviour
         TurnManager turnManager = gameObject.AddComponent<TurnManager>();
         turnManager.Setup(pCharacter.GetComponent<Character>(), cCharacter.GetComponent<Character>());
         turnManager.RoundComplete += RoundComplete;
+        upgradeScreenUI = GetComponent<UpgradeScreenUI>();
     }
 
     private void RoundComplete()
     {
-        //upgradeScreenUI.DisplayItems();
+        upgradeScreenUI.DisplayItems(AssetsDatabase.I.items);
     }
     public void PlayerAddItem(ItemSO item, int amount = 1)
     {

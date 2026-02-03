@@ -12,4 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b6f12e87bcce0b43ad2fee356dd15e0, type: 3}
   m_Name: Basic attack
   m_EditorClassIdentifier: Assembly-CSharp::AttackSO
-  damage: 3
+  sprite: {fileID: 0}
+  AP: 1
+  height: 0
+  effects: []
+  accuracy: 0
+  damage: 0

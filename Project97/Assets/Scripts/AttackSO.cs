@@ -3,5 +3,5 @@ using UnityEngine;
 public class AttackSO : MoveSO
 {
    public Scale accuracy;
-   public Damage damage;
+   public Scale damage;
 }

@@ -23,8 +23,12 @@ public class Character : MonoBehaviour
         return allMoves;
     }
     public int AP {private set; get;}
-    public float attack = 10f;
-
+    public int attack = 10;
+    private List<Effect> effects = new List<Effect>();
+    public void AddEffect(Effect effect)
+    {
+        effects.Add(effect);
+    }
 
     void Awake()
     {

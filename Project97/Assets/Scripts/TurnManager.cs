@@ -154,16 +154,23 @@ public class TurnManager : MonoBehaviour
         //Base damage of move
         //Successful Block
         int totalDamage;
-        if(defendSO.damageReductionPercentage == 0f && attackSO.height == defendSO.height) //Here I assume 0 damage reduction implies block defense type
+        if(defendSO.damageReductionPercentage == 1f && attackSO.height == defendSO.height) //Here I assume 0 damage reduction implies block defense type
         {
+            Debug.Log("Successful block");
             totalDamage = 0;
         }
         else
         {
             //Calculate damage as non-zero damage inflicted on a character
-            totalDamage = totalDam(calculateInitialDamage(GetDamage(attackSO.damage), attacker.attack), 1-defendSO.damageReductionPercentage);
-
+            int basedam = GetDamage(attackSO.damage);
+            float initialDamage = calculateInitialDamage(basedam, attacker.attack);
+            totalDamage = totalDam(initialDamage, 1-defendSO.damageReductionPercentage);
+            Debug.Log($"basedam: {basedam}, initialDamage: {initialDamage}, total damage: {totalDamage}");
         }
+        /*if (attacker.healthSystem.TakeDamage(5)) //Add Calculation on totalDamage
+        {
+            running = false;
+        }*/
         if (defendSO.deflect)
         {
             if (attacker.healthSystem.TakeDamage(totalDamage)) //Add Calculation on totalDamage
@@ -182,31 +189,46 @@ public class TurnManager : MonoBehaviour
     }
     
     #region Damage Calculation
-    private int GetDamage(Damage damage) //Not implemented completely
+    private float damageMultiplier = 1f;
+    private int GetDamage(Scale damage) //Not implemented completely
     {
+        int d = 0;
         switch (damage)
         {
-            case(Damage.Low):
-                return 5;
-            case(Damage.Medium):
-                return 6;
-            case(Damage.High):
-                return 7;
+            case Scale.Low:
+                d = 3;
+                break;
+            case Scale.Medium:
+                d = 7;
+                break;
+            case Scale.High:
+                d = 10;
+                break;
         }
-        return 0;
+        return (int)Mathf.Round( d * damageMultiplier);
     }
-    private float calculateAttackMultiplier(float x)
+    private float calculateAttackMultiplier(int x)
     {
-         return ( 1/1960 )*x*x + ( 5/196 )*x + 34/49;
+        float y = (float)x;
+        float ans = (y*y / 1960f) + (5f / 196f * y) + 34f/49f;
+        return ans;
     }
-    private float calculateInitialDamage(int basedam, float attack)
+    private float calculateInitialDamage(int basedam, int attack)
     {
-        return basedam * calculateAttackMultiplier(attack);
+        Debug.Log($"Attack: {attack}");
+        float attackMultiplier = calculateAttackMultiplier(attack);
+        Debug.Log($"Attack multiplier: {attackMultiplier}");
+        return basedam * attackMultiplier;
     }
     //(where grdred is 1 or 0.6 or 0)
     private int totalDam(float initdam, float multiplier)
     {
-        return (int)Mathf.Round( multiplier * ( initdam +  UnityEngine.Random.Range( -0.15f*initdam, 0.15f*initdam ) ));
+        float rand = UnityEngine.Random.Range( -0.15f*initdam, 0.15f*initdam );
+        Debug.Log($"random additional damage: {rand}");
+        float ans = multiplier * ( initdam + rand  );
+        int roundedAns = (int)Mathf.Round( ans );
+        Debug.Log($"ans: {ans}, rounded answer: {roundedAns}");
+        return roundedAns;
 
     }
     #endregion

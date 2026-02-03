@@ -8,8 +8,10 @@ public class UpgradeScreenUI : MonoBehaviour
 {
     [SerializeField] private GameObject itemTemplate;
     [SerializeField] private Transform itemContainerTransform;
+    [SerializeField] private GameObject itemScreen;
     public void DisplayItems(List<ItemSO> items)
     {
+        itemScreen.SetActive(true);
         foreach (ItemSO item in items)
         {
             RectTransform itemSlotRectTransform = Instantiate(itemTemplate, itemContainerTransform).GetComponent<RectTransform>();
