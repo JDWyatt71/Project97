@@ -16,5 +16,5 @@ MonoBehaviour:
   AP: 1
   height: 0
   effects: []
-  damageReductionMultiplier: 0
+  damageReductionMultiplier: 0.2
   deflect: 0
