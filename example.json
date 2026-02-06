@@ -1,0 +1,52 @@
+{
+  "session_id": "session_2026_02_01_001",
+  "timestamp_start": "2026-02-01T18:42:10Z",
+  "timestamp_end": "2026-02-01T19:27:54Z",
+  "player_id": "player123",
+
+  "runs": [
+    {
+      "run_id": "run_01",
+      "successful": true,
+      "difficulty": "Easy",
+      "run_duration": 500,
+      "level_finish": 10,
+      "attack_move_attempted": 20,
+      "attack_move_successful": 5,
+      "defend_move_attempt": 4,
+      "defend_move_successful": 1,
+      "items_bought": ["Damage Boost", "bat"],
+      "items_used": ["bat", "Potion"],
+      "death_cause": "stab",
+      "hp_left_over": 36,
+
+      "upgrade_choice_made_per_level": {
+        "1": ["stat", "+3 health"],
+        "2": ["move", "some mmove"],
+        "3": ["stat", "+3 health"],
+        "4": ["move", "some mmove"]
+      },
+
+      "fights": [
+        {
+          "fight_id": "fight_01",
+          "battle_time_seconds": 92,
+          "number_of_turns": 14,
+          "attack_move_attempted": 4,
+          "attack_move_successful": 3,
+          "hp_left_over": 88,
+          "defend_move_attempt": 5,
+          "defend_move_successful": 3,
+          "moves_used": ["stab", "jab"],
+          "items_used": ["Health Portion", "bat"],
+
+          "status_frequency": {
+            "stunned": 1,
+            "bleeding": 0,
+            "guard_break": 1
+          }
+        }
+      ]
+    }
+  ]
+}
