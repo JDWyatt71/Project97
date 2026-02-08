@@ -4,6 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/Character")]
 public class CharacterSO : ScriptableObject
 {
+    public Sprite sprite;
     public int hitPoints;
     public int attack;
     public float accuracy;
