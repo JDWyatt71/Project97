@@ -36,7 +36,8 @@ public class Inventory : MonoBehaviour
     }
     public void AddItem(ItemSO item, int amount = 1)
     {
-        inventory[item] += amount;
+        //Works when values doesn't exist for a key.
+        inventory[item] = inventory.GetValueOrDefault(item) + amount; 
         
         inventoryChanged?.Invoke(this, EventArgs.Empty);
     }

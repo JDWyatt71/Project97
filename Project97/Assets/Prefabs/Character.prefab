@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 053104aa8bbdd7b4ea5e05ab7a43dd0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthSystem
-  maxHealth: 50
+  maxHealth: 5
 --- !u!114 &3247216803201400728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,6 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b0599444276cf24ab676401e20605bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Character
+  hitPoints: 0
   attack: 10
 --- !u!114 &-8527145393364332908
 MonoBehaviour:

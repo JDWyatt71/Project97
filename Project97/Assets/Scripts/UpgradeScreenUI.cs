@@ -41,5 +41,6 @@ public class UpgradeScreenUI : MonoBehaviour
         selectImage.SetActive(true);
         yield return new WaitForSeconds(1f);
         GameManager.I.PlayerAddItem(item);
+        itemScreen.SetActive(false);
     }
 }
