@@ -162,27 +162,34 @@ public class TurnManager : MonoBehaviour
 
     private void PerformAttack(Character attacker, Character target, AttackSO attackSO, DefendSO defendSO = null)
     {
-        //Implement attacker.accuracy and target.evasion
         if(defendSO == null)
         {
             defendSO = AssetsDatabase.I.defaultDefendSO;
+        }
+        //Implement attacker.accuracy and target.evasion
+        float moveAccuracy = CalculateMoveAccuracy(attackSO.accuracy, attacker.accuracy, target.evasion, defendSO.dodgeBonusPercent);
+        Debug.Log($"Move accuracy: {moveAccuracy}");
+        if (!RandomEvent(moveAccuracy))
+        {
+            Debug.Log("Dodge"); //So don't do any damage.
+            return;
         }
         //player attacking damage
         //Base damage of move
         //Successful Block
         int totalDamage;
-        if(defendSO.damageReductionMultiplier == 0f && attackSO.height == defendSO.height) //Here I assume 0 damage reduction implies block defense type
+        
+        //Calculate damage as non-zero damage inflicted on a character
+        int basedam = GetDamage(attackSO.damage);
+        float initialDamage = CalculateInitialDamage(basedam, attacker.attack);
+        totalDamage = TotalDam(initialDamage, 1-defendSO.damageReductionMultiplier);
+        Debug.Log($"basedam: {basedam}, initialDamage: {initialDamage}, total damage: {totalDamage}");
+        
+        if(defendSO.block && attackSO.height == defendSO.height) 
         {
             Debug.Log("Successful block");
             totalDamage = 0;
-        }
-        else
-        {
-            //Calculate damage as non-zero damage inflicted on a character
-            int basedam = GetDamage(attackSO.damage);
-            float initialDamage = calculateInitialDamage(basedam, attacker.attack);
-            totalDamage = totalDam(initialDamage, 1-defendSO.damageReductionMultiplier);
-            Debug.Log($"basedam: {basedam}, initialDamage: {initialDamage}, total damage: {totalDamage}");
+            return;
         }
         if (defendSO.deflect)
         {
@@ -190,6 +197,7 @@ public class TurnManager : MonoBehaviour
             {
                 running = false;
             }
+            ApplyEffects(attacker, attackSO);
         }
         else
         {
@@ -197,42 +205,91 @@ public class TurnManager : MonoBehaviour
             {
                 running = false;
             }
+            ApplyEffects(target, attackSO);
+
         }
+        /*if ((defendSO.deflect && attacker.healthSystem.TakeDamage(totalDamage)) || target.healthSystem.TakeDamage(totalDamage)) //Add Calculation on totalDamage
+        {
+            running = false;
+        }*/
         
     }
-    
-    #region Damage Calculation
-    private float damageMultiplier = 1f;
-    private int GetDamage(Scale damage) //Not implemented completely
+    #region  Effects
+
+    private void ApplyEffects(Character character, AttackSO attackSO)
     {
-        int d = 0;
-        switch (damage)
+        foreach(EffectChance eC in attackSO.effects)
+        {
+            if (RandomEvent(GetEffectChance(eC.chance)))
+            {
+                character.AddEffect(eC.effect);
+            }
+        }
+    }
+
+    private static readonly float[] chances = { 0.2f, 0.3f, 0.4f, 0.55f, 0.7f };
+
+    private float GetEffectChance(Scale chance)
+    {
+        return chances[(int)chance]; //Only works as Scale is ordered.
+    }
+    #endregion
+
+    private bool RandomEvent(float moveAccuracy)
+    {
+        return UnityEngine.Random.value < moveAccuracy;
+    }
+
+    private float CalculateAccuracyEvasionMultiplier(float attackerAccuracy, float defenderEvasion)
+    {
+        return (attackerAccuracy-defenderEvasion) / 2f;
+    }
+    private float CalculateMoveAccuracy(Scale accuracy, float attackerAccuracy, float defenderEvasion, float dodgeBonusPercent)
+    {
+        float dodgeBonus = dodgeBonusPercent / 100f;
+        float baseAccuracy = GetBaseAccuracy(accuracy);
+        return baseAccuracy + (CalculateAccuracyEvasionMultiplier(attackerAccuracy, defenderEvasion) / 2) - dodgeBonus;
+    }
+    private float GetBaseAccuracy(Scale accuracy) //Not implemented completely, add actual accuracy values
+    {
+        float d = 0f;
+        switch (accuracy)
         {
             case Scale.Low:
-                d = 3;
+                d = 0.5f; //Placeholders
                 break;
             case Scale.Medium:
-                d = 7;
+                d = 0.7f;
                 break;
             case Scale.High:
-                d = 10;
+                d = 0.9f;
                 break;
         }
-        return (int)Mathf.Round( d * damageMultiplier);
+        return d;
     }
-    private float calculateAttackMultiplier(int x)
+
+    #region Damage Calculation
+    private float damageMultiplier = 1f;
+    private static readonly float[] damageValues = { 3f, 5f, 7f, 8.5f, 10f };
+
+    private int GetDamage(Scale damage)
+    {
+        return Mathf.RoundToInt(damageValues[(int)damage] * damageMultiplier);
+    }
+    
+    private float CalculateAttackMultiplier(int x)
     {
         float y = (float)x;
         float ans = (y*y / 1960f) + (5f / 196f * y) + 34f/49f;
         return ans;
     }
-    private float calculateInitialDamage(int basedam, int attack)
+    private float CalculateInitialDamage(int basedam, int attack)
     {
-        float attackMultiplier = calculateAttackMultiplier(attack);
+        float attackMultiplier = CalculateAttackMultiplier(attack);
         return basedam * attackMultiplier;
     }
     //(where grdred is 1 or 0.6 or 0)
-    private int totalDam(float initdam, float multiplier)
+    private int TotalDam(float initdam, float multiplier)
     {
         float rand = UnityEngine.Random.Range( -0.15f*initdam, 0.15f*initdam );
         float ans = multiplier * ( initdam + rand  );

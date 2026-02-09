@@ -3,6 +3,10 @@ using UnityEngine;
 public class HealthSystem : MonoBehaviour
 {
     [SerializeField] private int maxHealth = 50;
+    public int GetMaxHealth()
+    {
+        return maxHealth;
+    }
     private int currentHealth;
     public int GetHealth()
     {

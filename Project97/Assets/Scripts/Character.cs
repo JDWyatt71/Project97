@@ -25,14 +25,16 @@ public class Character : MonoBehaviour
     public int actionPoints {private set; get;}
     public int hitPoints;
     public int attack;
-    public float accuracy;
-    public float evasion;
+    public float accuracy {private set; get;}
+    public float evasion {private set; get;}
    
 
     private List<Effect> effects = new List<Effect>();
     public void AddEffect(Effect effect)
     {
-        effects.Add(effect);
+        if(!effects.Contains(effect)){ //Adds non duplicate effects only.
+            effects.Add(effect);
+        }
     }
     public void Setup(CharacterSO characterSO = default(CharacterSO))
     {

@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour
     private UpgradeScreenUI upgradeScreenUI;
     [SerializeField] private CharacterSO pCSO;
     [SerializeField] private CharacterSO cCSO;
+    [SerializeField] private HealthBarUI playerHealthBar;
+    [SerializeField] private HealthBarUI computerHealthBar;
+
 
     void Awake()
     {
@@ -15,22 +18,22 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        GameObject pCharacter = SetupCharacter("Player", pCSO);
+        GameObject pCharacter = SetupCharacter("Player", pCSO, playerHealthBar);
         pInventory = pCharacter.GetComponent<Inventory>();
-        GameObject cCharacter = SetupCharacter("Computer", cCSO);
+        GameObject cCharacter = SetupCharacter("Computer", cCSO, computerHealthBar);
 
         TurnManager turnManager = gameObject.AddComponent<TurnManager>();
         turnManager.Setup(pCharacter.GetComponent<Character>(), cCharacter.GetComponent<Character>());
         turnManager.RoundComplete += RoundComplete;
         upgradeScreenUI = GetComponent<UpgradeScreenUI>();
     }
-
-    private GameObject SetupCharacter(String name, CharacterSO characterSO)
+    private GameObject SetupCharacter(String name, CharacterSO characterSO, HealthBarUI healthBarUI)
     {
-        GameObject pCharacter = Instantiate(AssetsDatabase.I.characterPf);
-        pCharacter.name = name;
-        pCharacter.GetComponent<Character>().Setup(characterSO);
-        return pCharacter;
+        GameObject character = Instantiate(AssetsDatabase.I.characterPf);
+        character.name = name;
+        character.GetComponent<Character>().Setup(characterSO);
+        healthBarUI.Setup(character.GetComponent<HealthSystem>());
+        return character;
     }
 
     private void RoundComplete()
