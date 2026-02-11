@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using Unity.VisualScripting;
+using UnityEngine.UI;
 [RequireComponent(typeof(MovesUIScreen))]
 public class TurnManager : MonoBehaviour
 {
@@ -306,6 +307,8 @@ public class TurnManager : MonoBehaviour
     private int defenseMoves;
     private List<MoveSO> selectedMoves = new List<MoveSO>();
     private List<GameObject> selectedObjs = new List<GameObject>();
+
+    [SerializeField] private Slider apSlider;
     
     /// <summary>
     /// Trys to select a move if unselected, otherwise unselects move. 
@@ -334,6 +337,7 @@ public class TurnManager : MonoBehaviour
                         break;
                 }
                 Debug.Log($"Remaining AP: {pAPRemaining}");
+                apSlider.value = pAPRemaining;
 
             }
         }
