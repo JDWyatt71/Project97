@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Medium Punch
   m_EditorClassIdentifier: Assembly-CSharp::AttackSO
   moveType: 0
-  sprite: {fileID: 0}
+  sprite: {fileID: 8679330019714442169, guid: 196aa054f9580864a9454efd984b4902, type: 3}
   AP: 2
   height: 2
   effects:

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Medium Spin Kick
   m_EditorClassIdentifier: Assembly-CSharp::AttackSO
   moveType: 1
-  sprite: {fileID: 0}
+  sprite: {fileID: -8981823224731982955, guid: 601398e1b692e3f4a92509355bf6a2a6, type: 3}
   AP: 3
   height: 2
   effects:
