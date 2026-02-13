@@ -360,7 +360,7 @@ public class TurnManager : MonoBehaviour
                     break;
             }
             Debug.Log($"Remaining AP: {pAPRemaining}");
-            apSlider.value = pAPRemaining;
+            //apSlider.value = pAPRemaining;
         }
         
     }
