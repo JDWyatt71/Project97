@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Medium Block
   m_EditorClassIdentifier: Assembly-CSharp::DefendSO
   moveType: 3
-  sprite: {fileID: 0}
+  sprite: {fileID: 9100229210689719493, guid: fe7f852b6fa611544ab6e5de398a6a27, type: 3}
   AP: 2
   height: 2
   effects: []

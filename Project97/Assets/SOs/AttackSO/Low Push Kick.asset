@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Low Push Kick
   m_EditorClassIdentifier: Assembly-CSharp::AttackSO
   moveType: 1
-  sprite: {fileID: 0}
+  sprite: {fileID: 8965127209932636032, guid: 70bf4c8933dfefa4e9b9cba555ca9b0f, type: 3}
   AP: 3
   height: 0
   effects:
