@@ -125,9 +125,10 @@ public class TurnManager : MonoBehaviour
     private void SchedulePlayerMoves(Character c)
     {
         pAPRemaining = playerCharacter.actionPoints;
+        GetComponent<APBarUI>().Setup(this);
+
         //Enable UI
         //apSlider.maxValue = playerCharacter.actionPoints;
-        //apSlider.value = pAPRemaining;
 
         submittedMoves = false;
         selectedMoves = new List<MoveSO>();
@@ -187,7 +188,7 @@ public class TurnManager : MonoBehaviour
         int basedam = GetDamage(attackSO.damage);
         float initialDamage = CalculateInitialDamage(basedam, attacker.attack);
         totalDamage = TotalDam(initialDamage, 1-defendSO.damageReductionMultiplier);
-        Debug.Log($"basedam: {basedam}, initialDamage: {initialDamage}, total damage: {totalDamage}");
+        //Debug.Log($"basedam: {basedam}, initialDamage: {initialDamage}, total damage: {totalDamage}");
         
         if(defendSO.block && attackSO.height == defendSO.height) 
         {
@@ -304,15 +305,22 @@ public class TurnManager : MonoBehaviour
     #endregion
     #region Select player moves
     private int pAPRemaining;
+    public int GetCurrentAP()
+    {
+        return pAPRemaining;
+    }
+    public int GetMaxAP()
+    {
+        return playerCharacter.actionPoints;
+    }
+    public delegate void OnAPChanged(int current, int max);
+    public event OnAPChanged APChanged;
     private bool submittedMoves;
     private int maxAttackMoves = 3;
     private int attackMoves;
     private int defenseMoves;
     private List<MoveSO> selectedMoves = new List<MoveSO>();
-    private List<GameObject> selectedObjs = new List<GameObject>();
-
-    [SerializeField] private Slider apSlider;
-    
+    private List<GameObject> selectedObjs = new List<GameObject>();    
     /// <summary>
     /// Trys to select a move if unselected, otherwise unselects move. 
     /// Checking and updating available player AP. 
@@ -339,9 +347,6 @@ public class TurnManager : MonoBehaviour
                         defenseMoves+=1;
                         break;
                 }
-                Debug.Log($"Remaining AP: {pAPRemaining}");
-                //apSlider.value = pAPRemaining;
-
             }
         }
         else
@@ -359,9 +364,10 @@ public class TurnManager : MonoBehaviour
                     defenseMoves+=-1;
                     break;
             }
-            Debug.Log($"Remaining AP: {pAPRemaining}");
-            //apSlider.value = pAPRemaining;
         }
+        APChanged?.Invoke(pAPRemaining, playerCharacter.actionPoints);
+        Debug.Log($"Remaining AP: {pAPRemaining}");
+
         
     }
     

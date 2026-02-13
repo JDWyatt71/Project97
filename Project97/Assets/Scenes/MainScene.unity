@@ -1930,6 +1930,7 @@ GameObject:
   - component: {fileID: 1719375498}
   - component: {fileID: 1719375499}
   - component: {fileID: 1719375500}
+  - component: {fileID: 1719375501}
   m_Layer: 0
   m_Name: GameManager and TurnManager
   m_TagString: Untagged
@@ -2009,7 +2010,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d9d642519900dc43b61a3072ab2536b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurnManager
-  apSlider: {fileID: 1932179607}
+--- !u!114 &1719375501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1719375494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd46f744c8c8c3147ac24f68465a83ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::APBarUI
+  slider: {fileID: 1932179607}
 --- !u!1 &1729103031
 GameObject:
   m_ObjectHideFlags: 0
@@ -2395,7 +2408,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
