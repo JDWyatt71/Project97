@@ -126,6 +126,9 @@ public class TurnManager : MonoBehaviour
     {
         pAPRemaining = playerCharacter.actionPoints;
         //Enable UI
+        //apSlider.maxValue = playerCharacter.actionPoints;
+        //apSlider.value = pAPRemaining;
+
         submittedMoves = false;
         selectedMoves = new List<MoveSO>();
         //Wait until done-condition?
@@ -357,6 +360,7 @@ public class TurnManager : MonoBehaviour
                     break;
             }
             Debug.Log($"Remaining AP: {pAPRemaining}");
+            apSlider.value = pAPRemaining;
         }
         
     }
