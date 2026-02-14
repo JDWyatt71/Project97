@@ -1,0 +1,131 @@
+Prototype Report: Project 97
+Summary
+The Problem
+Games as a medium thrive on strategic decision making. Engaging the player’s brain by forcing them to approach every problem in a novel way is a surefire way to create enjoyable systems, and this is true across genres. An issue, therefore, that many games face is the prevalent of monotonous, universal approaches to most problems in a game. Such strategies, once discovered, minimise the decision-making a player has to perform to achieve victory, and in doing so, render the game dull and uninteresting to play. 
+The Goals
+As such, our primary aim with Project 97 is to create a game which removes all such strategies, one which cannot be rendered tedious and repetitive, and is consistently fun to players. In order to accomplish this, the game will be an ongoing project whose design evolves past the initial stage; we require tools to adjust and balance the game based on player behaviour in order to identify overly powerful strategies and alter the game in an intelligent manner to reduce the impact of such approaches while interfering with the games systems and other approaches as little as possible. These tools exist in the form of the telemetry system, presented to designers in the form of a dashboard allowing them to view player behaviour statistics and change game parameters such as move damage or enemy HP and receive a prediction of the impact of this change; in doing so informing and facilitating design decision-making. 
+Core Concept
+In order to build such an ambitious project in a short space of time, we decided to keep the overall scale of the game small while creating as much depth as possible within the small number of systems within it. As such, the concept behind our game is a turn-based martial arts fighting simulator where the player will face off against 10 predefined opponents in 1v1 fights. Both the player and enemy will be able to select multiple moves in their turn based on their action points, with each move having a set action point cost. The player will be able to customize their moves and statistics, selecting their initial moveset and being faced with a choice of stat or move increases on level-up. Both the player and enemy may take a defensive action, expending some of their action points to either dodge to increase evasion or predict the enemy’s attacking height and block or guard against their strike. Many strategies will arise from the players character customisation in moves and statistics, their selection of which moves to use, how they balance offense and defense, and how they adapt to the varying challenge each opponent brings. While the scale is small, the possibilities are multitudinous, allowing each player to find their own strategy for a given problem, an essential step towards ensuring interesting decision-making.
+
+
+Prioritised Requirements
+The Game Itself
+The primary goals for the prototype were to create a functional but minimal implementation of the combat system, dashboard, and testing.
+The prototype iteration of the combat system required a fully operational turn manager, implementation of the AP system, move selection, and battle logic in order to function, these being the foundational elements of the system. 
+However, only two enemies have been created for the prototype; having two rather than one provides an insight into the variety between opponents, as well as facilitating a snapshot into the game’s progression system. However, complex enemy behaviour has been excluded from the prototype as the function of the fights here is to provide an idea of what the enemies can do and how the battle system will function, rather than providing fine-tuned challenge and character personality. Instead, the enemies select moves randomly from their moveset.
+In addition implementations for the moves and status effects were made only for those which would be included within the prototype, with an overall reduced number than that which will be included in the full game. As only the first two fights have been added for the prototype, the player's move options for the prototype should reflect the more limited options available to the player at the beginning of the game. 
+Our game contains a ‘level up’ feature whereby after beating an opponent the player’s stats will increase and they will gain a choice of either a new move or further stat increase to boost their character’s capabilities for the next fight. As this was an important facet of the experience, a minimal implementation of this feature has been implemented which features the passive stat increases and user selection from four pre-defined options, with a single level up taking place in between the two fights, allowing the player to be stronger when facing the second opponent. The final version will have semi-random pools of options based on the user’s current level and caps on a specific option appearing if it is selected from the pools too many times (e.g. the user has been presented with the option to upgrade their health for the past 2 stages, therefore the next level up will not feature a health upgrade option), as they are not applicable given there is only a single level-up, and having more than a single-level up would be meaningless as there are only two fights.
+As indicated prior, the game features a statistics system which is used in conjunction with moves attributes and formulae in order to calculate the accuracy and damage of moves. Based on desired relative values for these variables (accuracy should be high so as not to annoy the player, damage should be low to prolong fights and increase strategic value and play-time), initial formulae have been designed and implemented into the game in tandem with the statistics system to provide a foundation for future fine-tuning in development. While a simpler implementation would also have worked, e.g. Punch A does 5 damage regardless of stats, our current implementation facilitates the progression system and fits well with the telemetrical focus of our project.
+ To present an idea of the control flow of the program, a rudimentary main menu allowing the user to begin a fight and exit the game has been featured. However this does not include the items shop at present as this was deemed a tangential feature to the core of the game (that being the combat), and in addition, while the telemetry dashboard will in future be included as a part of the game itself, at present it is a separate program, due to the difficulty associated with merging the two.
+The game’s art features a mostly complete HUD displaying the player's moves, AP, current move selection, and player/enemy HP. This is all key information a user of the prototype would need in order to make strategic decisions in combat, and so was included. However, aesthetic elements such as multiple complex sprites and a background has been excluded due to these being primarily important for presentation, which isn’t valued at this early stage.
+Telemetry Capture
+A rudimentary iteration of the dashboard has been created featuring three pages including information on sessions over time, move height distribution, average level reached, average accuracy per fight, . Multiple display methods have been included to demonstrate the ways in which data may be analysed by a designer. 
+A seeded dataset to demonstrate the initial functionality of the dashboard has been designed, with data being generated based on player types to simulate how people of varying skill levels and approaches may interact with the game. We added this data to be able to be able to predict changes which is a core of the telemetry system.
+While populating the dashboard with real data is outside the scope of the prototype, the systems by which the game will output data have been completed, including a JSON file template, to allow the final version of the telemetry system to focus on this collection of data.
+
+Architecture V1
+
+Telemetry Schema
+
+Initial Evaluation Evidence
+
+Sprint Plan for CW2
+
+Story
+Person Responsible
+Estimated duration
+Priority
+Implementation of remaining moves
+Jacob
+1 Week
+Medium
+Level-up option pools
+Jack, Montrel
+1 Week
+Medium
+Item Shop
+Montrel, Jacob
+2 Weeks
+High
+Implementation of item effects and UI
+Montrel, Jacob
+3 Weeks
+High
+Initial move selection for character customisation
+Montrel
+1 Day
+Medium
+Creation of all 10 fights
+Jacob, Jack, Montrel
+1.5 Weeks
+High
+Implementation of all status effects
+Jacob
+3 Days
+Medium
+Backgrounds created for dojo and shop
+Montrel
+3 Days
+Low
+Difficulty system added
+Jacob
+1 Week
+Medium
+Additional 5 rule-based suggestions
+Ven
+1 Week
+Medium
+Remaining dashboard views created
+Siva
+1 Week
+High
+Remaining 10 automatic tests created and ran successfully
+Ashlee
+3 Weeks
+Medium
+Remaining 7 manual tests created and demonstrated successfully
+Ashlee
+3 Weeks
+Medium
+Additional 6 event types added to dashboard
+Siva
+1 Week
+High
+Report containing updated ethical & licensing considerations, architecture
+Joseph
+5 Weeks
+Medium
+Subsequent meeting minutes
+Joseph
+Continuous
+Medium
+30 seeded balancing decisions overall
+Ven, Jack
+1 Week
+High
+150 seeded data anomalies overall
+Ven
+2 Days
+Medium
+8 Balancing parameters overall
+Ven
+1 Week
+Medium
+Telemetry simulation created
+Siva, Ven
+3 Weeks
+High
+Addition of advanced combat mechanics
+Jack, Jacob
+4 Days
+Low
+Addition of pre-fight text for narrative
+Montrel, Jack
+2 Weeks
+Low
+Additional backgrounds for main-menu and item use menu
+Montrel
+2 Days
+Low
+
+
