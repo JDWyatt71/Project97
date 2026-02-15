@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class MoveQueueUI : MonoBehaviour
 {
     private TurnManager turnManager;
-
     [SerializeField] private Transform moveQueuePanel;
     [SerializeField] private GameObject moveIcon;
     List<GameObject> moveIcons = new List<GameObject>();
@@ -17,8 +16,7 @@ public class MoveQueueUI : MonoBehaviour
         turnManager.OnMoveDeselected += RemoveIcon;
     }
 
-    // Update is called once per frame
-    private void AddIcon()
+    private void AddIcon(MoveSO move)
     {
         GameObject icon = Instantiate(moveIcon, moveQueuePanel);
         icon.GetComponent<Image>().sprite = move.sprite;
@@ -34,4 +32,6 @@ public class MoveQueueUI : MonoBehaviour
         moveIcons.RemoveAt(0);
         Destroy(icon);
     }
+
+
 }

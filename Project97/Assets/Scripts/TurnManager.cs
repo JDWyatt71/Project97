@@ -361,6 +361,8 @@ public class TurnManager : MonoBehaviour
     }
     public delegate void OnAPChanged(int current, int max);
     public event OnAPChanged APChanged;
+    public event Action<MoveSO> OnMoveSelected;
+    public event Action<MoveSO> OnMoveDeselected;
     private bool submittedMoves;
     private int maxAttackMoves = 3;
     private int attackMoves;
@@ -382,7 +384,7 @@ public class TurnManager : MonoBehaviour
                 SelectGameObject.SetActive(true);
                 pAPRemaining -= move.AP;
                 selectedMoves.Add(move);
-
+                OnMoveSelected?.Invoke(move);
                 selectedObjs.Add(SelectGameObject);
                 switch (move)
                 {
@@ -406,6 +408,7 @@ public class TurnManager : MonoBehaviour
             SelectGameObject.SetActive(false);
             pAPRemaining += move.AP;
             selectedMoves.Remove(move);
+            OnMoveDeselected?.Invoke(move);
             selectedObjs.Remove(SelectGameObject);
             switch (move)
             {
