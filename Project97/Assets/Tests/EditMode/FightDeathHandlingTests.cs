@@ -26,6 +26,7 @@ public class FightDeathHandlingTests
         db.defaultDefendSO = ScriptableObject.CreateInstance<DefendSO>();
         db.defaultDefendSO.height = Scale.Medium;
         db.defaultDefendSO.damageReductionMultiplier = 0.5f;
+        AssetsDatabase.I = db;
 
         CharacterSO characterSO = ScriptableObject.CreateInstance<CharacterSO>();
         characterSO.actionPoints = 10;
@@ -50,6 +51,7 @@ public class FightDeathHandlingTests
         testAttack.damage = Scale.Medium;
         testAttack.height = Scale.Medium;
         testAttack.AP = 2;
+        testAttack.effects = new List<EffectChance>(); // CreateInstance doesnt init this ApplyEffects would nullref
 
         testDefend = ScriptableObject.CreateInstance<DefendSO>();
         testDefend.damageReductionMultiplier = 0.3f;
@@ -74,6 +76,7 @@ public class FightDeathHandlingTests
     [TearDown]
     public void TearDown()
     {
+        AssetsDatabase.I = null;
         if (assetsDatabaseObj != null)
             UnityEngine.Object.DestroyImmediate(assetsDatabaseObj);
         UnityEngine.Object.DestroyImmediate(attackerObj);
@@ -91,22 +94,27 @@ public class FightDeathHandlingTests
         MethodInfo performAttack = tmType.GetMethod("PerformAttack", BindingFlags.NonPublic | BindingFlags.Instance);
         FieldInfo runningField = tmType.GetField("running", BindingFlags.NonPublic | BindingFlags.Instance);
 
-        // give defender low health so they die
-        SetHealth(defender.healthSystem, 5);
-        runningField.SetValue(turnManager, true);
-
         AttackSO bigHit = ScriptableObject.CreateInstance<AttackSO>();
         bigHit.damage = Scale.High;
         bigHit.height = Scale.High;
+        bigHit.effects = new List<EffectChance>(); // CreateInstance doesnt init this ApplyEffects would nullref
 
-        object[] args = new object[] { attacker, defender, bigHit, testDefend };
-        performAttack.Invoke(turnManager, args);
+        // attacks can dodge so retry seeds until we get a hit and defender actually dies
+        bool runningStopped = false;
+        for (int seed = 0; seed < 200; seed++)
+        {
+            UnityEngine.Random.InitState(seed);
+            SetHealth(defender.healthSystem, 5);
+            runningField.SetValue(turnManager, true);
 
-        // defender is dead so running should be false
-        object runningObj = runningField.GetValue(turnManager);
-        bool running = (bool)runningObj;
-        Assert.IsFalse(running);
+            object[] args = new object[] { attacker, defender, bigHit, testDefend };
+            performAttack.Invoke(turnManager, args);
 
+            object runningObj = runningField.GetValue(turnManager);
+            bool running = (bool)runningObj;
+            if (!running) { runningStopped = true; break; }
+        }
         UnityEngine.Object.DestroyImmediate(bigHit);
+        Assert.IsTrue(runningStopped, "running should be false when defender dies; no hit in 200 seeds");
     }
 }

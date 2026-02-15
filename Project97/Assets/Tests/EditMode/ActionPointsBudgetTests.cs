@@ -25,6 +25,7 @@ public class ActionPointsBudgetTests
         db.defaultDefendSO = ScriptableObject.CreateInstance<DefendSO>();
         db.defaultDefendSO.height = Scale.Medium;
         db.defaultDefendSO.damageReductionMultiplier = 0.5f;
+        AssetsDatabase.I = db;
 
         testGameObject = new GameObject("TestCharacter");
         testCharacter = testGameObject.AddComponent<Character>();
@@ -45,7 +46,6 @@ public class ActionPointsBudgetTests
         defendMove.height = Scale.Medium;
         defendMove.damageReductionMultiplier = 0.5f;
 
-// create a character with 5 AP
         CharacterSO characterSO = ScriptableObject.CreateInstance<CharacterSO>();
         characterSO.actionPoints = 5;
         characterSO.aMoves = new List<AttackSO>();
@@ -60,6 +60,7 @@ public class ActionPointsBudgetTests
     [TearDown]
     public void TearDown()
     {
+        AssetsDatabase.I = null;
         if (assetsDatabaseObj != null)
             UnityEngine.Object.DestroyImmediate(assetsDatabaseObj);
         UnityEngine.Object.DestroyImmediate(testGameObject);
