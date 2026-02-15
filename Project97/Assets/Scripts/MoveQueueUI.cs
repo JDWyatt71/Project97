@@ -1,36 +1,45 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using System.Collections;
 
 public class MoveQueueUI : MonoBehaviour
 {
-    private TurnManager turnManager;
     [SerializeField] private Transform moveQueuePanel;
     [SerializeField] private GameObject moveIcon;
-    List<GameObject> moveIcons = new List<GameObject>();
+    private Dictionary<MoveSO, GameObject> moveIcons = new Dictionary<MoveSO, GameObject>();
 
-    public void Setup(TurnManager turnManager)
+    private void Start()
     {
-        this.turnManager = turnManager;
-        turnManager.OnMoveSelected += AddIcon;
-        turnManager.OnMoveDeselected += RemoveIcon;
+        StartCoroutine(WaitForTurnManager());
+    }
+
+    private IEnumerator WaitForTurnManager()
+    {
+        while (TurnManager.I == null)
+            yield return null;
+
+        TurnManager.I.OnMoveSelected += AddIcon;
+        TurnManager.I.OnMoveDeselected += RemoveIcon;
     }
 
     private void AddIcon(MoveSO move)
     {
         GameObject icon = Instantiate(moveIcon, moveQueuePanel);
+        icon.SetActive(true);
         icon.GetComponent<Image>().sprite = move.sprite;
-        moveIcons.Insert(0, icon);
         icon.transform.SetAsFirstSibling();
+        moveIcons.Add(move,icon);
+        Debug.Log("AddIcon");
     }
 
     private void RemoveIcon(MoveSO move)
     {
-        if (moveIcons.Count == 0) return;
-
-        GameObject icon = moveIcons[0];
-        moveIcons.RemoveAt(0);
-        Destroy(icon);
+        if (moveIcons.TryGetValue(move, out GameObject icon))
+        {
+            Destroy(icon);
+            moveIcons.Remove(move);
+        }
     }
 
 
