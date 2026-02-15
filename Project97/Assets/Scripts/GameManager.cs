@@ -1,5 +1,6 @@
 using System;
 using Unity.Services.Analytics;
+using Unity.Services.Core;
 using UnityEngine;
 using UnityEngine.UnityConsent;
 
@@ -33,6 +34,7 @@ public class GameManager : MonoBehaviour
             AnalyticsIntent = ConsentStatus.Granted,
             AdsIntent = ConsentStatus.Denied
         });
+        UnityServices.InitializeAsync();
 
         currentRunId = Guid.NewGuid().ToString();
         runStartTime = Time.time;

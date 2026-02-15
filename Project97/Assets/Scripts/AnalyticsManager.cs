@@ -3,8 +3,10 @@ using UnityEngine;
 using Unity.Services.Core;
 using Unity.Services.Analytics;
 using Unity.Services.Authentication;
+using Unity.Services.Core.Environments;
 
 using AnalyticsEvent = Unity.Services.Analytics.Event;
+using System.Collections.Generic;
 
 public class AnalyticsManager : MonoBehaviour
 {
@@ -27,23 +29,48 @@ public class AnalyticsManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
-
-        await InitializeUGS();
+        try
+        {
+            await InitializeUGS();
+        }
+        catch (Exception ex)
+        {
+            Debug.Log($"Awake not working, error: {ex}");
+        }
     }
 
     async System.Threading.Tasks.Task InitializeUGS()
     {
-        await UnityServices.InitializeAsync();
+        try
+        {
 
-        if (!AuthenticationService.Instance.IsSignedIn)
-            await AuthenticationService.Instance.SignInAnonymouslyAsync();
 
-        _sessionId = $"session_{DateTime.UtcNow:yyyyMMdd_HHmmss}";
-        _initialized = true;
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        var options = new InitializationOptions().SetEnvironmentName("development");
+#else
+        var options = new InitializationOptions().SetEnvironmentName("production");
+#endif
 
-        StartCoroutine(FlushRoutine());
+            Debug.Log("Initializing UnityServices...");
+            await UnityServices.InitializeAsync(options);
+            Debug.Log("UnityServices initialized");
 
-        Debug.Log($"Analytics initialized | Session: {_sessionId}");
+            Debug.Log("Signing in...");
+            if (!AuthenticationService.Instance.IsSignedIn)
+                await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            Debug.Log("Signed in");
+
+            _sessionId = $"session_{DateTime.UtcNow:yyyyMMdd_HHmmss}";
+            _initialized = true;
+
+            StartCoroutine(FlushRoutine());
+
+            Debug.Log($"Analytics initialized | Session: {_sessionId}");
+        }
+        catch (Exception ex)
+        {
+            Debug.Log($"Analytics initialization failed: {ex}");
+        }
     }
 
     void Record(AnalyticsEvent e)
@@ -93,7 +120,7 @@ public class AnalyticsManager : MonoBehaviour
         GameEvents.ItemBought += TrackItemBought;
     }
 
-    #endregion
+#endregion
 
     // ================= RUN / FIGHT / ITEM / UPGRADE EVENTS =================
 

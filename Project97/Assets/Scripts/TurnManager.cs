@@ -190,7 +190,13 @@ public class TurnManager : MonoBehaviour
         PerformAttack(attacker, target, a, d);
 
         string aS = $"Attack on {target.name}: {a.name}, Damage: {a.damage}";
-          
+
+        d ??= AssetsDatabase.I?.defaultDefendSO;
+
+        if (d == null)
+        {
+            Debug.Log("No DefendSo avaliable");
+        }
 
         string dS = $"Defend: {d.name}, Damage Reduction multiplier: {d.damageReductionMultiplier}";
 
@@ -209,6 +215,9 @@ public class TurnManager : MonoBehaviour
             defendSO = AssetsDatabase.I.defaultDefendSO;
         }
         //Implement attacker.accuracy and target.evasion
+        Debug.Log(defendSO);
+        Debug.Log(AssetsDatabase.I);
+        Debug.Log(AssetsDatabase.I?.defaultDefendSO);
         float moveAccuracy = CalculateMoveAccuracy(attackSO.accuracy, attacker.accuracy, target.evasion, defendSO.dodgeBonusPercent);
         Debug.Log($"Move accuracy: {moveAccuracy}");
         if (!RandomEvent(moveAccuracy))

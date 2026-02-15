@@ -1464,7 +1464,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5f441a1250decc24a839a1e3fb7df223, type: 2}
   - {fileID: 11400000, guid: b34c918e6eff90e4b91b94a6dd66f80b, type: 2}
   characterPf: {fileID: 5318015876209848452, guid: 1f71a4730de73604891b338a5b541178, type: 3}
-  defaultDefendSO: {fileID: 0}
+  defaultDefendSO: {fileID: 11400000, guid: 5e17a4a0b0ef85b48bd6682ddbd1b172, type: 2}
   items:
   - {fileID: 11400000, guid: eeb1a106c42a5c84b8aebfba560556bf, type: 2}
   - {fileID: 11400000, guid: 2edd97e79033a3942a9696cffa15dd82, type: 2}
