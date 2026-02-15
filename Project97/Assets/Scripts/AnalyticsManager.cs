@@ -73,6 +73,26 @@ public class AnalyticsManager : MonoBehaviour
             AnalyticsService.Instance.Flush();
     }
 
+    void OnEnable()
+    {
+        GameEvents.RunStarted -= TrackRunStart;
+        GameEvents.RunEnded -= TrackRunEnd;
+        GameEvents.FightStarted -= TrackFightStart;
+        GameEvents.FightEnded -= TrackFightEnd;
+        GameEvents.MoveUsed -= TrackMoveUsed;
+        GameEvents.StatusApplied -= TrackStatusApplied;
+        GameEvents.ItemBought -= TrackItemBought;
+
+
+        GameEvents.RunStarted += TrackRunStart;
+        GameEvents.RunEnded += TrackRunEnd;
+        GameEvents.FightStarted += TrackFightStart;
+        GameEvents.FightEnded += TrackFightEnd;
+        GameEvents.MoveUsed += TrackMoveUsed;
+        GameEvents.StatusApplied += TrackStatusApplied;
+        GameEvents.ItemBought += TrackItemBought;
+    }
+
     #endregion
 
     // ================= RUN / FIGHT / ITEM / UPGRADE EVENTS =================
@@ -85,6 +105,11 @@ public class AnalyticsManager : MonoBehaviour
     public void TrackRunEnd(RunResult r)
     {
         Record(new RunEndEvent(_sessionId, r));
+    }
+
+    public void TrackFightStart(string id, float time)
+    {
+        Record(new FightStartEvent(_sessionId, id, time));
     }
 
     public void TrackFightEnd(FightResult f)
@@ -107,9 +132,9 @@ public class AnalyticsManager : MonoBehaviour
         Record(new UpgradeChosenEvent(_sessionId, level, type, value));
     }
 
-    public void TrackMoveUsed(string moveName, string userType, string targetType = "")
+    public void TrackMoveUsed(string moveName, string userType)
     {
-        Record(new MoveUsedEvent(_sessionId, moveName, userType, targetType));
+        Record(new MoveUsedEvent(_sessionId, moveName, userType));
     }
 
     public void TrackStatusApplied(string statusName, string targetType, string sourceMove = "")
@@ -164,6 +189,15 @@ class RunEndEvent : GameAnalyticsEvent
 }
 
 // ---------------- FIGHT ----------------
+class FightStartEvent : GameAnalyticsEvent
+{
+    public FightStartEvent(string sessionId, string fightId, float time)
+        : base("fight_start", sessionId)
+    {
+        SetParameter("fight_id", fightId);
+        SetParameter("start_time", time);
+    }
+}
 class FightEndEvent : GameAnalyticsEvent
 {
     public FightEndEvent(string sessionId, FightResult f)

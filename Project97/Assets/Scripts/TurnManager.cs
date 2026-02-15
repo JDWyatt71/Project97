@@ -8,13 +8,37 @@ using UnityEngine.UI;
 [RequireComponent(typeof(MovesUIScreen))]
 public class TurnManager : MonoBehaviour
 {
+    private string fightID;
+    /*private float fightStartTime;
+    private FightResult currentFight;*/
+
+    private FightAnalyticsTracker analytics;
+
     public void Setup(Character pCharacter, Character cCharacter)
     {
         I = this;
         movesUIScreen = GetComponent<MovesUIScreen>();
         this.playerCharacter = pCharacter;
         this.computerCharacter = cCharacter;
+
+        fightID = Guid.NewGuid().ToString();
+        /*
+        fightStartTime = Time.time;
+        currentFight = new FightResult {
+            FightId = fightID,
+            status = new Dictionary<string, int>(),
+            moves = new Dictionary<string, int>()};*/
+
+        analytics = new FightAnalyticsTracker();
+        analytics.StartFight(fightID);
+        Debug.Log("Fight start tracker");
+
+        GameEvents.RaiseFightStarted(fightID, analytics.fightStartTime);
+
         StartCoroutine(Turns(playerCharacter, computerCharacter));
+
+        
+
     }
     public static TurnManager I;
     
@@ -69,10 +93,19 @@ public class TurnManager : MonoBehaviour
             Debug.Log("Player wins");
         }
 
+        /*currentFight.BattleTimeSeconds = Mathf.RoundToInt(Time.time - fightStartTime);*/
+        int HpLeft = playerCharacter != null ? playerCharacter.healthSystem.GetHealth() : 0;
+
+        FightResult result = analytics.EndFight(HpLeft);
+
+        GameEvents.RaiseFightEnded(result);
     }
 
     private IEnumerator Turn(Character pCharacter, Character cCharacter)
     {
+        analytics.RegisterTurn();
+        //currentFight.Turns++; to keep track of turns.
+
         SchedulePlayerMoves(pCharacter);
         yield return new WaitUntil(() => submittedMoves);
         submittedMoves = false;
@@ -167,7 +200,11 @@ public class TurnManager : MonoBehaviour
 
     private void PerformAttack(Character attacker, Character target, AttackSO attackSO, DefendSO defendSO = null)
     {
-        if(defendSO == null)
+        string moveName = attackSO.name;
+        GameEvents.RaiseMoveUsed(moveName, attacker.ToString());
+        analytics.RegisterAttackAttempt();
+
+        if (defendSO == null)
         {
             defendSO = AssetsDatabase.I.defaultDefendSO;
         }
@@ -194,6 +231,8 @@ public class TurnManager : MonoBehaviour
         {
             Debug.Log("Successful block");
             totalDamage = 0;
+
+            analytics.RegisterDefendSuccess();
             return;
         }
         if (defendSO.deflect)
@@ -203,6 +242,8 @@ public class TurnManager : MonoBehaviour
                 running = false;
             }
             ApplyEffects(attacker, attackSO);
+
+            analytics.RegisterDefendSuccess();
         }
         else
         {
@@ -212,12 +253,14 @@ public class TurnManager : MonoBehaviour
             }
             ApplyEffects(target, attackSO);
 
+            analytics.RegisterAttackSuccess();
+
         }
         /*if ((defendSO.deflect && attacker.healthSystem.TakeDamage(totalDamage)) || target.healthSystem.TakeDamage(totalDamage)) //Add Calculation on totalDamage
         {
             running = false;
         }*/
-        
+
     }
     #region  Effects
 
@@ -228,6 +271,9 @@ public class TurnManager : MonoBehaviour
             if (RandomEvent(GetEffectChance(eC.chance)))
             {
                 character.AddEffect(eC.effect);
+
+                //string effectName = eC.effect.name; // once we figure out the effects.
+                //analytics.RegisterEffectApplied(effectName);
             }
         }
     }
@@ -320,7 +366,7 @@ public class TurnManager : MonoBehaviour
     private int attackMoves;
     private int defenseMoves;
     private List<MoveSO> selectedMoves = new List<MoveSO>();
-    private List<GameObject> selectedObjs = new List<GameObject>();    
+    private List<GameObject> selectedObjs = new List<GameObject>();
     /// <summary>
     /// Trys to select a move if unselected, otherwise unselects move. 
     /// Checking and updating available player AP. 
@@ -342,9 +388,15 @@ public class TurnManager : MonoBehaviour
                 {
                     case AttackSO a:
                         attackMoves+=1;
+
+                        analytics.RegisterAttackAttempt();
+                        analytics.RegisterMoveUsed(move.name);
                         break;
                     case DefendSO d:
                         defenseMoves+=1;
+
+                        analytics.RegisterDefendAttempt();
+                        analytics.RegisterMoveUsed(move.name);
                         break;
                 }
             }
