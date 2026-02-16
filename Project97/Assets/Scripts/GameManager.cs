@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private HealthBarUI playerHealthBar;
     [SerializeField] private HealthBarUI computerHealthBar;
 
+    public GameObject pCharacter {private set; get;}
 
     void Awake()
     {
@@ -18,7 +19,7 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        GameObject pCharacter = SetupCharacter("Player", pCSO, playerHealthBar);
+        pCharacter = SetupCharacter("Player", pCSO, playerHealthBar);
         pInventory = pCharacter.GetComponent<Inventory>();
         GameObject cCharacter = SetupCharacter("Computer", cCSO, computerHealthBar);
 
@@ -36,9 +37,10 @@ public class GameManager : MonoBehaviour
         return character;
     }
 
-    private void RoundComplete()
+    private void RoundComplete(bool playerWon)
     {
-        upgradeScreenUI.DisplayItems(AssetsDatabase.I.items);
+        //upgradeScreenUI.DisplayItems(AssetsDatabase.I.items);
+        if(playerWon) upgradeScreenUI.DisplayUpgrades();
     }
     public void PlayerAddItem(ItemSO item, int amount = 1)
     {

@@ -7,6 +7,10 @@ public class HealthSystem : MonoBehaviour
     {
         return maxHealth;
     }
+    public void IncreaseMaxHealth(int amount)
+    {
+        maxHealth += amount;
+    }
     private int currentHealth;
     public int GetHealth()
     {

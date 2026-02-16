@@ -10,11 +10,19 @@ public class Character : MonoBehaviour
     {
         return aMoves;
     }
+    public void AddAMove(AttackSO attackSO)
+    {
+        aMoves.Add(attackSO);
+    }
     private List<DefendSO> dMoves; //Defensive moves pool
 
     public List<DefendSO> GetDMoves()
     {
         return dMoves;
+    }
+    public void AddDMove(DefendSO defendSO)
+    {
+        dMoves.Add(defendSO);
     }
     public List<MoveSO> GetAllMoves()
     {
@@ -25,9 +33,20 @@ public class Character : MonoBehaviour
     public int actionPoints {private set; get;}
     public int hitPoints;
     public int attack;
+    public void ChangeAttack(int amount)
+    {
+        attack += amount;
+    }
     public float accuracy {private set; get;}
+    public void ChangeAccuracy(float amount)
+    {
+        accuracy += amount;
+    }
     public float evasion {private set; get;}
-   
+    public void ChangeEvasion(float amount)
+    {
+        evasion += amount;
+    }
 
     private List<Effect> effects = new List<Effect>();
     public void AddEffect(Effect effect)
@@ -39,13 +58,12 @@ public class Character : MonoBehaviour
     public void Setup(CharacterSO characterSO = default(CharacterSO))
     {
         healthSystem = GetComponent<HealthSystem>();
-        SetupMoves(AssetsDatabase.I.aMoves, AssetsDatabase.I.dMoves);
+        SetupMoves(characterSO.aMoves, characterSO.dMoves);
         actionPoints = characterSO.actionPoints;
-        aMoves = new List<AttackSO>(characterSO.aMoves); //Copy the character's starting moves to this character
-        dMoves = new List<DefendSO>(characterSO.dMoves);
     }
     private void SetupMoves(List<AttackSO> initialAMoves, List<DefendSO> initialDMoves)
     {
+        //Copy the character's starting moves to this character
         aMoves = new List<AttackSO>(initialAMoves);
         dMoves = new List<DefendSO>(initialDMoves);
 
