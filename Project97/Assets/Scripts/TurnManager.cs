@@ -66,6 +66,7 @@ public class TurnManager : MonoBehaviour
 
         while(running){
             Debug.Log("Turn start");
+            DoEffects();
             yield return StartCoroutine(Turn(pCharacter, cCharacter)); //Waits for sub coroutine to finish before continuing to next turn.
         }
         //Debug.Log("End game");
@@ -80,6 +81,12 @@ public class TurnManager : MonoBehaviour
             Debug.Log("Player wins");
         }
 
+    }
+
+    private void DoEffects()
+    {
+        computerCharacter.DoEffects();
+        playerCharacter.DoEffects();
     }
 
     private IEnumerator Turn(Character pCharacter, Character cCharacter)

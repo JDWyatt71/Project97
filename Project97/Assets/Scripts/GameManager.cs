@@ -1,4 +1,5 @@
 using System;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -12,6 +13,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private HealthBarUI playerHealthBar;
     [SerializeField] private HealthBarUI computerHealthBar;
+    [SerializeField] private Image computerImage;
 
     public GameObject pCharacter {private set; get;}
     private TurnManager turnManager;
@@ -25,6 +27,7 @@ public class GameManager : MonoBehaviour
         pCharacter = SetupCharacter("Player", pCSO, playerHealthBar);
         pInventory = pCharacter.GetComponent<Inventory>();
         GameObject cCharacter = SetupCharacter("Dojo Challenger", cCSO1, computerHealthBar);
+        computerImage.sprite = cCSO1.sprite;
 
         turnManager = gameObject.AddComponent<TurnManager>();
         turnManager.Setup(pCharacter.GetComponent<Character>(), cCharacter.GetComponent<Character>());
@@ -52,6 +55,8 @@ public class GameManager : MonoBehaviour
     {
         //Once upgrade selected at end of a fight, start the next round
         GameObject cCharacter = SetupCharacter("Comeback Fighter", cCSO2, computerHealthBar);
+        computerImage.sprite = cCSO2.sprite;
+
 
         turnManager.StartFight(cCharacter.GetComponent<Character>());
     }

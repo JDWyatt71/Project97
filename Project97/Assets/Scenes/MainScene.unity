@@ -1605,9 +1605,9 @@ RectTransform:
   - {fileID: 82123774}
   - {fileID: 1440974784}
   - {fileID: 1932179606}
+  - {fileID: 95263671}
   - {fileID: 1047721790}
   - {fileID: 541099287}
-  - {fileID: 95263671}
   m_Father: {fileID: 1799642943}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2144,6 +2144,7 @@ MonoBehaviour:
   cCSO2: {fileID: 11400000, guid: 8ab313d7e61cff74b894270ac4be328f, type: 2}
   playerHealthBar: {fileID: 1545752617}
   computerHealthBar: {fileID: 323433692775634240}
+  computerImage: {fileID: 95263672}
 --- !u!114 &1719375499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2405,7 +2406,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 903832209}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.13043477
+  m_Size: 0.13043478
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
