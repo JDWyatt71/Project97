@@ -30,4 +30,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5d522cf82d3dd0d4b9829e8350ee0fa9, type: 2}
   - {fileID: 11400000, guid: ddf631caf2567e6449dd6ae51788bdfe, type: 2}
   - {fileID: 11400000, guid: b0565ee1bb5921d45bbc42a9c61da452, type: 2}
-  actionPoints: 7
+  actionPoints: 20
