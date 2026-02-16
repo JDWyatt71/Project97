@@ -21,13 +21,12 @@ public static class OverviewPage
 
         float[] sessionsOverTime = { 3, 5, 4, 7, 10, 8, 12, 4, 8, 15};
 
-        DateTime startTime = DateTime.Now.Date.AddHours(8); // Start at 8:00 AM today
         int numPoints = 10;
-        TimeSpan interval = TimeSpan.FromMinutes(30);
+        DateTime startDate = DateTime.Today.AddDays(-(numPoints - 1));
         DateTime[] times = new DateTime[numPoints];
         for (int i = 0; i < numPoints; i++)
         {
-            times[i] = startTime + TimeSpan.FromMinutes(i * interval.TotalMinutes);
+            times[i] = startDate.AddDays(i);
         }
 
         float[] moveHeightDist = { 42, 38, 20 }; //Low, Mid, High

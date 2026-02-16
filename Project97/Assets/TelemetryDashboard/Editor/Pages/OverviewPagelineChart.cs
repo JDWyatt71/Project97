@@ -96,7 +96,7 @@ public class OverviewPagelineChart : VisualElement
 
             DateTime tickTime = minT + TimeSpan.FromTicks((long)(total.Ticks * t));
 
-            var label = new Label(tickTime.ToString("HH:mm")); // change format if you want date
+            var label = new Label(tickTime.ToString("MMM dd")); // change format if you want date
             label.style.position = Position.Absolute;
             label.style.top = chartHeight + 2;
             label.style.left = x - 25;
