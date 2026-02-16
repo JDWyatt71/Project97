@@ -205,7 +205,7 @@ public class TurnManager : MonoBehaviour
     {
         string status = PerformAttack(attacker, target, a, d);
 
-        string aS = $"Attack on {target.name}: {a.name}, Damage: {a.damage}";
+        /*string aS = $"Attack on {target.name}: {a.name}, Damage: {a.damage}";*/
 
         d ??= AssetsDatabase.I?.defaultDefendSO;
 
@@ -286,9 +286,8 @@ public class TurnManager : MonoBehaviour
                 running = false;
             }
             ApplyEffects(target, attackSO);
-            return "hit";
-
             analytics.RegisterAttackSuccess();
+            return "hit";
 
         }
         /*if ((defendSO.deflect && attacker.healthSystem.TakeDamage(totalDamage)) || target.healthSystem.TakeDamage(totalDamage)) //Add Calculation on totalDamage

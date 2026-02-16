@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ui="UnityEngine.UIElements"
+    xmlns:uie="UnityEditor.UIElements"
+    xsi:noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd"
+>
+    <ui:VisualElement class="overview-root">
+
+        <ui:Label text="Overview" class="page-title"/>
+
+        
+
+        <!-- Charts -->
+        <ui:VisualElement class="charts-column">
+
+            <ui:VisualElement class="chart-block">
+                <ui:Label text="Sessions Over Time" class="chart-title"/>
+                <ui:VisualElement class="chart-row">
+                    <ui:VisualElement class="y-axis-container">
+                        <ui:Label text="Frequency" class="y-axis-label"/>
+                    </ui:VisualElement>
+
+                    <ui:VisualElement class="chart-x-container">
+                        <ui:VisualElement name="chart" class="chart-area"/>
+                        <ui:Label text="Time" class="x-axis-label"/>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <ui:VisualElement class="chart-block">
+                <ui:Label text="Move Height Distribution" class="section-title"/>
+                <ui:VisualElement name="height-chart"/>
+            </ui:VisualElement>
+
+        </ui:VisualElement>
+
+        <!-- KPI Row -->
+        <ui:VisualElement class="kpi-row">
+            <ui:VisualElement class="kpi-card">
+                <ui:Label text="Avg Level Reached"/>
+                <ui:Label name="avg-level" class="kpi-value"/>
+            </ui:VisualElement>
+
+            <ui:VisualElement class="kpi-card">
+                <ui:Label text="Avg Accuracy / Fight"/>
+                <ui:Label name="avg-accuracy" class="kpi-value"/>
+            </ui:VisualElement>
+
+            <ui:VisualElement class="kpi-card">
+                <ui:Label text="Average session duration"/>
+                <ui:Label name="avg-session-duration" class="kpi-value"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+</ui:UXML>

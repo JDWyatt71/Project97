@@ -1,0 +1,43 @@
+VisualElement {}
+
+.dashboard-root {
+    flex-direction: row;
+    height: 100%;
+}
+
+.sidebar {
+    width: 200px;
+    background-color: #1e1e1e;
+    padding: 10px;
+}
+
+.sidebar-title {
+    font-size: 18px;
+    -unity-font-style: bold;
+    margin-bottom: 10px;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 15px;
+}
+
+.page-title {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.card-row {
+    flex-direction: row;
+}
+
+.stat-card {
+    background-color: #2a2a2a;
+    padding: 10px;
+    margin-right: 10px;
+    width: 150px;
+}
+
+.stat-value {
+    font-size: 18px;
+}
