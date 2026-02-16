@@ -225,7 +225,7 @@ public class TurnManager : MonoBehaviour
         }
         //Implement attacker.accuracy and target.evasion
         float moveAccuracy = CalculateMoveAccuracy(attackSO.accuracy, attacker.accuracy, target.evasion, defendSO.dodgeBonusPercent);
-        Debug.Log($"Move accuracy: {moveAccuracy}");
+        //Debug.Log($"Move accuracy: {moveAccuracy}");
         if (!RandomEvent(moveAccuracy))
         {
             return "dodged"; //So don't do any damage.
