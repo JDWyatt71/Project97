@@ -32,7 +32,7 @@ public class TurnManager : MonoBehaviour
     private Character computerCharacter;
 
     private bool running;
-    private float moveDelay = 1f;
+    private float moveDelay = 2f;
     private MovesUIScreen movesUIScreen;
     public event Action<bool> RoundComplete; //If player won then call with True, otherwise if player has died we call with false.
     // Start is called once before the first execution of Update after the MonoBehaviour is created
