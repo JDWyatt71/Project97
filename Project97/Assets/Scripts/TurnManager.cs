@@ -97,7 +97,7 @@ public class TurnManager : MonoBehaviour
         int HpLeft = playerCharacter != null ? playerCharacter.healthSystem.GetHealth() : 0;
 
         FightResult result = analytics.EndFight(HpLeft);
-
+        Debug.Log("Raised Fight End Tracker");
         GameEvents.RaiseFightEnded(result);
     }
 
