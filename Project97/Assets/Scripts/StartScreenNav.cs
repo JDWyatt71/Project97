@@ -19,8 +19,12 @@ public class StartScreenNav : MonoBehaviour
 
     public void OpenSettings()
     {
-        mainMenu.SetActive(false);
         settingsMenu.SetActive(true);
+    }
+
+    public void CloseSetttings()
+    {
+        settingsMenu.SetActive(false);
     }
 
     public void StartBattle()
