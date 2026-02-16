@@ -180,23 +180,29 @@ public class TurnManager : MonoBehaviour
     }
     private IEnumerator PerformMoves(List<AttackSO> ms1, List<AttackSO> ms2, DefendSO d1, DefendSO d2, Character c1, Character c2)
     {
-        for(int i = 0; i < ms1.Count; i++)
+        int maxMoves = Mathf.Max(ms1.Count, ms2.Count);
+
+        for(int i = 0; i < maxMoves; i++)
         {
             if(!running) yield break;
+            if (i < ms1.Count){
+                PerformMovePair(ms1[i], d2, c1, c2, c1.name);
+                Debug.Log($"{c1.name}'s Health: {c1.healthSystem.GetHealth()}, {c2.name}'s Health: {c2.healthSystem.GetHealth()}");
 
-            PerformMovePair(ms1[i], d2, c1, c2, c1.name);
-            Debug.Log($"{c1.name}'s Health: {c1.healthSystem.GetHealth()}, {c2.name}'s Health: {c2.healthSystem.GetHealth()}");
+                
+                yield return new WaitForSeconds(moveDelay);
+            }
 
-            
-            yield return new WaitForSeconds(moveDelay);
 
             if(!running) yield break;
+            if (i < ms2.Count)
+            {
+                PerformMovePair(ms2[i], d1, c2, c1, c2.name);
+                Debug.Log($"{c1.name}'s Health: {c1.healthSystem.GetHealth()}, {c2.name}'s Health: {c2.healthSystem.GetHealth()}");
 
-            PerformMovePair(ms2[i], d1, c2, c1, c2.name);
-            Debug.Log($"{c1.name}'s Health: {c1.healthSystem.GetHealth()}, {c2.name}'s Health: {c2.healthSystem.GetHealth()}");
 
-
-            yield return new WaitForSeconds(moveDelay);
+                yield return new WaitForSeconds(moveDelay);
+            }
 
         }
     }
@@ -215,9 +221,14 @@ public class TurnManager : MonoBehaviour
         }
         //Damage displayed here is approximate, and doesn't factor randomness or defense reduction percentage like TotalDam() calculated.
         string aS = $"Attack: {a.name}, Damage: {a.damage} ≈ {CalculateInitialDamage(GetDamage(a.damage), attacker.attack)}"; 
-          
-
-        string dS = $"Defend: {d.name}, Damage Reduction multiplier: {d.damageReductionMultiplier}";
+        string dS;
+        if(d != null){
+            dS = $"Defend: {d.name}, Damage Reduction multiplier: {d.damageReductionMultiplier}";
+        }
+        else
+        {
+            dS = "No defense";
+        }
 
         Debug.Log($"{turnName}'s Turn:\n{aS}\n{dS}\nAttack {status}");
 
@@ -245,7 +256,7 @@ public class TurnManager : MonoBehaviour
         Debug.Log(AssetsDatabase.I);
         Debug.Log(AssetsDatabase.I?.defaultDefendSO);
         float moveAccuracy = CalculateMoveAccuracy(attackSO.accuracy, attacker.accuracy, target.evasion, defendSO.dodgeBonusPercent);
-        //Debug.Log($"Move accuracy: {moveAccuracy}");
+        Debug.Log($"Move accuracy: {moveAccuracy}");
         if (!RandomEvent(moveAccuracy))
         {
             return "dodged"; //So don't do any damage.
@@ -258,7 +269,18 @@ public class TurnManager : MonoBehaviour
         //Calculate damage as non-zero damage inflicted on a character
         int basedam = GetDamage(attackSO.damage);
         float initialDamage = CalculateInitialDamage(basedam, attacker.attack);
-        totalDamage = TotalDam(initialDamage, 1-defendSO.damageReductionMultiplier);
+        string guarded = "";
+        if(attackSO.height == defendSO.height){
+            //Guard
+            totalDamage = TotalDam(initialDamage, 1-defendSO.damageReductionMultiplier);
+            guarded = " and guarded";
+        }
+        else
+        {
+            //No guard
+            totalDamage = TotalDam(initialDamage, 1);
+
+        }
         //Debug.Log($"basedam: {basedam}, initialDamage: {initialDamage}, total damage: {totalDamage}");
         
         if(defendSO.block && attackSO.height == defendSO.height && attackSO.moveType != MoveType.Grapple) 
@@ -287,7 +309,7 @@ public class TurnManager : MonoBehaviour
             }
             ApplyEffects(target, attackSO);
             analytics.RegisterAttackSuccess();
-            return "hit";
+            return "hit" + guarded;
 
         }
         /*if ((defendSO.deflect && attacker.healthSystem.TakeDamage(totalDamage)) || target.healthSystem.TakeDamage(totalDamage)) //Add Calculation on totalDamage

@@ -24,6 +24,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: dfda57787aa490248bca8e2dba9efd6c, type: 2}
   - {fileID: 11400000, guid: de406dcfb3efafc498e73f73f203250a, type: 2}
   - {fileID: 11400000, guid: 84d84aaa0d9b637439fe53b797522fcf, type: 2}
+  - {fileID: 11400000, guid: 8d7db62908959f14ca441be86139a5ad, type: 2}
   dMoves:
+  - {fileID: 11400000, guid: 349ac2533ff4d4f4c9533df761f948d0, type: 2}
+  - {fileID: 11400000, guid: 5d522cf82d3dd0d4b9829e8350ee0fa9, type: 2}
+  - {fileID: 11400000, guid: ddf631caf2567e6449dd6ae51788bdfe, type: 2}
   - {fileID: 11400000, guid: b0565ee1bb5921d45bbc42a9c61da452, type: 2}
-  actionPoints: 5
+  actionPoints: 7
