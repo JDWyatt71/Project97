@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4838c6adad0c36643b18bfe8ebc62bc6, type: 3}
-  m_Name: Default Defend
+  m_Name: High Guard
   m_EditorClassIdentifier: Assembly-CSharp::DefendSO
   moveType: 3
   sprite: {fileID: 0}
-  AP: 0
-  height: 0
+  AP: 1
+  height: 4
   effects: []
-  damageReductionMultiplier: 0
+  damageReductionMultiplier: 0.4
   deflect: 0
   block: 0
   dodgeBonusPercent: 0
