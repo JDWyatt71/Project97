@@ -1470,7 +1470,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 165a7edce86563c4a8534f002600b3f9, type: 2}
   - {fileID: 11400000, guid: 52be9521818ab4d41ad1c41efc940596, type: 2}
   characterPf: {fileID: 5318015876209848452, guid: 1f71a4730de73604891b338a5b541178, type: 3}
-  defaultDefendSO: {fileID: 11400000, guid: 5e17a4a0b0ef85b48bd6682ddbd1b172, type: 2}
+  defaultDefendSO: {fileID: 0}
   items:
   - {fileID: 11400000, guid: eeb1a106c42a5c84b8aebfba560556bf, type: 2}
   - {fileID: 11400000, guid: 2edd97e79033a3942a9696cffa15dd82, type: 2}
@@ -2064,7 +2064,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   pCSO: {fileID: 11400000, guid: a73199f1a4385df46ab734a13cad8599, type: 2}
-  cCSO1: {fileID: 11400000, guid: 9f8988c692f6eec4aa986019f59badbc, type: 2}
+  cCSO1: {fileID: 11400000, guid: 3cf43194f33d71444a38649773b5ae54, type: 2}
   cCSO2: {fileID: 11400000, guid: 9f8988c692f6eec4aa986019f59badbc, type: 2}
   playerHealthBar: {fileID: 1545752617}
   computerHealthBar: {fileID: 323433692775634240}
@@ -2329,7 +2329,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 903832209}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.25546303
+  m_Size: 0.2554631
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

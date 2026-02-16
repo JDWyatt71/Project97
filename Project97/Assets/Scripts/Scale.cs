@@ -3,5 +3,6 @@ public enum Scale{
     LowMedium,
     Medium,
     MediumHigh,
-    High
+    High,
+    Guarantees
 }

@@ -19,6 +19,14 @@ public class TurnManager : MonoBehaviour
         I = this;
         movesUIScreen = GetComponent<MovesUIScreen>();
         this.playerCharacter = pCharacter;
+        StartFight(cCharacter);
+    }
+    /// <summary>
+    /// Starts a fight with current player character and the given computer character.
+    /// </summary>
+    /// <param name="cCharacter"></param>
+    public void StartFight(Character cCharacter)
+    {
         this.computerCharacter = cCharacter;
 
         fightID = Guid.NewGuid().ToString();
@@ -48,7 +56,7 @@ public class TurnManager : MonoBehaviour
     private bool running;
     private float moveDelay = 1f;
     private MovesUIScreen movesUIScreen;
-    public event Action RoundComplete;
+    public event Action<bool> RoundComplete; //If player won then call with True, otherwise if player has died we call with false.
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Update()
     {
@@ -82,14 +90,15 @@ public class TurnManager : MonoBehaviour
             Debug.Log("Turn start");
             yield return StartCoroutine(Turn(pCharacter, cCharacter)); //Waits for sub coroutine to finish before continuing to next turn.
         }
-        RoundComplete?.Invoke();
-        Debug.Log("End game");
+        //Debug.Log("End game");
         if (playerCharacter == null)
         {
+            RoundComplete?.Invoke(false);
             Debug.Log("Computer wins");
         }
         else if (computerCharacter == null)
         {
+            RoundComplete?.Invoke(true);
             Debug.Log("Player wins");
         }
 
@@ -150,7 +159,7 @@ public class TurnManager : MonoBehaviour
             foreach(MoveSO moveSO in moves)
             {
                 movesAP += moveSO.AP;
-        }
+            }
         }
         return moves;
     }
@@ -174,20 +183,27 @@ public class TurnManager : MonoBehaviour
         for(int i = 0; i < ms1.Count; i++)
         {
             if(!running) yield break;
-            PerformMovePair(ms1[i], d2, c1, c2);
+
+            PerformMovePair(ms1[i], d2, c1, c2, c1.name);
+            Debug.Log($"{c1.name}'s Health: {c1.healthSystem.GetHealth()}, {c2.name}'s Health: {c2.healthSystem.GetHealth()}");
+
             
             yield return new WaitForSeconds(moveDelay);
 
-            PerformMovePair(ms2[i], d1, c2, c1);
+            if(!running) yield break;
+
+            PerformMovePair(ms2[i], d1, c2, c1, c2.name);
+            Debug.Log($"{c1.name}'s Health: {c1.healthSystem.GetHealth()}, {c2.name}'s Health: {c2.healthSystem.GetHealth()}");
+
 
             yield return new WaitForSeconds(moveDelay);
 
         }
     }
 
-    private void PerformMovePair(AttackSO a, DefendSO d, Character attacker, Character target)
+    private void PerformMovePair(AttackSO a, DefendSO d, Character attacker, Character target, string turnName)
     {
-        PerformAttack(attacker, target, a, d);
+        string status = PerformAttack(attacker, target, a, d);
 
         string aS = $"Attack on {target.name}: {a.name}, Damage: {a.damage}";
 
@@ -197,14 +213,24 @@ public class TurnManager : MonoBehaviour
         {
             Debug.Log("No DefendSo avaliable");
         }
+        //Damage displayed here is approximate, and doesn't factor randomness or defense reduction percentage like TotalDam() calculated.
+        string aS = $"Attack: {a.name}, Damage: {a.damage} ≈ {CalculateInitialDamage(GetDamage(a.damage), attacker.attack)}"; 
+          
 
         string dS = $"Defend: {d.name}, Damage Reduction multiplier: {d.damageReductionMultiplier}";
 
-        Debug.Log($"Move Details:\n{aS}\n{dS}\nTarget Health: {target.healthSystem.GetHealth()}, Defender health: {attacker.healthSystem.GetHealth()}");
+        Debug.Log($"{turnName}'s Turn:\n{aS}\n{dS}\nAttack {status}");
 
     }
-
-    private void PerformAttack(Character attacker, Character target, AttackSO attackSO, DefendSO defendSO = null)
+    /// <summary>
+    /// Returns a string of what happened with the move: dodge, block, hit, deflect
+    /// </summary>
+    /// <param name="attacker"></param>
+    /// <param name="target"></param>
+    /// <param name="attackSO"></param>
+    /// <param name="defendSO"></param>
+    /// <returns></returns>
+    private string PerformAttack(Character attacker, Character target, AttackSO attackSO, DefendSO defendSO = null)
     {
         string moveName = attackSO.name;
         GameEvents.RaiseMoveUsed(moveName, attacker.ToString());
@@ -219,11 +245,10 @@ public class TurnManager : MonoBehaviour
         Debug.Log(AssetsDatabase.I);
         Debug.Log(AssetsDatabase.I?.defaultDefendSO);
         float moveAccuracy = CalculateMoveAccuracy(attackSO.accuracy, attacker.accuracy, target.evasion, defendSO.dodgeBonusPercent);
-        Debug.Log($"Move accuracy: {moveAccuracy}");
+        //Debug.Log($"Move accuracy: {moveAccuracy}");
         if (!RandomEvent(moveAccuracy))
         {
-            Debug.Log("Dodge"); //So don't do any damage.
-            return;
+            return "dodged"; //So don't do any damage.
         }
         //player attacking damage
         //Base damage of move
@@ -236,15 +261,14 @@ public class TurnManager : MonoBehaviour
         totalDamage = TotalDam(initialDamage, 1-defendSO.damageReductionMultiplier);
         //Debug.Log($"basedam: {basedam}, initialDamage: {initialDamage}, total damage: {totalDamage}");
         
-        if(defendSO.block && attackSO.height == defendSO.height) 
+        if(defendSO.block && attackSO.height == defendSO.height && attackSO.moveType != MoveType.Grapple) 
         {
-            Debug.Log("Successful block");
             totalDamage = 0;
 
             analytics.RegisterDefendSuccess();
-            return;
+            return "blocked";
         }
-        if (defendSO.deflect)
+        if (defendSO.deflect && attackSO.moveType != MoveType.Grapple)
         {
             if (attacker.healthSystem.TakeDamage(totalDamage)) //Add Calculation on totalDamage
             {
@@ -253,6 +277,7 @@ public class TurnManager : MonoBehaviour
             ApplyEffects(attacker, attackSO);
 
             analytics.RegisterDefendSuccess();
+            return "deflected";
         }
         else
         {
@@ -261,6 +286,7 @@ public class TurnManager : MonoBehaviour
                 running = false;
             }
             ApplyEffects(target, attackSO);
+            return "hit";
 
             analytics.RegisterAttackSuccess();
 
@@ -287,7 +313,7 @@ public class TurnManager : MonoBehaviour
         }
     }
 
-    private static readonly float[] chances = { 0.2f, 0.3f, 0.4f, 0.55f, 0.7f };
+    private static readonly float[] chances = { 0.2f, 0.3f, 0.4f, 0.55f, 0.7f, 1f };
 
     private float GetEffectChance(Scale chance)
     {
@@ -304,28 +330,18 @@ public class TurnManager : MonoBehaviour
     {
         return (attackerAccuracy-defenderEvasion) / 2f;
     }
-    private float CalculateMoveAccuracy(Scale accuracy, float attackerAccuracy, float defenderEvasion, float dodgeBonusPercent)
+    private float CalculateMoveAccuracy(Accuracy accuracy, float attackerAccuracy, float defenderEvasion, float dodgeBonusPercent)
     {
         float dodgeBonus = dodgeBonusPercent / 100f;
         float baseAccuracy = GetBaseAccuracy(accuracy);
         return baseAccuracy + (CalculateAccuracyEvasionMultiplier(attackerAccuracy, defenderEvasion) / 2) - dodgeBonus;
     }
-    private float GetBaseAccuracy(Scale accuracy) //Not implemented completely, add actual accuracy values
+    private static readonly float[] accuracyValues = { 0.4f, 0.65f, 0.8f, 0.88f, 0.95f};
+
+    private float GetBaseAccuracy(Accuracy accuracy) //Not implemented completely, add actual accuracy values
     {
-        float d = 0f;
-        switch (accuracy)
-        {
-            case Scale.Low:
-                d = 0.5f; //Placeholders
-                break;
-            case Scale.Medium:
-                d = 0.7f;
-                break;
-            case Scale.High:
-                d = 0.9f;
-                break;
-        }
-        return d;
+        return accuracyValues[(int)accuracy];
+
     }
 
     #region Damage Calculation
@@ -430,7 +446,7 @@ public class TurnManager : MonoBehaviour
             }
         }
         APChanged?.Invoke(pAPRemaining, playerCharacter.actionPoints);
-        Debug.Log($"Remaining AP: {pAPRemaining}");
+        //Debug.Log($"Remaining AP: {pAPRemaining}");
 
         
     }
