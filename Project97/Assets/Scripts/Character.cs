@@ -31,7 +31,7 @@ public class Character : MonoBehaviour
         return allMoves;
     }
     public int actionPoints {private set; get;}
-    public int hitPoints;
+    public int hitPoints; //Not used
     public int attack;
     public void ChangeAttack(int amount)
     {
@@ -58,8 +58,12 @@ public class Character : MonoBehaviour
     public void Setup(CharacterSO characterSO = default(CharacterSO))
     {
         healthSystem = GetComponent<HealthSystem>();
+        healthSystem.Setup(characterSO.hitPoints);
         SetupMoves(characterSO.aMoves, characterSO.dMoves);
         actionPoints = characterSO.actionPoints;
+        attack = characterSO.attack;
+        accuracy = characterSO.accuracy;
+        evasion = characterSO.evasion;
     }
     private void SetupMoves(List<AttackSO> initialAMoves, List<DefendSO> initialDMoves)
     {

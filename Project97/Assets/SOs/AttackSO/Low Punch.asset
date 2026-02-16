@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b6f12e87bcce0b43ad2fee356dd15e0, type: 3}
+  m_Name: Low Punch
+  m_EditorClassIdentifier: Assembly-CSharp::AttackSO
+  moveType: 0
+  sprite: {fileID: 8679330019714442169, guid: 196aa054f9580864a9454efd984b4902, type: 3}
+  AP: 2
+  height: 0
+  effects:
+  - effect: 2
+    chance: 2
+  - effect: 4
+    chance: 1
+  damage: 0
+  accuracy: 4

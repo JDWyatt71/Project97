@@ -11,6 +11,15 @@ public class HealthSystem : MonoBehaviour
     {
         maxHealth += amount;
     }
+    /// <summary>
+    /// Sets both max and current health to value.
+    /// </summary>
+    /// <param name="amount"></param>
+    public void Setup(int amount)
+    {
+        maxHealth = amount;
+        currentHealth = amount;
+    }
     private int currentHealth;
     public int GetHealth()
     {

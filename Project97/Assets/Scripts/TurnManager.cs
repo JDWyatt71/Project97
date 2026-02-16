@@ -13,6 +13,14 @@ public class TurnManager : MonoBehaviour
         I = this;
         movesUIScreen = GetComponent<MovesUIScreen>();
         this.playerCharacter = pCharacter;
+        StartFight(cCharacter);
+    }
+    /// <summary>
+    /// Starts a fight with current player character and the given computer character.
+    /// </summary>
+    /// <param name="cCharacter"></param>
+    public void StartFight(Character cCharacter)
+    {
         this.computerCharacter = cCharacter;
         StartCoroutine(Turns(playerCharacter, computerCharacter));
     }
@@ -118,7 +126,7 @@ public class TurnManager : MonoBehaviour
             foreach(MoveSO moveSO in moves)
             {
                 movesAP += moveSO.AP;
-        }
+            }
         }
         return moves;
     }

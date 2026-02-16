@@ -11,6 +11,8 @@ public class UpgradeScreenUI : MonoBehaviour
     [SerializeField] private GameObject itemTemplate;
     [SerializeField] private Transform itemContainerTransform;
     [SerializeField] private GameObject itemScreen;
+    public event Action UpgradeSelected;
+    private bool upgradesCreated = false;
     public void DisplayItems(List<ItemSO> items)
     {
         itemScreen.SetActive(true);
@@ -74,6 +76,7 @@ public class UpgradeScreenUI : MonoBehaviour
     public void DisplayUpgrades()
     {
         itemScreen.SetActive(true);
+        if(upgradesCreated) return;
         foreach (KeyValuePair<string, Action> pair in upgrades)
         {
             RectTransform itemSlotRectTransform = Instantiate(itemTemplate, itemContainerTransform).GetComponent<RectTransform>();
@@ -85,7 +88,7 @@ public class UpgradeScreenUI : MonoBehaviour
             {
                 pair.Value(); //Run function for upgrade
                 itemScreen.SetActive(false);
-
+                UpgradeSelected?.Invoke();
             });
             
             /*Image image = itemSlotRectTransform.Find("image").GetComponent<Image>();
@@ -98,6 +101,7 @@ public class UpgradeScreenUI : MonoBehaviour
             TextMeshProUGUI priceForNextActionText = itemSlotRectTransform.Find("text").GetComponent<TextMeshProUGUI>();
             priceForNextActionText.SetText(string.Format("{0}\n", pair.Key));
         }
+        upgradesCreated = true;
     } 
     private IEnumerator SelectItem(ItemSO item, GameObject selectImage)
     {
