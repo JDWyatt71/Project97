@@ -14,9 +14,6 @@ public class StartScreenNav : MonoBehaviour
     public void EnterGame()
     {
         SceneManager.LoadScene(1);
-
-        mainMenu.SetActive(false);
-        backButton.SetActive(true);
     }
 
     public void OpenSettings()
