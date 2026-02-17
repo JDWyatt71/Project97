@@ -191,28 +191,28 @@ if page == "Overview":
 
     with left:
 
-       st.subheader("When do players start sessions? (Time of Day)")
+        st.subheader("When do players start sessions? (Time of Day)")
         # Parse to hour
-       sessions_df["start_hour"] = pd.to_datetime(
-       sessions_df["start_time"], format="%H:%M", errors="coerce"
-       ).dt.hour
-       sessions_df["start_bucket"] = sessions_df["start_hour"].apply(bucket_hour)
-       bucket_counts = (
-       sessions_df["start_bucket"]
-       .value_counts()
-       .reindex(["Morning (05-11)", "Afternoon (12-16)", "Evening (17-21)", "Night (22-04)"], fill_value=0)
-       )
+        sessions_df["start_hour"] = pd.to_datetime(
+            sessions_df["start_time"], format="%H:%M", errors="coerce"
+        ).dt.hour
+        sessions_df["start_bucket"] = sessions_df["start_hour"].apply(bucket_hour)
+        bucket_counts = (
+            sessions_df["start_bucket"]
+            .value_counts()
+            .reindex(["Morning (05-11)", "Afternoon (12-16)", "Evening (17-21)", "Night (22-04)"], fill_value=0)
+        )
 
-       bucket_pct = (bucket_counts / bucket_counts.sum() * 100).round(1)
-       bucket_plot = pd.DataFrame({"% of sessions": bucket_pct})
+        bucket_pct = (bucket_counts / bucket_counts.sum() * 100).round(1)
+        bucket_plot = pd.DataFrame({"% of sessions": bucket_pct})
 
-       st.bar_chart(bucket_plot)
-       st.caption("Binned start times make patterns easier to interpret than individual hours.")
+        st.bar_chart(bucket_plot)
+        st.caption("Binned start times make patterns easier to interpret than individual hours.")
 
 
-       st.subheader("Move Height Distribution")
-       dist = move_height_distribution(fights_df)
-       st.bar_chart(dist.set_index("height")["count"])
+        st.subheader("Move Height Distribution")
+        dist = move_height_distribution(fights_df)
+        st.bar_chart(dist.set_index("height")["count"])
 
     with right:
         st.subheader("Key Stats")
