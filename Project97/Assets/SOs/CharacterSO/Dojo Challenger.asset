@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dojo Challenger
   m_EditorClassIdentifier: Assembly-CSharp::CharacterSO
   sprite: {fileID: -5452217726016363601, guid: 26c4fb08973ecf5409efbdcb6196f74b, type: 3}
-  hitPoints: 40
+  hitPoints: 30
   attack: 7
   accuracy: 15
   evasion: 15
