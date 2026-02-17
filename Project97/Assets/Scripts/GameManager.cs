@@ -1,8 +1,9 @@
-﻿using System;
 using Unity.Services.Analytics;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Core.Environments;
+using System;
+using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.UnityConsent;
 
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour
     private int attackSuccess = 0;
     private int defendAttempt = 0;
     private int defendSuccess = 0;
+    [SerializeField] private Image computerImage;
 
     public GameObject pCharacter {private set; get;}
     private TurnManager turnManager;
@@ -51,6 +53,7 @@ public class GameManager : MonoBehaviour
         pCharacter = SetupCharacter("Player", pCSO, playerHealthBar);
         pInventory = pCharacter.GetComponent<Inventory>();
         GameObject cCharacter = SetupCharacter("Dojo Challenger", cCSO1, computerHealthBar);
+        computerImage.sprite = cCSO1.sprite;
 
         turnManager = gameObject.AddComponent<TurnManager>();
         turnManager.Setup(pCharacter.GetComponent<Character>(), cCharacter.GetComponent<Character>());
@@ -79,6 +82,8 @@ public class GameManager : MonoBehaviour
     {
         //Once upgrade selected at end of a fight, start the next round
         GameObject cCharacter = SetupCharacter("Comeback Fighter", cCSO2, computerHealthBar);
+        computerImage.sprite = cCSO2.sprite;
+
 
         turnManager.StartFight(cCharacter.GetComponent<Character>());
     }

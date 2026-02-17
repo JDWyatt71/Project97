@@ -27,4 +27,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b3ecc9a0b25be3049a50190efb4ae576, type: 2}
   - {fileID: 11400000, guid: 165a7edce86563c4a8534f002600b3f9, type: 2}
   - {fileID: 11400000, guid: 52be9521818ab4d41ad1c41efc940596, type: 2}
-  actionPoints: 6
+  actionPoints: 20

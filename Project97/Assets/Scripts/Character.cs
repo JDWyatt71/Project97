@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -71,5 +72,17 @@ public class Character : MonoBehaviour
         aMoves = new List<AttackSO>(initialAMoves);
         dMoves = new List<DefendSO>(initialDMoves);
 
+    }
+
+    public void DoEffects()
+    {
+        foreach(Effect effect in effects)
+        {
+            if(effect == Effect.Bleed)
+            {
+                healthSystem.TakeDamage(2);
+                Debug.Log("2 damage taken to bleed effect");
+            }
+        }
     }
 }

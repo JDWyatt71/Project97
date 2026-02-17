@@ -47,6 +47,8 @@ public class TurnManager : MonoBehaviour
 
         
 
+        selectedMoves = new List<MoveSO>();
+        selectedObjs = new List<GameObject>();   
     }
     public static TurnManager I;
     
@@ -54,7 +56,7 @@ public class TurnManager : MonoBehaviour
     private Character computerCharacter;
 
     private bool running;
-    private float moveDelay = 1f;
+    private float moveDelay = 2f;
     private MovesUIScreen movesUIScreen;
     public event Action<bool> RoundComplete; //If player won then call with True, otherwise if player has died we call with false.
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -88,6 +90,7 @@ public class TurnManager : MonoBehaviour
 
         while(running){
             Debug.Log("Turn start");
+            DoEffects();
             yield return StartCoroutine(Turn(pCharacter, cCharacter)); //Waits for sub coroutine to finish before continuing to next turn.
         }
         //Debug.Log("End game");
@@ -108,6 +111,12 @@ public class TurnManager : MonoBehaviour
         FightResult result = analytics.EndFight(HpLeft);
         Debug.Log("Raised Fight End Tracker");
         GameEvents.RaiseFightEnded(result);
+    }
+
+    private void DoEffects()
+    {
+        computerCharacter.DoEffects();
+        playerCharacter.DoEffects();
     }
 
     private IEnumerator Turn(Character pCharacter, Character cCharacter)
@@ -145,6 +154,8 @@ public class TurnManager : MonoBehaviour
         int cAP = c.actionPoints;
         List<MoveSO> moves = new List<MoveSO>();
         int movesAP = 999999999;
+        int i = 1;
+        int maxIterations = 1000;
 
         while(movesAP > cAP){
             List<MoveSO> attackMoves = c.GetAMoves().OrderBy(x => rnd.Next()).Take(3).ToList<MoveSO>();
@@ -160,6 +171,12 @@ public class TurnManager : MonoBehaviour
             {
                 movesAP += moveSO.AP;
             }
+            if (i > maxIterations)
+            {
+                Debug.LogError($"ScheduleRandomMoves exceeded {maxIterations} iterations for character {c.name}");
+                break; // Use current moves, even though can't afford
+            }
+            i+=1;
         }
         return moves;
     }
@@ -223,7 +240,7 @@ public class TurnManager : MonoBehaviour
         string aS = $"Attack: {a.name}, Damage: {a.damage} ≈ {CalculateInitialDamage(GetDamage(a.damage), attacker.attack)}"; 
         string dS;
         if(d != null){
-            dS = $"Defend: {d.name}, Damage Reduction multiplier: {d.damageReductionMultiplier}";
+            dS = $"Defend: {d.name}";
         }
         else
         {
@@ -256,7 +273,7 @@ public class TurnManager : MonoBehaviour
         Debug.Log(AssetsDatabase.I);
         Debug.Log(AssetsDatabase.I?.defaultDefendSO);
         float moveAccuracy = CalculateMoveAccuracy(attackSO.accuracy, attacker.accuracy, target.evasion, defendSO.dodgeBonusPercent);
-        Debug.Log($"Move accuracy: {moveAccuracy}");
+        //Debug.Log($"Move accuracy: {moveAccuracy}");
         if (!RandomEvent(moveAccuracy))
         {
             return "dodged"; //So don't do any damage.
@@ -353,9 +370,8 @@ public class TurnManager : MonoBehaviour
     }
     private float CalculateMoveAccuracy(Accuracy accuracy, float attackerAccuracy, float defenderEvasion, float dodgeBonusPercent)
     {
-        float dodgeBonus = dodgeBonusPercent / 100f;
-        float baseAccuracy = GetBaseAccuracy(accuracy);
-        return baseAccuracy + (CalculateAccuracyEvasionMultiplier(attackerAccuracy, defenderEvasion) / 2) - dodgeBonus;
+        float baseAccuracy = GetBaseAccuracy(accuracy) * 100f;
+        return Mathf.Round(baseAccuracy + CalculateAccuracyEvasionMultiplier(attackerAccuracy, defenderEvasion) - dodgeBonusPercent) / 100f;
     }
     private static readonly float[] accuracyValues = { 0.4f, 0.65f, 0.8f, 0.88f, 0.95f};
 
@@ -415,6 +431,8 @@ public class TurnManager : MonoBehaviour
     private int defenseMoves;
     private List<MoveSO> selectedMoves = new List<MoveSO>();
     private List<GameObject> selectedObjs = new List<GameObject>();
+    private List<MoveSO> selectedMoves;
+    private List<GameObject> selectedObjs; 
     /// <summary>
     /// Trys to select a move if unselected, otherwise unselects move. 
     /// Checking and updating available player AP. 
@@ -474,6 +492,10 @@ public class TurnManager : MonoBehaviour
     
     private void DeselectAllObjs()
     {
+        if (selectedObjs == null)
+        {
+            return;
+        }
         foreach(GameObject selectedObj in selectedObjs)
         {
             selectedObj.SetActive(false);
