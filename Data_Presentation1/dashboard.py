@@ -1,6 +1,4 @@
-# app.py
-# Streamlit Telemetry Dashboard (reads your SQLite DB)
-# Run: streamlit run app.py
+
 
 import sqlite3
 import json
