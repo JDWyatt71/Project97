@@ -431,8 +431,6 @@ public class TurnManager : MonoBehaviour
     private int defenseMoves;
     private List<MoveSO> selectedMoves = new List<MoveSO>();
     private List<GameObject> selectedObjs = new List<GameObject>();
-    private List<MoveSO> selectedMoves;
-    private List<GameObject> selectedObjs; 
     /// <summary>
     /// Trys to select a move if unselected, otherwise unselects move. 
     /// Checking and updating available player AP. 
