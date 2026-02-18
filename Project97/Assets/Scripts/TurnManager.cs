@@ -8,6 +8,12 @@ using UnityEngine.UI;
 [RequireComponent(typeof(MovesUIScreen))]
 public class TurnManager : MonoBehaviour
 {
+    private string fightID;
+    /*private float fightStartTime;
+    private FightResult currentFight;*/
+
+    private FightAnalyticsTracker analytics;
+
     public void Setup(Character pCharacter, Character cCharacter)
     {
         I = this;
@@ -22,7 +28,25 @@ public class TurnManager : MonoBehaviour
     public void StartFight(Character cCharacter)
     {
         this.computerCharacter = cCharacter;
+
+        fightID = Guid.NewGuid().ToString();
+        /*
+        fightStartTime = Time.time;
+        currentFight = new FightResult {
+            FightId = fightID,
+            status = new Dictionary<string, int>(),
+            moves = new Dictionary<string, int>()};*/
+
+        analytics = new FightAnalyticsTracker();
+        analytics.StartFight(fightID);
+        Debug.Log("Fight start tracker");
+
+        GameEvents.RaiseFightStarted(fightID, analytics.fightStartTime);
+
         StartCoroutine(Turns(playerCharacter, computerCharacter));
+
+        
+
         selectedMoves = new List<MoveSO>();
         selectedObjs = new List<GameObject>();   
     }
@@ -81,6 +105,12 @@ public class TurnManager : MonoBehaviour
             Debug.Log("Player wins");
         }
 
+        /*currentFight.BattleTimeSeconds = Mathf.RoundToInt(Time.time - fightStartTime);*/
+        int HpLeft = playerCharacter != null ? playerCharacter.healthSystem.GetHealth() : 0;
+
+        FightResult result = analytics.EndFight(HpLeft);
+        Debug.Log("Raised Fight End Tracker");
+        GameEvents.RaiseFightEnded(result);
     }
 
     private void DoEffects()
@@ -91,6 +121,9 @@ public class TurnManager : MonoBehaviour
 
     private IEnumerator Turn(Character pCharacter, Character cCharacter)
     {
+        analytics.RegisterTurn();
+        //currentFight.Turns++; to keep track of turns.
+
         SchedulePlayerMoves(pCharacter);
         yield return new WaitUntil(() => submittedMoves);
         submittedMoves = false;
@@ -195,6 +228,14 @@ public class TurnManager : MonoBehaviour
     {
         string status = PerformAttack(attacker, target, a, d);
 
+        /*string aS = $"Attack on {target.name}: {a.name}, Damage: {a.damage}";*/
+
+        d ??= AssetsDatabase.I?.defaultDefendSO;
+
+        if (d == null)
+        {
+            Debug.Log("No DefendSo avaliable");
+        }
         //Damage displayed here is approximate, and doesn't factor randomness or defense reduction percentage like TotalDam() calculated.
         string aS = $"Attack: {a.name}, Damage: {a.damage} ≈ {CalculateInitialDamage(GetDamage(a.damage), attacker.attack)}"; 
         string dS;
@@ -219,11 +260,18 @@ public class TurnManager : MonoBehaviour
     /// <returns></returns>
     private string PerformAttack(Character attacker, Character target, AttackSO attackSO, DefendSO defendSO = null)
     {
-        if(defendSO == null)
+        string moveName = attackSO.name;
+        GameEvents.RaiseMoveUsed(moveName, attacker.ToString());
+        analytics.RegisterAttackAttempt();
+
+        if (defendSO == null)
         {
             defendSO = AssetsDatabase.I.defaultDefendSO;
         }
         //Implement attacker.accuracy and target.evasion
+        Debug.Log(defendSO);
+        Debug.Log(AssetsDatabase.I);
+        Debug.Log(AssetsDatabase.I?.defaultDefendSO);
         float moveAccuracy = CalculateMoveAccuracy(attackSO.accuracy, attacker.accuracy, target.evasion, defendSO.dodgeBonusPercent);
         //Debug.Log($"Move accuracy: {moveAccuracy}");
         if (!RandomEvent(moveAccuracy))
@@ -255,6 +303,8 @@ public class TurnManager : MonoBehaviour
         if(defendSO.block && attackSO.height == defendSO.height && attackSO.moveType != MoveType.Grapple) 
         {
             totalDamage = 0;
+
+            analytics.RegisterDefendSuccess();
             return "blocked";
         }
         if (defendSO.deflect && attackSO.moveType != MoveType.Grapple)
@@ -264,6 +314,8 @@ public class TurnManager : MonoBehaviour
                 running = false;
             }
             ApplyEffects(attacker, attackSO);
+
+            analytics.RegisterDefendSuccess();
             return "deflected";
         }
         else
@@ -273,6 +325,7 @@ public class TurnManager : MonoBehaviour
                 running = false;
             }
             ApplyEffects(target, attackSO);
+            analytics.RegisterAttackSuccess();
             return "hit" + guarded;
 
         }
@@ -280,7 +333,7 @@ public class TurnManager : MonoBehaviour
         {
             running = false;
         }*/
-        
+
     }
     #region  Effects
 
@@ -291,6 +344,9 @@ public class TurnManager : MonoBehaviour
             if (RandomEvent(GetEffectChance(eC.chance)))
             {
                 character.AddEffect(eC.effect);
+
+                //string effectName = eC.effect.name; // once we figure out the effects.
+                //analytics.RegisterEffectApplied(effectName);
             }
         }
     }
@@ -373,6 +429,8 @@ public class TurnManager : MonoBehaviour
     private int maxAttackMoves = 3;
     private int attackMoves;
     private int defenseMoves;
+    private List<MoveSO> selectedMoves = new List<MoveSO>();
+    private List<GameObject> selectedObjs = new List<GameObject>();
     private List<MoveSO> selectedMoves;
     private List<GameObject> selectedObjs; 
     /// <summary>
@@ -396,9 +454,15 @@ public class TurnManager : MonoBehaviour
                 {
                     case AttackSO a:
                         attackMoves+=1;
+
+                        analytics.RegisterAttackAttempt();
+                        analytics.RegisterMoveUsed(move.name);
                         break;
                     case DefendSO d:
                         defenseMoves+=1;
+
+                        analytics.RegisterDefendAttempt();
+                        analytics.RegisterMoveUsed(move.name);
                         break;
                 }
             }

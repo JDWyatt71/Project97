@@ -1,8 +1,11 @@
-using System;
+﻿using System;
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 using Unity.Services.Core;
 using Unity.Services.Analytics;
 using Unity.Services.Authentication;
+using Unity.Services.Core.Environments;
 
 using AnalyticsEvent = Unity.Services.Analytics.Event;
 
@@ -13,7 +16,9 @@ public class AnalyticsManager : MonoBehaviour
     bool _initialized;
     string _sessionId;
 
-    const float FLUSH_INTERVAL = 30f;
+    const float FLUSH_INTERVAL = 2f;
+
+    private Queue<AnalyticsEvent> _eventQueue = new Queue<AnalyticsEvent>();
 
     #region Initialization
 
@@ -27,28 +32,71 @@ public class AnalyticsManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
-
-        await InitializeUGS();
+        Debug.Log("The analytics is being intialized.");
+        try
+        {
+            await InitializeUGS();
+        }
+        catch (Exception ex)
+        {
+            Debug.Log($"Awake not working, error: {ex}");
+        }
     }
 
     async System.Threading.Tasks.Task InitializeUGS()
     {
-        await UnityServices.InitializeAsync();
+        try
+        {
 
-        if (!AuthenticationService.Instance.IsSignedIn)
-            await AuthenticationService.Instance.SignInAnonymouslyAsync();
 
-        _sessionId = $"session_{DateTime.UtcNow:yyyyMMdd_HHmmss}";
-        _initialized = true;
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        var options = new InitializationOptions().SetEnvironmentName("development");
+#else
+        var options = new InitializationOptions().SetEnvironmentName("production");
+#endif
 
-        StartCoroutine(FlushRoutine());
+            Debug.Log("Initializing UnityServices...");
+            await UnityServices.InitializeAsync(options);
+            Debug.Log("UnityServices initialized");
 
-        Debug.Log($"Analytics initialized | Session: {_sessionId}");
+            AuthenticationService.Instance.SignedIn += () =>
+            {
+                Debug.Log($"SIGNED IN! PlayerID: {AuthenticationService.Instance.PlayerId}");
+            };
+            AuthenticationService.Instance.SignInFailed += (err) =>
+            {
+                Debug.LogError($"Sign‑in failed: {err}");
+            };
+
+            Debug.Log("Signing in...");
+            if (!AuthenticationService.Instance.IsSignedIn)
+                await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            Debug.Log("Signed in");
+
+            _sessionId = $"session_{DateTime.UtcNow:yyyyMMdd_HHmmss}";
+            _initialized = true;
+            while (_eventQueue.Count > 0)
+            {
+                AnalyticsService.Instance.RecordEvent(_eventQueue.Dequeue());
+            }
+
+            StartCoroutine(FlushRoutine());
+
+            Debug.Log($"Analytics initialized | Session: {_sessionId}");
+        }
+        catch (Exception ex)
+        {
+            Debug.Log($"Analytics initialization failed: {ex}");
+        }
     }
 
     void Record(AnalyticsEvent e)
     {
-        if (!_initialized) return;
+        if (!_initialized)
+        {
+            _eventQueue.Enqueue(e);
+            return;
+        }
         AnalyticsService.Instance.RecordEvent(e);
     }
 
@@ -57,7 +105,14 @@ public class AnalyticsManager : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(FLUSH_INTERVAL);
-            AnalyticsService.Instance.Flush();
+            try
+            {
+                AnalyticsService.Instance.Flush();
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning($"[Analytics] Flush failed: {e}");
+            }
         }
     }
 
@@ -73,48 +128,73 @@ public class AnalyticsManager : MonoBehaviour
             AnalyticsService.Instance.Flush();
     }
 
-    #endregion
+    void OnEnable()
+    {
+        GameEvents.RunStarted -= TrackRunStart;
+        GameEvents.RunEnded -= TrackRunEnd;
+        GameEvents.FightStarted -= TrackFightStart;
+        GameEvents.FightEnded -= TrackFightEnd;
+        GameEvents.MoveUsed -= TrackMoveUsed;
+        GameEvents.StatusApplied -= TrackStatusApplied;
+        GameEvents.ItemBought -= TrackItemBought;
+
+
+        GameEvents.RunStarted += TrackRunStart;
+        GameEvents.RunEnded += TrackRunEnd;
+        GameEvents.FightStarted += TrackFightStart;
+        GameEvents.FightEnded += TrackFightEnd;
+        GameEvents.MoveUsed += TrackMoveUsed;
+        GameEvents.StatusApplied += TrackStatusApplied;
+        GameEvents.ItemBought += TrackItemBought;
+    }
+
+#endregion
 
     // ================= RUN / FIGHT / ITEM / UPGRADE EVENTS =================
 
     public void TrackRunStart(string runId, string difficulty, float runStartTime)
     {
-        Record(new RunStartEvent(_sessionId, runId, difficulty, runStartTime));
+        Record(new RunStartEvent(runId, difficulty, runStartTime));
     }
 
     public void TrackRunEnd(RunResult r)
     {
-        Record(new RunEndEvent(_sessionId, r));
+        Record(new RunEndEvent(r));
+    }
+
+    public void TrackFightStart(string id, float time)
+    {
+        Record(new FightStartEvent(id, time));
     }
 
     public void TrackFightEnd(FightResult f)
     {
-        Record(new FightEndEvent(_sessionId, f));
+        Record(new FightEndEvent(f));
     }
 
     public void TrackItemUsed(string itemName)
     {
-        Record(new ItemUsedEvent(_sessionId, itemName));
+        Record(new ItemUsedEvent(itemName));
     }
 
     public void TrackItemBought(string itemName)
-    {
-        Record(new ItemBoughtEvent(_sessionId, itemName));
+    { 
+        Record(new ItemBoughtEvent(itemName));
     }
 
     public void TrackUpgradeChosen(int level, string type, string value)
     {
-        Record(new UpgradeChosenEvent(_sessionId, level, type, value));
+        Record(new UpgradeChosenEvent(level, type, value));
     }
 
-    public void TrackMoveUsed(string moveName, string userType, string targetType = "")
+    public void TrackMoveUsed(string moveName, string userType)
     {
-        Record(new MoveUsedEvent(_sessionId, moveName, userType, targetType));
+        Record(new MoveUsedEvent(moveName, userType));
     }
 
     public void TrackStatusApplied(string statusName, string targetType, string sourceMove = "")
     {
-        Record(new StatusAppliedEvent(_sessionId, statusName, targetType, sourceMove));
+        Record(new StatusAppliedEvent(statusName, targetType, sourceMove));
     }
 }
 
@@ -122,17 +202,17 @@ public class AnalyticsManager : MonoBehaviour
 
 abstract class GameAnalyticsEvent : AnalyticsEvent
 {
-    protected GameAnalyticsEvent(string name, string sessionId) : base(name)
+    protected GameAnalyticsEvent(string name) : base(name)
     {
-        SetParameter("session_id", sessionId);
+        /*SetParameter("my_session_id", sessionId);*/
     }
 }
 
 // ---------------- RUN ----------------
 class RunStartEvent : GameAnalyticsEvent
 {
-    public RunStartEvent(string sessionId, string runId, string difficulty, float runStartTime)
-        : base("run_start", sessionId)
+    public RunStartEvent(string runId, string difficulty, float runStartTime)
+        : base("run_start")
     {
         SetParameter("run_id", runId);
         SetParameter("difficulty", difficulty);
@@ -142,8 +222,8 @@ class RunStartEvent : GameAnalyticsEvent
 
 class RunEndEvent : GameAnalyticsEvent
 {
-    public RunEndEvent(string sessionId, RunResult r)
-        : base("run_end", sessionId)
+    public RunEndEvent(RunResult r)
+        : base("run_end")
     {
         int duration = Mathf.RoundToInt(r.RunEndTime - r.RunStartTime);
 
@@ -164,10 +244,19 @@ class RunEndEvent : GameAnalyticsEvent
 }
 
 // ---------------- FIGHT ----------------
+class FightStartEvent : GameAnalyticsEvent
+{
+    public FightStartEvent(string fightId, float time)
+        : base("fight_start")
+    {
+        SetParameter("fight_id", fightId);
+        SetParameter("start_time", time);
+    }
+}
 class FightEndEvent : GameAnalyticsEvent
 {
-    public FightEndEvent(string sessionId, FightResult f)
-        : base("fight_end", sessionId)
+    public FightEndEvent(FightResult f)
+        : base("fight_end")
     {
         SetParameter("fight_id", f.FightId);
         SetParameter("battle_time", f.BattleTimeSeconds);
@@ -183,8 +272,8 @@ class FightEndEvent : GameAnalyticsEvent
 // ---------------- ITEMS ----------------
 class ItemUsedEvent : GameAnalyticsEvent
 {
-    public ItemUsedEvent(string sessionId, string itemName)
-        : base("item_used", sessionId)
+    public ItemUsedEvent(string itemName)
+        : base("item_used")
     {
         SetParameter("item_name", itemName);
     }
@@ -192,8 +281,8 @@ class ItemUsedEvent : GameAnalyticsEvent
 
 class ItemBoughtEvent : GameAnalyticsEvent
 {
-    public ItemBoughtEvent(string sessionId, string itemName)
-        : base("item_bought", sessionId)
+    public ItemBoughtEvent(string itemName)
+        : base("item_bought")
     {
         SetParameter("item_name", itemName);
     }
@@ -202,8 +291,8 @@ class ItemBoughtEvent : GameAnalyticsEvent
 // ---------------- UPGRADE ----------------
 class UpgradeChosenEvent : GameAnalyticsEvent
 {
-    public UpgradeChosenEvent(string sessionId, int level, string type, string value)
-        : base("upgrade_chosen", sessionId)
+    public UpgradeChosenEvent(int level, string type, string value)
+        : base("upgrade_chosen")
     {
         SetParameter("level", level);
         SetParameter("type", type);
@@ -214,8 +303,8 @@ class UpgradeChosenEvent : GameAnalyticsEvent
 // ---------------- MOVE USED ----------------
 class MoveUsedEvent : GameAnalyticsEvent
 {
-    public MoveUsedEvent(string sessionId, string moveName, string userType, string targetType = "")
-        : base("move_used", sessionId)
+    public MoveUsedEvent(string moveName, string userType, string targetType = "")
+        : base("move_used")
     {
         SetParameter("move_name", moveName);
         SetParameter("user_type", userType);       // "player" or "enemy"
@@ -227,8 +316,8 @@ class MoveUsedEvent : GameAnalyticsEvent
 // ---------------- STATUS ----------------
 class StatusAppliedEvent : GameAnalyticsEvent
 {
-    public StatusAppliedEvent(string sessionId, string statusName, string targetType, string sourceMove = "")
-        : base("status_applied", sessionId)
+    public StatusAppliedEvent(string statusName, string targetType, string sourceMove = "")
+        : base("status_applied")
     {
         SetParameter("status_name", statusName);   // e.g., "bleed", "stun", "poison"
         SetParameter("target_type", targetType);   // "player" or "enemy"

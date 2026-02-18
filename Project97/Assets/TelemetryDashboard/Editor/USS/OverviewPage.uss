@@ -1,0 +1,82 @@
+.overview-root {
+    flex-direction: column;
+    padding: 12px;
+}
+
+.page-title {
+    font-size: 22px;
+    -unity-font-style: bold;
+    margin-bottom: 12px;
+}
+
+.kpi-row {
+    flex-direction: row;
+    margin-bottom: 16px;
+}
+
+.kpi-card {
+    background-color: #2a2a2a;
+    padding: 10px;
+    margin-right: 12px;
+    width: 180px;
+    border-radius: 4px;
+}
+
+.kpi-value {
+    font-size: 18px;
+    margin-top: 4px;
+}
+
+.charts-column {
+    flex-direction: column;
+}
+
+.chart-row {
+    flex-direction: row;
+    align-items: stretch;
+    margin-top: 6px;
+}
+
+.chart-block {
+    margin-bottom: 20px;
+}
+
+.section-title {
+    font-size: 14px;
+    -unity-font-style: bold;
+    margin-bottom: 6px;
+}
+
+.chart-title {
+    -unity-font-style: bold;
+    margin-bottom: 6px;
+}
+
+.y-axis-container {
+    width: 40px;
+    justify-content: center;
+    align-items: center;
+}
+
+.y-axis-label {
+    rotate: -90deg;
+    transform-origin: center;
+    white-space: nowrap;
+    font-size: 11px;
+}
+
+.chart-x-container {
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.chart-area {
+    flex-grow: 1;
+    height: 140px;
+}
+
+.x-axis-label {
+    -unity-text-align: middle-center;
+    margin-top: 4px;
+    font-size: 11px;
+}

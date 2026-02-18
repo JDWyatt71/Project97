@@ -1,0 +1,14 @@
+VisualElement {}
+
+.table-header, .table-row {
+    flex-direction: row;
+}
+
+.table-header Label {
+    width: 120px;
+    -unity-font-style: bold;
+}
+
+.table-row Label {
+    width: 120px;
+}
