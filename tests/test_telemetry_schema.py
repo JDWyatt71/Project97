@@ -6,9 +6,9 @@ from pathlib import Path
 
 
 def get_db_path():
-    """Path to game_telemetry DB (project root)."""
+    """Path to seeded telemetry DB."""
     root = Path(__file__).resolve().parent.parent
-    return str(root / "game_telemetry_clean.db")
+    return str(root / "Seeded_Dataset_Final" / "Seeded_Dataset.db")
 
 
 def get_table_info(conn, table_name):
@@ -18,16 +18,16 @@ def get_table_info(conn, table_name):
 
 
 def test_telemetry_db_exists():
-    """game_telemetry DB must exist at project root."""
+    """Seeded_Dataset.db must exist."""
     db_path = get_db_path()
-    assert Path(db_path).exists(), f"game_telemetry_clean.db not found at {db_path}"
+    assert Path(db_path).exists(), f"Seeded_Dataset.db not found at {db_path}"
 
 
 def test_telemetry_sessions_table():
     """sessions table must have required columns."""
     db_path = get_db_path()
     if not Path(db_path).exists():
-        pytest.skip("game_telemetry_clean.db not found")
+        pytest.skip("Seeded_Dataset.db not found")
     with sqlite3.connect(db_path) as conn:
         tables = [t[0] for t in conn.execute(
             "SELECT name FROM sqlite_master WHERE type='table'"
@@ -43,7 +43,7 @@ def test_telemetry_runs_table():
     """runs table must have required columns."""
     db_path = get_db_path()
     if not Path(db_path).exists():
-        pytest.skip("game_telemetry_clean.db not found")
+        pytest.skip("Seeded_Dataset.db not found")
     with sqlite3.connect(db_path) as conn:
         tables = [t[0] for t in conn.execute(
             "SELECT name FROM sqlite_master WHERE type='table'"
@@ -59,7 +59,7 @@ def test_telemetry_fights_table():
     """fights table must have required columns."""
     db_path = get_db_path()
     if not Path(db_path).exists():
-        pytest.skip("game_telemetry_clean.db not found")
+        pytest.skip("Seeded_Dataset.db not found")
     with sqlite3.connect(db_path) as conn:
         tables = [t[0] for t in conn.execute(
             "SELECT name FROM sqlite_master WHERE type='table'"
@@ -75,14 +75,14 @@ def test_telemetry_has_seeded_data():
     """DB should have seeded rows for dashboard to show analytics (spec: seeded dataset)."""
     db_path = get_db_path()
     if not Path(db_path).exists():
-        pytest.skip("game_telemetry_clean.db not found")
+        pytest.skip("Seeded_Dataset.db not found")
     with sqlite3.connect(db_path) as conn:
         total = (
             conn.execute("SELECT COUNT(*) FROM sessions").fetchone()[0]
             + conn.execute("SELECT COUNT(*) FROM runs").fetchone()[0]
             + conn.execute("SELECT COUNT(*) FROM fights").fetchone()[0]
         )
-        assert total > 0, "game_telemetry should have seeded data (sessions, runs, or fights)"
+        assert total > 0, "Seeded_Dataset should have data (sessions, runs, or fights)"
 
 
 if __name__ == "__main__":
