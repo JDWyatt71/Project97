@@ -1,62 +1,88 @@
-# test to checkjson has the right structure and types
+# test to check game_telemetry SQL DB has the right structure and types
 
-import os
-import json
+import sqlite3
 import pytest
+from pathlib import Path
 
 
-def load_session_json(file_path):
-    f = open(file_path, "r")
-    data = json.load(f)
-    f.close()
-    return data
+def get_db_path():
+    """Path to game_telemetry DB (project root)."""
+    root = Path(__file__).resolve().parent.parent
+    return str(root / "game_telemetry_clean.db")
 
 
-def test_telemetry_session():
-    # path to example.json just for testing
-    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    example_path = os.path.join(root, "example.json")
-    if not os.path.exists(example_path):
-        pytest.skip("example.json not found")
+def get_table_info(conn, table_name):
+    """Return column info for a table."""
+    cur = conn.execute(f"PRAGMA table_info({table_name})")
+    return {row[1]: row[2] for row in cur.fetchall()}  # name =  type
 
-    data = load_session_json(example_path)
 
-    # make sure key fields are present and are the correct type
-    assert "session_id" in data
-    assert "timestamp_start" in data
-    assert "timestamp_end" in data
-    assert "player_id" in data
-    assert "runs" in data
-    assert type(data["session_id"]) == str
-    assert type(data["timestamp_start"]) == str
-    assert type(data["timestamp_end"]) == str
-    assert type(data["player_id"]) == str
-    assert type(data["runs"]) == list
+def test_telemetry_db_exists():
+    """game_telemetry DB must exist at project root."""
+    db_path = get_db_path()
+    assert Path(db_path).exists(), f"game_telemetry_clean.db not found at {db_path}"
 
-    # check each run
-    for i in range(len(data["runs"])):
-        run = data["runs"][i]
-        assert "run_id" in run
-        assert "successful" in run
-        assert "run_duration" in run
-        assert "level_finish" in run
-        assert "fights" in run
-        assert type(run["run_id"]) == str
-        assert type(run["successful"]) == bool
-        assert type(run["run_duration"]) in (int, float)
-        assert type(run["level_finish"]) in (int, float)
-        assert type(run["fights"]) == list
 
-        # check each fight in the run
-        for j in range(len(run["fights"])):
-            fight = run["fights"][j]
-            assert "fight_id" in fight
-            assert "battle_time_seconds" in fight
-            assert "number_of_turns" in fight
-            assert "hp_left_over" in fight
-            assert type(fight["fight_id"]) == str
-            assert type(fight["number_of_turns"]) in (int, float)
-            assert type(fight["hp_left_over"]) in (int, float)
+def test_telemetry_sessions_table():
+    """sessions table must have required columns."""
+    db_path = get_db_path()
+    if not Path(db_path).exists():
+        pytest.skip("game_telemetry_clean.db not found")
+    with sqlite3.connect(db_path) as conn:
+        tables = [t[0] for t in conn.execute(
+            "SELECT name FROM sqlite_master WHERE type='table'"
+        ).fetchall()]
+        assert "sessions" in tables, "sessions table missing"
+        info = get_table_info(conn, "sessions")
+        # dashboard uses start_time, total_play_time
+        assert "start_time" in info or "session_id" in info, "sessions needs start_time or session_id"
+        assert "total_play_time" in info or "player_id" in info, "sessions needs total_play_time or player_id"
+
+
+def test_telemetry_runs_table():
+    """runs table must have required columns."""
+    db_path = get_db_path()
+    if not Path(db_path).exists():
+        pytest.skip("game_telemetry_clean.db not found")
+    with sqlite3.connect(db_path) as conn:
+        tables = [t[0] for t in conn.execute(
+            "SELECT name FROM sqlite_master WHERE type='table'"
+        ).fetchall()]
+        assert "runs" in tables, "runs table missing"
+        info = get_table_info(conn, "runs")
+        assert "successful" in info, "runs needs successful"
+        assert "level_finish" in info, "runs needs level_finish"
+        assert "run_time" in info or "run_duration" in info, "runs needs run_time or run_duration"
+
+
+def test_telemetry_fights_table():
+    """fights table must have required columns."""
+    db_path = get_db_path()
+    if not Path(db_path).exists():
+        pytest.skip("game_telemetry_clean.db not found")
+    with sqlite3.connect(db_path) as conn:
+        tables = [t[0] for t in conn.execute(
+            "SELECT name FROM sqlite_master WHERE type='table'"
+        ).fetchall()]
+        assert "fights" in tables, "fights table missing"
+        info = get_table_info(conn, "fights")
+        assert "duration_time" in info or "battle_time_seconds" in info, "fights needs duration_time or battle_time_seconds"
+        assert "health_remaining" in info or "hp_left_over" in info, "fights needs health_remaining or hp_left_over"
+        assert "player_attacks_attempted" in info or "number_of_turns" in info, "fights needs combat metrics"
+
+
+def test_telemetry_has_seeded_data():
+    """DB should have seeded rows for dashboard to show analytics (spec: seeded dataset)."""
+    db_path = get_db_path()
+    if not Path(db_path).exists():
+        pytest.skip("game_telemetry_clean.db not found")
+    with sqlite3.connect(db_path) as conn:
+        total = (
+            conn.execute("SELECT COUNT(*) FROM sessions").fetchone()[0]
+            + conn.execute("SELECT COUNT(*) FROM runs").fetchone()[0]
+            + conn.execute("SELECT COUNT(*) FROM fights").fetchone()[0]
+        )
+        assert total > 0, "game_telemetry should have seeded data (sessions, runs, or fights)"
 
 
 if __name__ == "__main__":

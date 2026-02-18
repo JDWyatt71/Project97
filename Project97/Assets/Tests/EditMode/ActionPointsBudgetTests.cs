@@ -74,12 +74,16 @@ public class ActionPointsBudgetTests
     [Test]
     public void AP_DontGoNegative()
     {
-        // need reflection to read private fields
+        // need reflection to read/write private fields
         Type turnManagerType = typeof(TurnManager);
         BindingFlags flags = BindingFlags.NonPublic | BindingFlags.Instance;
         FieldInfo apField = turnManagerType.GetField("pAPRemaining", flags);
         FieldInfo movesField = turnManagerType.GetField("selectedMoves", flags);
+        FieldInfo playerCharField = turnManagerType.GetField("playerCharacter", flags);
+        FieldInfo selectedObjsField = turnManagerType.GetField("selectedObjs", flags);
 
+        playerCharField.SetValue(turnManager, testCharacter);
+        selectedObjsField.SetValue(turnManager, new List<GameObject>());
         apField.SetValue(turnManager, testCharacter.actionPoints);
         movesField.SetValue(turnManager, new List<MoveSO>());
 
