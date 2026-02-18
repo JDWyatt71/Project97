@@ -54,6 +54,7 @@ public class ActionPointsBudgetTests
 
         GameObject turnManagerObj = new GameObject("TestTurnManager");
         turnManagerObj.AddComponent<MovesUIScreen>();
+        turnManagerObj.AddComponent<APBarUI>(); // TurnManager.SchedulePlayerMoves expects this
         turnManager = turnManagerObj.AddComponent<TurnManager>();
     }
 
@@ -86,6 +87,11 @@ public class ActionPointsBudgetTests
         selectedObjsField.SetValue(turnManager, new List<GameObject>());
         apField.SetValue(turnManager, testCharacter.actionPoints);
         movesField.SetValue(turnManager, new List<MoveSO>());
+        // analytics is used in TrySelectMove but only set in StartFight(); init for EditMode tests
+        var analyticsField = turnManagerType.GetField("analytics", flags);
+        var tracker = new FightAnalyticsTracker();
+        tracker.StartFight("test");
+        analyticsField.SetValue(turnManager, tracker);
 
         // pick a move that fits AP should go down
         GameObject ui1 = new GameObject("UI1");

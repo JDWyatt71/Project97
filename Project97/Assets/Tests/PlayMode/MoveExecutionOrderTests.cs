@@ -45,7 +45,13 @@ public class MoveExecutionOrderTests
 
         GameObject turnManagerObj = new GameObject("TestTurnManager");
         turnManagerObj.AddComponent<MovesUIScreen>();
+        turnManagerObj.AddComponent<APBarUI>();
         turnManager = turnManagerObj.AddComponent<TurnManager>();
+        // analytics used in PerformAttack but only set in StartFight(); init for EditMode tests
+        var analyticsField = typeof(TurnManager).GetField("analytics", BindingFlags.NonPublic | BindingFlags.Instance);
+        var tracker = new FightAnalyticsTracker();
+        tracker.StartFight("test");
+        analyticsField.SetValue(turnManager, tracker);
 
         SetHealth(attacker.healthSystem, 100);
         SetHealth(defender.healthSystem, 100);
