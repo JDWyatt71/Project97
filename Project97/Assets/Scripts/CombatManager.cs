@@ -15,8 +15,8 @@ public class CombatManager
     }
     public void PerformMovePair(AttackSO a, DefendSO d, Character attacker, Character target, string turnName)
     {
-        string status = PerformAttack(attacker, target, a, d);
-
+        AttackResult status = PerformAttack(attacker, target, a, d);
+        string strStatus = status.ToString();
         d ??= AssetsDatabase.I?.defaultDefendSO;
 
         if (d == null)
@@ -34,17 +34,25 @@ public class CombatManager
             dS = "No defense";
         }
 
-        Debug.Log($"{turnName}'s Turn:\n{aS}\n{dS}\nAttack {status}");
+        Debug.Log($"{turnName}'s Turn:\n{aS}\n{dS}\nAttack {strStatus}");
+    }
+    public enum AttackResult
+    {
+        dodged,
+        blocked,
+        deflected,
+        hit,
+        guardedHit
     }
     /// <summary>
-    /// Returns a string of what happened with the move: dodge, block, hit, deflect
+    /// Returns AttackResult of what happened with the move: dodge, block, deflect, hit, guarded hit
     /// </summary>
     /// <param name="attacker"></param>
     /// <param name="target"></param>
     /// <param name="attackSO"></param>
     /// <param name="defendSO"></param>
     /// <returns></returns>
-    private string PerformAttack(Character attacker, Character target, AttackSO attackSO, DefendSO defendSO = null)
+    private AttackResult PerformAttack(Character attacker, Character target, AttackSO attackSO, DefendSO defendSO = null)
     {
         string moveName = attackSO.name;
         GameEvents.RaiseMoveUsed(moveName, attacker.ToString());
@@ -54,42 +62,40 @@ public class CombatManager
         {
             defendSO = AssetsDatabase.I.defaultDefendSO;
         }
-        //Implement attacker.accuracy and target.evasion
+
+        //2 non-damaging attack options
+        //Is dodge?
         float moveAccuracy = CalculateMoveAccuracy(attackSO.accuracy, attacker.accuracy, target.evasion, defendSO.dodgeBonusPercent);
-        //Debug.Log($"Move accuracy: {moveAccuracy}");
         if (!RandomEvent(moveAccuracy))
         {
-            return "dodged"; //So don't do any damage.
+            return AttackResult.dodged; //So don't do any damage.
         }
-        //player attacking damage
-        //Base damage of move
-        //Successful Block
-        int totalDamage;
+
+        //Is block?
+        if(defendSO.block && attackSO.height == defendSO.height && attackSO.moveType != MoveType.Grapple) 
+        {
+            analytics.RegisterDefendSuccess();
+            return AttackResult.blocked;
+        }
         
-        //Calculate damage as non-zero damage inflicted on a character
+        //3 damaging attack options
+
+        //Is guarded?
+        int totalDamage;
         int basedam = GetDamage(attackSO.damage);
         float initialDamage = CalculateInitialDamage(basedam, attacker.attack);
-        string guarded = "";
-        if(attackSO.height == defendSO.height){
-            //Guard
+        bool guarded = false;
+        if(attackSO.height == defendSO.height){ //Guard
             totalDamage = TotalDam(initialDamage, 1-defendSO.damageReductionMultiplier);
-            guarded = " and guarded";
+            guarded = true;
         }
-        else
-        {
-            //No guard
+        else //No guard
+        {          
             totalDamage = TotalDam(initialDamage, 1);
-
         }
         //Debug.Log($"basedam: {basedam}, initialDamage: {initialDamage}, total damage: {totalDamage}");
         
-        if(defendSO.block && attackSO.height == defendSO.height && attackSO.moveType != MoveType.Grapple) 
-        {
-            totalDamage = 0;
-
-            analytics.RegisterDefendSuccess();
-            return "blocked";
-        }
+        //Is deflected?
         if (defendSO.deflect && attackSO.moveType != MoveType.Grapple)
         {
             if (attacker.healthSystem.TakeDamage(totalDamage)) //Add Calculation on totalDamage
@@ -99,9 +105,9 @@ public class CombatManager
             ApplyEffects(attacker, attackSO);
 
             analytics.RegisterDefendSuccess();
-            return "deflected";
+            return AttackResult.deflected;
         }
-        else
+        else //Not deflected, hit
         {
             if (target.healthSystem.TakeDamage(totalDamage))
             {
@@ -109,16 +115,10 @@ public class CombatManager
             }
             ApplyEffects(target, attackSO);
             analytics.RegisterAttackSuccess();
-            return "hit" + guarded;
-
+            return guarded ? AttackResult.guardedHit : AttackResult.hit;
         }
-        /*if ((defendSO.deflect && attacker.healthSystem.TakeDamage(totalDamage)) || target.healthSystem.TakeDamage(totalDamage)) //Add Calculation on totalDamage
-        {
-            running = false;
-        }*/
-
     }
-    #region  Effects
+    #region Effects
 
     private void ApplyEffects(Character character, AttackSO attackSO)
     {
