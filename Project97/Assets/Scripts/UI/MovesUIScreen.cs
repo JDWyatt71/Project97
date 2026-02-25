@@ -23,7 +23,7 @@ public class MovesUIScreen : MonoBehaviour
 
             imageTransform.GetComponent<Button>().onClick.AddListener(() =>
             {
-                TurnManager.I.TrySelectMove(move, itemSlotRectTransform.Find("selectImage").gameObject);
+                SelectMoveUI.I.TrySelectMove(move, itemSlotRectTransform.Find("selectImage").gameObject);
             });
             
             Image image = itemSlotRectTransform.Find("image").GetComponent<Image>();

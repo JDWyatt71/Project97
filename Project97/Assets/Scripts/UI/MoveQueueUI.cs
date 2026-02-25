@@ -19,8 +19,8 @@ public class MoveQueueUI : MonoBehaviour
         while (TurnManager.I == null)
             yield return null;
 
-        TurnManager.I.OnMoveSelected += AddIcon;
-        TurnManager.I.OnMoveDeselected += RemoveIcon;
+        //TurnManager.I.OnMoveSelected += AddIcon;
+        //TurnManager.I.OnMoveDeselected += RemoveIcon;
     }
 
     private void AddIcon(MoveSO move)

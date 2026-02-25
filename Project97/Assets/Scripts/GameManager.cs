@@ -9,7 +9,7 @@ using UnityEngine.UnityConsent;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager I;
+    public static GameManager I {private set; get;}
     private Inventory pInventory;
     private UpgradeScreenUI upgradeScreenUI;
     [SerializeField] private CharacterSO pCSO;
@@ -49,7 +49,6 @@ public class GameManager : MonoBehaviour
         GameEvents.RaiseRunStarted(currentRunId, "normal", runStartTime);
         Debug.Log("RunStarted event sent;");
 
-        GameObject pCharacter = SetupCharacter("Player", pCSO, playerHealthBar);
         pCharacter = SetupCharacter("Player", pCSO, playerHealthBar);
         pInventory = pCharacter.GetComponent<Inventory>();
         GameObject cCharacter = SetupCharacter("Dojo Challenger", cCSO1, computerHealthBar);

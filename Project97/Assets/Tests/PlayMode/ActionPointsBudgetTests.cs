@@ -95,21 +95,21 @@ public class ActionPointsBudgetTests
 
         // pick a move that fits AP should go down
         GameObject ui1 = new GameObject("UI1");
-        turnManager.TrySelectMove(lowCostAttack, ui1);
+        SelectMoveUI.I.TrySelectMove(lowCostAttack, ui1);
         int ap = (int)apField.GetValue(turnManager);
         Assert.GreaterOrEqual(ap, 0);
         Assert.AreEqual(3, ap); // 5 - 2
 
         // unselecting should give AP back
-        turnManager.TrySelectMove(lowCostAttack, ui1);
+        SelectMoveUI.I.TrySelectMove(lowCostAttack, ui1);
         ap = (int)apField.GetValue(turnManager);
         Assert.AreEqual(5, ap);
 
         // now try to pick something that cant be afforded (only 2 AP left need 5)
-        turnManager.TrySelectMove(lowCostAttack, ui1);
-        turnManager.TrySelectMove(defendMove, new GameObject("UI2"));
+        SelectMoveUI.I.TrySelectMove(lowCostAttack, ui1);
+        SelectMoveUI.I.TrySelectMove(defendMove, new GameObject("UI2"));
         int apBefore = (int)apField.GetValue(turnManager);
-        turnManager.TrySelectMove(highCostAttack, new GameObject("UI3"));
+        SelectMoveUI.I.TrySelectMove(highCostAttack, new GameObject("UI3"));
         int apAfter = (int)apField.GetValue(turnManager);
         Assert.GreaterOrEqual(apAfter, 0);
         Assert.AreEqual(apBefore, apAfter); // shouldnt have taken the expensive move

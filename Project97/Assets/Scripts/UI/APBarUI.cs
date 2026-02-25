@@ -4,19 +4,18 @@ using UnityEngine.UI;
 
 public class APBarUI : MonoBehaviour
 {
-    private TurnManager turnManager;
+    private SelectMoveUI selectMoveUI;
     [SerializeField] private Slider slider;
-
-    public void Setup(TurnManager turnManager)
+    private int max;
+    public void Setup(SelectMoveUI selectMoveUI)
     {
-        this.turnManager = turnManager;
-        UpdateAPBar(turnManager.GetCurrentAP(), turnManager.GetMaxAP());
-        turnManager.APChanged += UpdateAPBar;
-
-
+        this.selectMoveUI = selectMoveUI;
+        max = GameManager.I.pCharacter.GetComponent<Character>().actionPoints;
+        UpdateAPBar(selectMoveUI.GetCurrentAP());
+        selectMoveUI.APChanged += UpdateAPBar;
     }
 
-    private void UpdateAPBar(int current, int max)
+    private void UpdateAPBar(int current)
     {
         slider.value = (float)current / (float)max;
     }
