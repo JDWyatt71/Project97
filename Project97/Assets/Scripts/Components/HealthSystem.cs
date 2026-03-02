@@ -1,7 +1,10 @@
+using System;
 using UnityEngine;
 
 public class HealthSystem : MonoBehaviour
 {
+    public event Action RunningIsFalse;
+
     [SerializeField] private int maxHealth = 50;
     public int GetMaxHealth()
     {
@@ -64,5 +67,6 @@ public class HealthSystem : MonoBehaviour
     private void Die()
     {
         Destroy(gameObject);
+        RunningIsFalse?.Invoke();
     }
 }

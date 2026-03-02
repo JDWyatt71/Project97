@@ -7,7 +7,6 @@ using Unity.VisualScripting;
 using UnityEngine.UI;
 public class CombatManager
 {
-    public event Action RunningIsFalse;
     private FightAnalyticsTracker analytics;
     public CombatManager(FightAnalyticsTracker analytics)
     {
@@ -66,7 +65,7 @@ public class CombatManager
         //2 non-damaging attack options
         //Is dodge?
         float moveAccuracy = CalculateMoveAccuracy(attackSO.accuracy, attacker.accuracy, target.evasion, defendSO.dodgeBonusPercent);
-        if (!RandomEvent(moveAccuracy))
+        if (!UC.RandomEvent(moveAccuracy))
         {
             return AttackResult.dodged; //So don't do any damage.
         }
@@ -98,10 +97,8 @@ public class CombatManager
         //Is deflected?
         if (defendSO.deflect && attackSO.moveType != MoveType.Grapple)
         {
-            if (attacker.healthSystem.TakeDamage(totalDamage)) //Add Calculation on totalDamage
-            {
-                RunningIsFalse?.Invoke();
-            }
+            attacker.healthSystem.TakeDamage(totalDamage); //Add Calculation on totalDamage
+            
             ApplyEffects(attacker, attackSO);
 
             analytics.RegisterDefendSuccess();
@@ -109,10 +106,8 @@ public class CombatManager
         }
         else //Not deflected, hit
         {
-            if (target.healthSystem.TakeDamage(totalDamage))
-            {
-                RunningIsFalse?.Invoke();
-            }
+            target.healthSystem.TakeDamage(totalDamage);
+            
             ApplyEffects(target, attackSO);
             analytics.RegisterAttackSuccess();
             return guarded ? AttackResult.guardedHit : AttackResult.hit;
@@ -124,7 +119,7 @@ public class CombatManager
     {
         foreach(EffectChance eC in attackSO.effects)
         {
-            if (RandomEvent(GetEffectChance(eC.chance)))
+            if (UC.RandomEvent(GetEffectChance(eC.chance)))
             {
                 character.AddEffect(eC.effect);
 
@@ -142,11 +137,6 @@ public class CombatManager
     }
     #endregion
     #region Move Accuracy
-    private bool RandomEvent(float moveAccuracy)
-    {
-        return UnityEngine.Random.value < moveAccuracy;
-    }
-
     private float CalculateAccuracyEvasionMultiplier(float attackerAccuracy, float defenderEvasion)
     {
         return (attackerAccuracy-defenderEvasion) / 2f;

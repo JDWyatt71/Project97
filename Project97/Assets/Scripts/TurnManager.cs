@@ -53,7 +53,9 @@ public class TurnManager : MonoBehaviour
         GameEvents.RaiseFightStarted(fightID, analytics.fightStartTime);
 
         cM = new CombatManager(analytics);
-        cM.RunningIsFalse += RunningIsFalse;
+        playerCharacter.GetComponent<HealthSystem>().RunningIsFalse += RunningIsFalse;
+        computerCharacter.GetComponent<HealthSystem>().RunningIsFalse += RunningIsFalse;
+
 
         StartCoroutine(Turns(playerCharacter, computerCharacter));
          
@@ -115,8 +117,8 @@ public class TurnManager : MonoBehaviour
 
     private void DoEffects()
     {
-        computerCharacter.DoEffects();
-        playerCharacter.DoEffects();
+        computerCharacter.DoEffects(playerCharacter.attack);
+        playerCharacter.DoEffects(computerCharacter.attack);
     }
 
     private IEnumerator Turn(Character pCharacter, Character cCharacter)
@@ -124,8 +126,10 @@ public class TurnManager : MonoBehaviour
         analytics.RegisterTurn();
         //currentFight.Turns++; to keep track of turns.
 
-        submittedMoves = false;
         SelectMoveUI.I.SchedulePlayerMoves(pCharacter);
+
+        submittedMoves = pCharacter.actionPoints == 0; //Skips turn without waiting if have no AP
+
         yield return new WaitUntil(() => submittedMoves);
         submittedMoves = false;
 
