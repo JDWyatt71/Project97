@@ -9,11 +9,11 @@ public class ActionPointsBudgetTests
 {
     private GameObject testGameObject;
     private Character testCharacter;
-    private TurnManager turnManager;
     private AttackSO lowCostAttack;
     private AttackSO highCostAttack;
     private DefendSO defendMove;
     private GameObject assetsDatabaseObj;
+    private SelectMoveUI selectMoveUI;
 
     [SetUp]
     public void SetUp()
@@ -52,10 +52,20 @@ public class ActionPointsBudgetTests
         characterSO.dMoves = new List<DefendSO>();
         testCharacter.Setup(characterSO);
 
-        GameObject turnManagerObj = new GameObject("TestTurnManager");
-        turnManagerObj.AddComponent<MovesUIScreen>();
-        turnManagerObj.AddComponent<APBarUI>(); // TurnManager.SchedulePlayerMoves expects this
-        turnManager = turnManagerObj.AddComponent<TurnManager>();
+        // simple AP / selection UI (no TurnManager needed now)
+        GameObject selectUIObj = new GameObject("SelectMoveUI");
+        selectMoveUI = selectUIObj.AddComponent<SelectMoveUI>();
+
+        // initialise private AP fields on SelectMoveUI
+        var uiType = typeof(SelectMoveUI);
+        BindingFlags flags = BindingFlags.NonPublic | BindingFlags.Instance;
+        FieldInfo apField = uiType.GetField("pAPRemaining", flags);
+        FieldInfo selectedMovesField = uiType.GetField("selectedMoves", flags);
+        FieldInfo selectedObjsField = uiType.GetField("selectedObjs", flags);
+
+        apField.SetValue(selectMoveUI, testCharacter.actionPoints);
+        selectedMovesField.SetValue(selectMoveUI, new List<MoveSO>());
+        selectedObjsField.SetValue(selectMoveUI, new List<GameObject>());
     }
 
     [TearDown]
@@ -68,49 +78,35 @@ public class ActionPointsBudgetTests
         UnityEngine.Object.DestroyImmediate(lowCostAttack);
         UnityEngine.Object.DestroyImmediate(highCostAttack);
         UnityEngine.Object.DestroyImmediate(defendMove);
-        if (turnManager != null)
-            UnityEngine.Object.DestroyImmediate(turnManager.gameObject);
+        if (selectMoveUI != null)
+            UnityEngine.Object.DestroyImmediate(selectMoveUI.gameObject);
     }
 
     [Test]
     public void AP_DontGoNegative()
     {
-        // need reflection to read/write private fields
-        Type turnManagerType = typeof(TurnManager);
+        Type uiType = typeof(SelectMoveUI);
         BindingFlags flags = BindingFlags.NonPublic | BindingFlags.Instance;
-        FieldInfo apField = turnManagerType.GetField("pAPRemaining", flags);
-        FieldInfo movesField = turnManagerType.GetField("selectedMoves", flags);
-        FieldInfo playerCharField = turnManagerType.GetField("playerCharacter", flags);
-        FieldInfo selectedObjsField = turnManagerType.GetField("selectedObjs", flags);
-
-        playerCharField.SetValue(turnManager, testCharacter);
-        selectedObjsField.SetValue(turnManager, new List<GameObject>());
-        apField.SetValue(turnManager, testCharacter.actionPoints);
-        movesField.SetValue(turnManager, new List<MoveSO>());
-        // analytics is used in TrySelectMove but only set in StartFight(); init for EditMode tests
-        var analyticsField = turnManagerType.GetField("analytics", flags);
-        var tracker = new FightAnalyticsTracker();
-        tracker.StartFight("test");
-        analyticsField.SetValue(turnManager, tracker);
+        FieldInfo apField = uiType.GetField("pAPRemaining", flags);
 
         // pick a move that fits AP should go down
         GameObject ui1 = new GameObject("UI1");
-        SelectMoveUI.I.TrySelectMove(lowCostAttack, ui1);
-        int ap = (int)apField.GetValue(turnManager);
+        selectMoveUI.TrySelectMove(lowCostAttack, ui1);
+        int ap = (int)apField.GetValue(selectMoveUI);
         Assert.GreaterOrEqual(ap, 0);
         Assert.AreEqual(3, ap); // 5 - 2
 
         // unselecting should give AP back
-        SelectMoveUI.I.TrySelectMove(lowCostAttack, ui1);
-        ap = (int)apField.GetValue(turnManager);
+        selectMoveUI.TrySelectMove(lowCostAttack, ui1);
+        ap = (int)apField.GetValue(selectMoveUI);
         Assert.AreEqual(5, ap);
 
         // now try to pick something that cant be afforded (only 2 AP left need 5)
-        SelectMoveUI.I.TrySelectMove(lowCostAttack, ui1);
-        SelectMoveUI.I.TrySelectMove(defendMove, new GameObject("UI2"));
-        int apBefore = (int)apField.GetValue(turnManager);
-        SelectMoveUI.I.TrySelectMove(highCostAttack, new GameObject("UI3"));
-        int apAfter = (int)apField.GetValue(turnManager);
+        selectMoveUI.TrySelectMove(lowCostAttack, ui1);
+        selectMoveUI.TrySelectMove(defendMove, new GameObject("UI2"));
+        int apBefore = (int)apField.GetValue(selectMoveUI);
+        selectMoveUI.TrySelectMove(highCostAttack, new GameObject("UI3"));
+        int apAfter = (int)apField.GetValue(selectMoveUI);
         Assert.GreaterOrEqual(apAfter, 0);
         Assert.AreEqual(apBefore, apAfter); // shouldnt have taken the expensive move
     }

@@ -11,7 +11,7 @@ public class FightDamageTests
     private GameObject defenderObj;
     private Character attacker;
     private Character defender;
-    private TurnManager turnManager;
+    private CombatManager combatManager;
     private GameObject assetsDatabaseObj;
 
     [SetUp]
@@ -43,14 +43,10 @@ public class FightDamageTests
         defender.Setup(characterSO);
         defender.attack = 8;
 
-        GameObject turnManagerObj = new GameObject("TestTurnManager");
-        turnManagerObj.AddComponent<MovesUIScreen>();
-        turnManagerObj.AddComponent<APBarUI>();
-        turnManager = turnManagerObj.AddComponent<TurnManager>();
-        var analyticsField = typeof(TurnManager).GetField("analytics", BindingFlags.NonPublic | BindingFlags.Instance);
+        // simple combat manager with analytics
         var tracker = new FightAnalyticsTracker();
         tracker.StartFight("test");
-        analyticsField.SetValue(turnManager, tracker);
+        combatManager = new CombatManager(tracker);
 
         SetHealth(attacker.healthSystem, 100);
         SetHealth(defender.healthSystem, 100);
@@ -71,24 +67,22 @@ public class FightDamageTests
             UnityEngine.Object.DestroyImmediate(assetsDatabaseObj);
         UnityEngine.Object.DestroyImmediate(attackerObj);
         UnityEngine.Object.DestroyImmediate(defenderObj);
-        if (turnManager != null)
-            UnityEngine.Object.DestroyImmediate(turnManager.gameObject);
     }
 
     [Test]
     public void FightDamage_CalculationIsCorrect()
     {
-        Type tmType = typeof(TurnManager);
-        MethodInfo getDamage = tmType.GetMethod("GetDamage", BindingFlags.NonPublic | BindingFlags.Instance);
-        MethodInfo performAttack = tmType.GetMethod("PerformAttack", BindingFlags.NonPublic | BindingFlags.Instance);
+        Type cmType = typeof(CombatManager);
+        MethodInfo getDamage = cmType.GetMethod("GetDamage", BindingFlags.NonPublic | BindingFlags.Instance);
+        MethodInfo performAttack = cmType.GetMethod("PerformAttack", BindingFlags.NonPublic | BindingFlags.Instance);
 
         // low/med/high should be 3, 7, 10
         object[] lowArg = new object[] { Scale.Low };
         object[] medArg = new object[] { Scale.Medium };
         object[] highArg = new object[] { Scale.High };
-        int low = (int)getDamage.Invoke(turnManager, lowArg);
-        int med = (int)getDamage.Invoke(turnManager, medArg);
-        int high = (int)getDamage.Invoke(turnManager, highArg);
+        int low = (int)getDamage.Invoke(combatManager, lowArg);
+        int med = (int)getDamage.Invoke(combatManager, medArg);
+        int high = (int)getDamage.Invoke(combatManager, highArg);
         Assert.AreEqual(3, low);
         Assert.AreEqual(7, med);
         Assert.AreEqual(10, high);
@@ -112,13 +106,13 @@ public class FightDamageTests
             UnityEngine.Random.InitState(seed);
             SetHealth(defender.healthSystem, 100);
             object[] attackArgs = new object[] { attacker, defender, attackSO, noDefend };
-            performAttack.Invoke(turnManager, attackArgs);
+            performAttack.Invoke(combatManager, attackArgs);
             int healthNoDefence = defender.healthSystem.GetHealth();
             if (healthNoDefence >= 100) continue; // first attack missed need it to hit for the defence comparison to mean anything
             Assert.LessOrEqual(healthNoDefence, 100);
 
             SetHealth(defender.healthSystem, 100);
-            performAttack.Invoke(turnManager, new object[] { attacker, defender, attackSO, withDefend });
+            performAttack.Invoke(combatManager, new object[] { attacker, defender, attackSO, withDefend });
             if (defender.healthSystem.GetHealth() >= healthNoDefence) { damageCalcOk = true; break; }
         }
 

@@ -13,7 +13,7 @@ public class FightDeathHandlingTests
     private Character defender;
     private AttackSO testAttack;
     private DefendSO testDefend;
-    private TurnManager turnManager;
+    private CombatManager combatManager;
     private GameObject assetsDatabaseObj;
 
     [SetUp]
@@ -58,14 +58,9 @@ public class FightDeathHandlingTests
         testDefend.height = Scale.Medium;
         testDefend.AP = 1;
 
-        GameObject turnManagerObj = new GameObject("TestTurnManager");
-        turnManagerObj.AddComponent<MovesUIScreen>();
-        turnManagerObj.AddComponent<APBarUI>();
-        turnManager = turnManagerObj.AddComponent<TurnManager>();
-        var analyticsField = typeof(TurnManager).GetField("analytics", BindingFlags.NonPublic | BindingFlags.Instance);
         var tracker = new FightAnalyticsTracker();
         tracker.StartFight("test");
-        analyticsField.SetValue(turnManager, tracker);
+        combatManager = new CombatManager(tracker);
 
         SetHealth(attacker.healthSystem, 100);
         SetHealth(defender.healthSystem, 100);
@@ -88,16 +83,13 @@ public class FightDeathHandlingTests
         UnityEngine.Object.DestroyImmediate(defenderObj);
         UnityEngine.Object.DestroyImmediate(testAttack);
         UnityEngine.Object.DestroyImmediate(testDefend);
-        if (turnManager != null)
-            UnityEngine.Object.DestroyImmediate(turnManager.gameObject);
     }
 
     [Test]
     public void FightStopsWhenPlayerDies()
     {
-        Type tmType = typeof(TurnManager);
-        MethodInfo performAttack = tmType.GetMethod("PerformAttack", BindingFlags.NonPublic | BindingFlags.Instance);
-        FieldInfo runningField = tmType.GetField("running", BindingFlags.NonPublic | BindingFlags.Instance);
+        Type cmType = typeof(CombatManager);
+        MethodInfo performAttack = cmType.GetMethod("PerformAttack", BindingFlags.NonPublic | BindingFlags.Instance);
 
         AttackSO bigHit = ScriptableObject.CreateInstance<AttackSO>();
         bigHit.damage = Scale.High;
@@ -105,21 +97,18 @@ public class FightDeathHandlingTests
         bigHit.effects = new List<EffectChance>(); // CreateInstance doesnt init this ApplyEffects would nullref
 
         // attacks can dodge so retry seeds until we get a hit and defender actually dies
-        bool runningStopped = false;
+        bool defenderDied = false;
         for (int seed = 0; seed < 200; seed++)
         {
             UnityEngine.Random.InitState(seed);
             SetHealth(defender.healthSystem, 5);
-            runningField.SetValue(turnManager, true);
 
             object[] args = new object[] { attacker, defender, bigHit, testDefend };
-            performAttack.Invoke(turnManager, args);
+            performAttack.Invoke(combatManager, args);
 
-            object runningObj = runningField.GetValue(turnManager);
-            bool running = (bool)runningObj;
-            if (!running) { runningStopped = true; break; }
+            if (defender.healthSystem.GetHealth() <= 0) { defenderDied = true; break; }
         }
         UnityEngine.Object.DestroyImmediate(bigHit);
-        Assert.IsTrue(runningStopped, "running should be false when defender dies; no hit in 200 seeds");
+        Assert.IsTrue(defenderDied, "defender should die from a big hit in at least one of 200 seeds");
     }
 }

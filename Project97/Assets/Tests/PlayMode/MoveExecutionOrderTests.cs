@@ -11,7 +11,7 @@ public class MoveExecutionOrderTests
     private GameObject defenderObj;
     private Character attacker;
     private Character defender;
-    private TurnManager turnManager;
+    private CombatManager combatManager;
     private GameObject assetsDatabaseObj;
 
     [SetUp]
@@ -43,15 +43,9 @@ public class MoveExecutionOrderTests
         defender.Setup(characterSO);
         defender.attack = 8;
 
-        GameObject turnManagerObj = new GameObject("TestTurnManager");
-        turnManagerObj.AddComponent<MovesUIScreen>();
-        turnManagerObj.AddComponent<APBarUI>();
-        turnManager = turnManagerObj.AddComponent<TurnManager>();
-        // analytics used in PerformAttack but only set in StartFight(); init for EditMode tests
-        var analyticsField = typeof(TurnManager).GetField("analytics", BindingFlags.NonPublic | BindingFlags.Instance);
         var tracker = new FightAnalyticsTracker();
         tracker.StartFight("test");
-        analyticsField.SetValue(turnManager, tracker);
+        combatManager = new CombatManager(tracker);
 
         SetHealth(attacker.healthSystem, 100);
         SetHealth(defender.healthSystem, 100);
@@ -73,8 +67,6 @@ public class MoveExecutionOrderTests
             UnityEngine.Object.DestroyImmediate(assetsDatabaseObj);
         UnityEngine.Object.DestroyImmediate(attackerObj);
         UnityEngine.Object.DestroyImmediate(defenderObj);
-        if (turnManager != null)
-            UnityEngine.Object.DestroyImmediate(turnManager.gameObject);
     }
 
     [Test]
@@ -82,9 +74,6 @@ public class MoveExecutionOrderTests
     {
         // Basic execution-order check: moves processed in sequence produce non-increasing defender health
         // (avoids RNG-dependent assertions; spec requires tests must run for markers)
-        Type tmType = typeof(TurnManager);
-        MethodInfo performMovePair = tmType.GetMethod("PerformMovePair", BindingFlags.NonPublic | BindingFlags.Instance);
-
         AttackSO move1 = ScriptableObject.CreateInstance<AttackSO>();
         move1.damage = Scale.Low;
         move1.height = Scale.Medium;
@@ -111,8 +100,7 @@ public class MoveExecutionOrderTests
 
         for (int i = 0; i < order.Count; i++)
         {
-            object[] turn = new object[] { order[i], noDefend, attacker, defender, "Test" };
-            performMovePair.Invoke(turnManager, turn);
+            combatManager.PerformMovePair(order[i], noDefend, attacker, defender, "Test");
             healthAfterEach.Add(defender.healthSystem.GetHealth());
         }
 
