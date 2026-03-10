@@ -41,8 +41,8 @@ public class TurnManager : MonoBehaviour
 
         fightID = Guid.NewGuid().ToString();
 
-        combatUI.Setup(playerCharacter); // For the CombatUI class
-
+        FindObjectOfType<CombatUI>().Setup(playerCharacter);
+        
         /*
         fightStartTime = Time.time;
         currentFight = new FightResult {

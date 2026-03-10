@@ -34,6 +34,7 @@ public class CombatManager
         }
 
         Debug.Log($"{turnName}'s Turn:\n{aS}\n{dS}\nAttack {strStatus}");
+        CombatEvents.RaiseLogUpdate($"{turnName} used {a.name}! {strStatus.ToUpper()}!");
     }
     public enum AttackResult
     {

@@ -29,23 +29,14 @@ public class CombatUI : MonoBehaviour
 
     private void UpdateCombatLog(string message)
     {
-        combatLogText.text += "\n" + message;
+        combatLogText.text += "\n" + message + "\n";
     }
 
     private void ShowDamagePopup(int damageAmount, Character target)
     {
-        Transform spawnPoint;
+        Transform spawnPoint = target == player ? playerDamagePopupSpawn : enemyDamagePopupSpawn;
 
-        if (target == player)
-        {
-            spawnPoint = playerDamagePopupSpawn;
-        }
-        else
-        {
-            spawnPoint = enemyDamagePopupSpawn;
-        }
-
-        GameObject popup = Instantiate(damagePopup, spawnPoint.position, Quaternion.identity);
-        popup.GetComponentInChildren<TextMeshProUGUI>().text = damageAmount.ToString();
+        GameObject popup = Instantiate(damagePopup, spawnPoint);
+        popup.GetComponent<DamageNumber>().Setup(damageAmount);
     }
 }
