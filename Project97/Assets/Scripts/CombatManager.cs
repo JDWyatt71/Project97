@@ -98,6 +98,7 @@ public class CombatManager
         if (defendSO.deflect && attackSO.moveType != MoveType.Grapple)
         {
             attacker.healthSystem.TakeDamage(totalDamage); //Add Calculation on totalDamage
+            CombatEvents.RaiseDamageDealt(totalDamage, attacker);
             
             ApplyEffects(attacker, attackSO);
 
@@ -107,6 +108,7 @@ public class CombatManager
         else //Not deflected, hit
         {
             target.healthSystem.TakeDamage(totalDamage);
+            CombatEvents.RaiseDamageDealt(totalDamage, target);
             
             ApplyEffects(target, attackSO);
             analytics.RegisterAttackSuccess();

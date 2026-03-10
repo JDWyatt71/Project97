@@ -15,6 +15,7 @@ public class TurnManager : MonoBehaviour
     private FightAnalyticsTracker analytics;
     private bool submittedMoves;
 
+    [SerializeField] private CombatUI combatUI;
 
     public void Setup(Character pCharacter, Character cCharacter)
     {
@@ -39,6 +40,9 @@ public class TurnManager : MonoBehaviour
         this.computerCharacter = cCharacter;
 
         fightID = Guid.NewGuid().ToString();
+
+        combatUI.Setup(playerCharacter); // For the CombatUI class
+
         /*
         fightStartTime = Time.time;
         currentFight = new FightResult {
