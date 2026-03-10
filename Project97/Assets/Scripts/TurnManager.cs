@@ -5,6 +5,7 @@ using UnityEngine;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine.UI;
+
 [RequireComponent(typeof(MovesUIScreen))]
 public class TurnManager : MonoBehaviour
 {
@@ -160,19 +161,72 @@ public class TurnManager : MonoBehaviour
     private List<MoveSO> ScheduleRandomMoves(Character c)
     {
         System.Random rnd = new System.Random();
-        int cAP = c.actionPoints;
+        int remainingAP = c.actionPoints;
         List<MoveSO> moves = new List<MoveSO>();
-        int movesAP = 999999999;
-        int i = 1;
-        int maxIterations = 1000;
+        if (UC.RandomEvent(c.cSO.defendRate))
+        {
+            MoveSO defenceMove = UC.GetRandomDefendSO(c.cSO.defendChances, c.GetDMoves()); //It is assumed all defensive moves can be afforded always
+            moves.Insert(0, defenceMove);
+            remainingAP -= defenceMove.AP;
+        }
+        
+        //Offensive
+        //Copy attackChances locally, so can remove moves locally once selected or cannot afford the AP.
+        List<AttackChance> attackChances = new List<AttackChance>(c.cSO.attackChances); //Shallow copy, so each AttackChance is reference of original
+        
+        //Add all CharacterSO attacking moves that aren't specified in attack chance as Neutral
+        HashSet<AttackSO> allMoves = new HashSet<AttackSO>(attackChances.Select(ac => ac.attackSO));
+        foreach(AttackSO attackSO in c.GetAMoves())
+        {
+            if (!allMoves.Contains(attackSO)) //O(1) lookup with Contains for a HashSet
+            {
+                attackChances.Add(new AttackChance(attackSO, MoveWeight.Neutral));
+            }
+        }
 
-        while(movesAP > cAP){
+        bool noFavouredMoves = !attackChances.Any(a => a.weight == MoveWeight.Favoured);
+        Dictionary<MoveWeight, float> categoryProbabilities = new Dictionary<MoveWeight, float>
+        {
+            {MoveWeight.Favoured, noFavouredMoves ? 0f : 0.5f},
+            {MoveWeight.Rare, 0.15f},
+            {MoveWeight.Neutral, noFavouredMoves ? 0.85f : 0.35f}
+        };
+
+
+        while(moves.Count <= 4){
+            attackChances.RemoveAll(item => item.attackSO.AP > remainingAP); //Remove all moves that cannot be afforded
+            
+            //If there are no moves in a category due to being unaffordable or already selected, set that category probability to 0.
+            foreach (MoveWeight weight in System.Enum.GetValues(typeof(MoveWeight)))
+            {
+                if(!attackChances.Any(a => a.weight == weight)) categoryProbabilities[weight] = 0f;
+            }
+
+            //If there are no moves left in the attacking move pool, because none can be afforded, then break
+            if (attackChances.Count == 0) break; 
+
+            #region Move selection
+            //E.g. There are 3 rare moves, total probability of picking a rare move is 0.15/3. Code implements in two stages: First category selected with 0.15 probability. Then 1/3 chance of specific rare move.
+            //Get random category using category weights which is as initialised or 0 when no moves in that category
+            MoveWeight moveWeight = UC.GetWeightedRandomItem(categoryProbabilities); 
+
+            Dictionary<AttackSO, MoveWeight> dict = attackChances.ToDictionary(x => x.attackSO, x => x.weight); //Convert to dictionary
+            List<AttackSO> selectedCategoryMoves = dict.Where(kvp => kvp.Value == moveWeight).Select(kvp => kvp.Key).ToList(); 
+            
+            AttackSO randomAMove = selectedCategoryMoves[UnityEngine.Random.Range(0, selectedCategoryMoves.Count)];
+            MoveSO randomMove = (MoveSO)randomAMove;
+            moves.Add(randomMove);
+            remainingAP -= randomAMove.AP;
+            #endregion
+
+            //Remove the randomly selected move from 'attackChances'
+            attackChances.RemoveAll(item => item.attackSO == randomAMove);            
+        }
+        return moves;
+        /*while(movesAP > cAP){
             List<MoveSO> attackMoves = c.GetAMoves().OrderBy(x => rnd.Next()).Take(3).ToList<MoveSO>();
 
-            MoveSO defenceMove = c.GetDMoves().OrderBy(x => rnd.Next()).Take(1).ToList()[0];
-
             moves = new List<MoveSO>(attackMoves);
-            moves.Insert(0, defenceMove);
 
             //Count AP of all moves
             movesAP = 0;
@@ -186,8 +240,8 @@ public class TurnManager : MonoBehaviour
                 break; // Use current moves, even though can't afford
             }
             i+=1;
-        }
-        return moves;
+        }*/
+        
     }
 
     private IEnumerator PerformMoves(List<AttackSO> ms1, List<AttackSO> ms2, DefendSO d1, DefendSO d2, Character c1, Character c2)

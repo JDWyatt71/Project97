@@ -14,5 +14,8 @@ public class CharacterSO : ScriptableObject
 
     public int actionPoints;
     
-
+    [Header("Computer specific attributes")]
+    public float defendRate = 1f;
+    public List<AttackChance> attackChances;
+    public List<DefendChance> defendChances;
 }

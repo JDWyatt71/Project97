@@ -9,11 +9,14 @@ public class MovesUIScreen : MonoBehaviour
     [SerializeField] private Transform itemContainerTransform;
     public void DisplayMoves(List<MoveSO> moves)
     {
+        SelectMoveUI.I.ResetMoveSelection();
+
         //Destroy previous moves in display if applicable.
         foreach (Transform child in itemContainerTransform)
         {
             Destroy(child.gameObject);
         }
+        
         foreach (MoveSO move in moves)
         {
             RectTransform itemSlotRectTransform = Instantiate(itemTemplate, itemContainerTransform).GetComponent<RectTransform>();

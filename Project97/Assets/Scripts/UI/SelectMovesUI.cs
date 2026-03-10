@@ -9,7 +9,7 @@ public class SelectMoveUI : MonoBehaviour
     {
         I = this;
     }
-    void Start()
+    public void ResetSelectedMoves()
     {
         selectedMoves = new List<MoveSO>();
         selectedObjs = new List<GameObject>();  
@@ -18,6 +18,7 @@ public class SelectMoveUI : MonoBehaviour
     public void ResetMoveSelection()
     {
         DeselectAllObjs();
+
         defenseMoves = 0;
         attackMoves = 0;
     }
@@ -108,6 +109,8 @@ public class SelectMoveUI : MonoBehaviour
             selectedObj.SetActive(false);
 
         }
+        selectedObjs.Clear();
+
     }
     private bool CanSelectMove(MoveSO move)
     {

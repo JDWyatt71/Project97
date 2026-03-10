@@ -98,33 +98,40 @@ public class CombatManager
         //Is deflected?
         if (defendSO.deflect && attackSO.moveType != MoveType.Grapple)
         {
-            attacker.healthSystem.TakeDamage(totalDamage); //Add Calculation on totalDamage
-            CombatEvents.RaiseDamageDealt(totalDamage, attacker);
-            
-            ApplyEffects(attacker, attackSO);
+            ApplyAttackDamageAndEffects(attacker, attackSO, totalDamage);
 
             analytics.RegisterDefendSuccess();
             return AttackResult.deflected;
         }
         else //Not deflected, hit
         {
-            target.healthSystem.TakeDamage(totalDamage);
-            CombatEvents.RaiseDamageDealt(totalDamage, target);
-            
-            ApplyEffects(target, attackSO);
+            ApplyAttackDamageAndEffects(target, attackSO, totalDamage);
+
             analytics.RegisterAttackSuccess();
             return guarded ? AttackResult.guardedHit : AttackResult.hit;
         }
     }
+
+    private void ApplyAttackDamageAndEffects(Character target, AttackSO attackSO, int totalDamage)
+    {
+        if (attackSO.height == target.TryGetEffect(Effect.BrokenBones)?.height) //If has broken bones at same height as attack
+        {
+            totalDamage = Mathf.RoundToInt(totalDamage * 1.15f);
+        }
+        target.healthSystem.TakeDamage(totalDamage);
+        CombatEvents.RaiseDamageDealt(totalDamage, target);
+
+        ApplyEffects(target, attackSO, attackSO.height);
+    }
     #region Effects
 
-    private void ApplyEffects(Character character, AttackSO attackSO)
+    private void ApplyEffects(Character character, AttackSO attackSO, Scale moveHeight)
     {
         foreach(EffectChance eC in attackSO.effects)
         {
             if (UC.RandomEvent(GetEffectChance(eC.chance)))
             {
-                character.AddEffect(eC.effect);
+                character.AddEffect(eC.effect, moveHeight);
 
                 //string effectName = eC.effect.name; // once we figure out the effects.
                 //analytics.RegisterEffectApplied(effectName);
@@ -151,10 +158,9 @@ public class CombatManager
     }
     private static readonly float[] accuracyValues = { 0.4f, 0.65f, 0.8f, 0.88f, 0.95f};
 
-    private float GetBaseAccuracy(Accuracy accuracy) //Not implemented completely, add actual accuracy values
+    private float GetBaseAccuracy(Accuracy accuracy)
     {
         return accuracyValues[(int)accuracy];
-
     }
     #endregion
     #region Damage Calculation

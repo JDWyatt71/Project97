@@ -34,6 +34,7 @@ public class Character : MonoBehaviour
     private int baseActionPoints;
     public int actionPoints {private set; get;}
     public int hitPoints; //Not used
+    private int baseAttack;
     public int attack;
     public void ChangeAttack(int amount)
     {
@@ -51,23 +52,16 @@ public class Character : MonoBehaviour
     {
         evasion += amount;
     }
-
-    private Dictionary<Effect, int> effects = new Dictionary<Effect, int>();
-    public void AddEffect(Effect effect)
-    {
-        effects[effect] = EffectDefaults.Durations[effect];
-        if(effect == Effect.Bind)
-        {
-            bindDPercentage = 0.03f;
-        }
-    }
+    public CharacterSO cSO {private set; get;}
     public void Setup(CharacterSO characterSO = default(CharacterSO))
     {
+        cSO = characterSO;
+
         healthSystem = GetComponent<HealthSystem>();
         healthSystem.Setup(characterSO.hitPoints);
         SetupMoves(characterSO.aMoves, characterSO.dMoves);
-        attack = characterSO.attack;
-
+        
+        baseAttack = characterSO.attack;
         baseAccuracy = characterSO.accuracy;
         baseEvasion = characterSO.evasion;
         baseActionPoints = characterSO.actionPoints;
@@ -80,8 +74,13 @@ public class Character : MonoBehaviour
         accuracy = baseAccuracy;
         evasion = baseEvasion;
         actionPoints = baseActionPoints;
+        attack = baseAttack;
     }
-
+    private void TrySetActionPoints(int amount)
+    {
+        //Prone effect sets action points to 0 to skip turn, therefore if turn has been skipped do not update action points from another effect.
+        if(actionPoints != 0) actionPoints = amount;  
+    }
     private void SetupMoves(List<AttackSO> initialAMoves, List<DefendSO> initialDMoves)
     {
         //Copy the character's starting moves to this character
@@ -89,22 +88,36 @@ public class Character : MonoBehaviour
         dMoves = new List<DefendSO>(initialDMoves);
 
     }
+    #region Effects
+    private Dictionary<Effect, EffectData> effects = new Dictionary<Effect, EffectData>();
+    public void AddEffect(Effect effect, Scale height)
+    {
+        effects[effect] = new EffectData(EffectDefaults.Durations[effect], height);
+        if(effect == Effect.Bind)
+        {
+            bindDPercentage = 0.03f;
+        }
+    }
+    public EffectData TryGetEffect(Effect effect)
+    {
+        return effects.TryGetValue(effect, out EffectData data) ? data : null;
+    }
     /// <summary>
     /// At start of each turn, TurnManager calls for each Character
     /// </summary>
     public void DoEffects(float binderAttack)
     {
         ResetCurrentStats();
-        foreach (var effect in effects.Keys.ToList()) //Loops through a copy, so safe to modify dictionary in this loop
+        foreach (Effect effect in effects.Keys.ToList()) //Loops through a copy, so safe to modify dictionary in this loop
         {
             DoEffect(effect);
-            effects[effect] -= 1;
-            if (effects[effect] == 0) //Doesn't remove -1 or below which signifies unlimited
+            effects[effect].duration -= 1;
+            if (effects[effect].duration == 0) //Doesn't remove -1 or below which signifies unlimited
             {
                 effects.Remove(effect);
                 
             }
-            if(effect != Effect.Bind && effects[effect] <= 2)
+            else if(effect == Effect.Bind && effects[effect].duration <= 2)
             {
                 if (UC.RandomEventPercentage( ((evasion - binderAttack) / 100f) + 0.5f) )
                 {
@@ -120,11 +133,12 @@ public class Character : MonoBehaviour
         switch (effect)
         {
             case Effect.AdrenalineRush:
-
+                TrySetActionPoints(actionPoints+2);
                 break;
 
             case Effect.Enraged:
-
+                accuracy -= 0.2f * baseAccuracy;
+                attack += Mathf.CeilToInt(0.1f * baseAttack);
                 break;
 
             case Effect.Blindness:
@@ -142,15 +156,15 @@ public class Character : MonoBehaviour
                 break;
 
             case Effect.Wind:
-                actionPoints = Mathf.RoundToInt(baseActionPoints / 3);
+                TrySetActionPoints(Mathf.RoundToInt(baseActionPoints / 3));
                 break;
 
             case Effect.Prone:
-                actionPoints = 0;
+                TrySetActionPoints(0);
                 break;
 
             case Effect.BrokenBones:
-                
+                //Does nothing at start of turn
                 break;
 
             case Effect.Bleed:
@@ -163,4 +177,5 @@ public class Character : MonoBehaviour
                 break;
         }
     }
+    #endregion
 }
