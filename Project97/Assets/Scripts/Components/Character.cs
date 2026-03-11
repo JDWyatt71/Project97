@@ -151,12 +151,12 @@ public class Character : MonoBehaviour
                 break;
 
             case Effect.Bind:
-                healthSystem.TakeDamage(Mathf.RoundToInt(bindDPercentage * healthSystem.GetMaxHealth()));
+                healthSystem.TakeDamage(Mathf.CeilToInt(bindDPercentage * healthSystem.GetMaxHealth()));
                 bindDPercentage += 0.03f;
                 break;
 
             case Effect.Wind:
-                TrySetActionPoints(Mathf.RoundToInt(baseActionPoints / 3));
+                TrySetActionPoints(Mathf.CeilToInt(baseActionPoints / 3));
                 break;
 
             case Effect.Prone:

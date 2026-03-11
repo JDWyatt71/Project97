@@ -116,7 +116,7 @@ public class CombatManager
     {
         if (attackSO.height == target.TryGetEffect(Effect.BrokenBones)?.height) //If has broken bones at same height as attack
         {
-            totalDamage = Mathf.RoundToInt(totalDamage * 1.15f);
+            totalDamage = Mathf.CeilToInt(totalDamage * 1.15f);
         }
         target.healthSystem.TakeDamage(totalDamage);
         CombatEvents.RaiseDamageDealt(totalDamage, target);
