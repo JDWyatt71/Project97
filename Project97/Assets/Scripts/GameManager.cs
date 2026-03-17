@@ -6,6 +6,7 @@ using System;
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.UnityConsent;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class GameManager : MonoBehaviour
     private Inventory pInventory;
     private UpgradeScreenUI upgradeScreenUI;
     [SerializeField] private CharacterSO pCSO;
+    [SerializeField] private List<CharacterSO> cCs;
     [SerializeField] private CharacterSO cCSO1;
     [SerializeField] private CharacterSO cCSO2;
 
@@ -29,7 +31,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Image computerImage;
 
     public GameObject pCharacter {private set; get;}
+    private Character pC;
     private TurnManager turnManager;
+    public int round {private set; get;} = 1; 
 
     void Awake()
     {
@@ -50,9 +54,12 @@ public class GameManager : MonoBehaviour
         Debug.Log("RunStarted event sent;");
 
         pCharacter = SetupCharacter("Player", pCSO, playerHealthBar);
+        pC = pCharacter.GetComponent<Character>();
         pInventory = pCharacter.GetComponent<Inventory>();
-        GameObject cCharacter = SetupCharacter("Dojo Challenger", cCSO1, computerHealthBar);
-        computerImage.sprite = cCSO1.sprite;
+
+        CharacterSO cSO = cCs[round-1];
+        GameObject cCharacter = SetupCharacter(cSO.name, cSO, computerHealthBar);
+        computerImage.sprite = cSO.sprite;
 
         turnManager = gameObject.AddComponent<TurnManager>();
         turnManager.Setup(pCharacter.GetComponent<Character>(), cCharacter.GetComponent<Character>());
@@ -74,15 +81,18 @@ public class GameManager : MonoBehaviour
     private void RoundComplete(bool playerWon)
     {
         //upgradeScreenUI.DisplayItems(AssetsDatabase.I.items);
-
+        round++;
+        pC.ResetRestActions();
+        pC.RemoveAllEffects();
         if(playerWon) upgradeScreenUI.DisplayUpgrades();
     }
     private void UpgradeSelected()
     {
         //Once upgrade selected at end of a fight, start the next round
-        GameObject cCharacter = SetupCharacter("Comeback Fighter", cCSO2, computerHealthBar);
-        computerImage.sprite = cCSO2.sprite;
+        CharacterSO cSO = cCs[round-1];
 
+        GameObject cCharacter = SetupCharacter(cSO.name, cSO, computerHealthBar);
+        computerImage.sprite = cSO.sprite;
 
         turnManager.StartFight(cCharacter.GetComponent<Character>());
     }

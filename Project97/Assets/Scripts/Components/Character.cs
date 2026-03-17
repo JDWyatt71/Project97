@@ -11,9 +11,9 @@ public class Character : MonoBehaviour
     {
         return aMoves;
     }
-    public void AddAMove(AttackSO attackSO)
+    public void AddAMoves(params AttackSO[] attackSOs) //Automatically wraps single item to array
     {
-        aMoves.Add(attackSO);
+        aMoves.AddRange(attackSOs);
     }
     private List<DefendSO> dMoves; //Defensive moves pool
 
@@ -21,9 +21,9 @@ public class Character : MonoBehaviour
     {
         return dMoves;
     }
-    public void AddDMove(DefendSO defendSO)
+    public void AddDMoves(params DefendSO[] defendSOs) 
     {
-        dMoves.Add(defendSO);
+        dMoves.AddRange(defendSOs);
     }
     public List<MoveSO> GetAllMoves()
     {
@@ -53,6 +53,19 @@ public class Character : MonoBehaviour
         evasion += amount;
     }
     public CharacterSO cSO {private set; get;}
+    public int restAction {private set; get;}
+    public void TryUseRestAction()
+    {
+        if(restAction > 0)
+        {
+            restAction -= 1;
+            healthSystem.Heal(Mathf.CeilToInt(healthSystem.GetMaxHealth() * 0.03f)); //Heal 3% of max health
+        }
+    }
+    public void ResetRestActions()
+    {
+        restAction = 3;
+    }
     public void Setup(CharacterSO characterSO = default(CharacterSO))
     {
         cSO = characterSO;
@@ -67,6 +80,7 @@ public class Character : MonoBehaviour
         baseActionPoints = characterSO.actionPoints;
 
         ResetCurrentStats();
+        ResetRestActions();
     }
 
     private void ResetCurrentStats()
@@ -90,6 +104,10 @@ public class Character : MonoBehaviour
     }
     #region Effects
     private Dictionary<Effect, EffectData> effects = new Dictionary<Effect, EffectData>();
+    public void RemoveAllEffects()
+    {
+        effects = new Dictionary<Effect, EffectData>();
+    }
     public void AddEffect(Effect effect, Scale height)
     {
         effects[effect] = new EffectData(EffectDefaults.Durations[effect], height);

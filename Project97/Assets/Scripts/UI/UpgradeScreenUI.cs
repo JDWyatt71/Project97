@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -39,70 +40,108 @@ public class UpgradeScreenUI : MonoBehaviour
             priceForNextActionText.SetText(string.Format("{0}\n", item.name));
         }
     } 
-   private Dictionary<string, Action> upgrades = new Dictionary<string, Action>()
+   private List<string> upgrades = new List<string>()
     {
-        { "Hit Points +15", () =>
-            {
-                HealthSystem pHS = GameManager.I.pCharacter.GetComponent<HealthSystem>();
+        "Hit Points +15",
+        "Attack +8 & Evasion -2",
+        
+    };
+    public void ApplyUpgrade(string upgradeName)
+    {
+        var character = GameManager.I.pCharacter;
+        var pC = character.GetComponent<Character>();
+        var pHS = character.GetComponent<HealthSystem>();
+
+        switch (upgradeName)
+        {
+            case "Hit Points +15":
                 pHS.IncreaseMaxHealth(15);
                 pHS.Heal(15);
-            }
-        },
+                break;
 
-        { "Attack +8 & Evasion -2", () =>
-            {
-                Character pC = GameManager.I.pCharacter.GetComponent<Character>();
-                pC.ChangeAttack(+8);
+            case "Attack +8 & Evasion -2":
+                pC.ChangeAttack(8);
                 pC.ChangeEvasion(-2);
-            }
-        },
+                break;
 
-        { "Unlock Floor Throwdown", () =>
-            {
-                Character pC = GameManager.I.pCharacter.GetComponent<Character>();
-                pC.AddAMove(AssetsDatabase.I.aMoves[0]);
-            }
-        },
-
-        { "Unlock High Crosscut", () =>
-            {
-                Character pC = GameManager.I.pCharacter.GetComponent<Character>();
-                pC.AddAMove(AssetsDatabase.I.aMoves[1]);
-
-            }
+            default:
+                Debug.LogWarning($"Upgrade {upgradeName} not found!");
+                break;
         }
-    };
+    }
+    //pC.AddAMoves(AssetsDatabase.I.aMoves[0]);
 
     public void DisplayUpgrades()
     {
+        Character pC = GameManager.I.pCharacter.GetComponent<Character>();
+
         itemScreen.SetActive(true);
-        if(upgradesCreated) return;
-        foreach (KeyValuePair<string, Action> pair in upgrades)
+        if (upgradesCreated) return;
+        foreach (string upgrade in upgrades)
         {
-            RectTransform itemSlotRectTransform = Instantiate(itemTemplate, itemContainerTransform).GetComponent<RectTransform>();
-            itemSlotRectTransform.gameObject.SetActive(true);
-
-            Transform imageTransform = itemSlotRectTransform.Find("image");
-
-            imageTransform.GetComponent<Button>().onClick.AddListener(() =>
+            MakeUpgradeBtn(upgrade).onClick.AddListener(() =>
             {
-                pair.Value(); //Run function for upgrade
+                ApplyUpgrade(upgrade);
                 itemScreen.SetActive(false);
                 UpgradeSelected?.Invoke();
             });
-            
-            /*Image image = itemSlotRectTransform.Find("image").GetComponent<Image>();
-            image.preserveAspect = true;
-            if (item.sprite != null)
-            {
-                image.sprite = item.sprite;
-            }*/
-
-            TextMeshProUGUI priceForNextActionText = itemSlotRectTransform.Find("text").GetComponent<TextMeshProUGUI>();
-            priceForNextActionText.SetText(string.Format("{0}\n", pair.Key));
         }
+        //Round will be 2 for first in game upgrade screen. Which results in index 1 (the second upgradeSOs, after the starting one)
+        List<AttackSO> aMovePool = AssetsDatabase.I.upgradesSOs[GameManager.I.round-1].aSOs; 
+        List<DefendSO> dMovePool = AssetsDatabase.I.dMoves;
+        
+        foreach (AttackSO move in aMovePool)
+        {
+            AttackSO localMove = move; //Safety copy for closure
+            CreateUpgrade(pC.GetAMoves().Contains(move), localMove.name, (pC) => pC.AddAMoves(localMove));
+        }
+
+        foreach (DefendSO move in dMovePool.Take(2))
+        {
+            DefendSO localMove = move;
+            CreateUpgrade(pC.GetDMoves().Contains(move), localMove.name, (pC) => pC.AddDMoves(localMove));
+        }
+
+        CreateUpgrade(pC.GetDMoves().Contains(AssetsDatabase.I.dMoves[2]), "Block", (pC) => pC.AddDMoves(AssetsDatabase.I.dMoves.ToArray()[2..5]));
+        CreateUpgrade(pC.GetDMoves().Contains(AssetsDatabase.I.dMoves[5]),"Guard", (pC) => pC.AddDMoves(AssetsDatabase.I.dMoves.ToArray()[5..8]));
+
         upgradesCreated = true;
-    } 
+    }
+
+    
+    private void CreateUpgrade(bool haveMove, string name, Action<Character> upgradeLogic)
+    {
+        if(haveMove) return;
+        MakeUpgradeBtn("Unlock " + name).onClick.AddListener(() =>
+        {
+            Character pC = GameManager.I.pCharacter.GetComponent<Character>();
+
+            upgradeLogic?.Invoke(pC);
+
+            itemScreen.SetActive(false);
+            UpgradeSelected?.Invoke();
+        });
+    }
+    private Button MakeUpgradeBtn(string upgradeName)
+    {
+        RectTransform itemSlotRectTransform = Instantiate(itemTemplate, itemContainerTransform).GetComponent<RectTransform>();
+        itemSlotRectTransform.gameObject.SetActive(true);
+
+        TextMeshProUGUI priceForNextActionText = itemSlotRectTransform.Find("text").GetComponent<TextMeshProUGUI>();
+        priceForNextActionText.SetText(string.Format("{0}\n", upgradeName));
+
+        Transform imageTransform = itemSlotRectTransform.Find("image");
+        return imageTransform.GetComponent<Button>();
+
+        /*Image image = itemSlotRectTransform.Find("image").GetComponent<Image>();
+        image.preserveAspect = true;
+        if (item.sprite != null)
+        {
+            image.sprite = item.sprite;
+        }*/
+        
+    }
+
     private IEnumerator SelectItem(ItemSO item, GameObject selectImage)
     {
         //Optional delay
