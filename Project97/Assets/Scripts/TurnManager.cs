@@ -140,11 +140,13 @@ public class TurnManager : MonoBehaviour
 
         //Get player moves from
         List<MoveSO> pMoves = new List<MoveSO>(SelectMoveUI.I.GetSelectedMoves()); //Shallow copy of list
+        TryRestAction(pCharacter, SelectMoveUI.I.GetCurrentAP());
         //Extracts AttackSO and single DefendSO from pMoves
         List<AttackSO> pAMoves = pMoves.OfType<AttackSO>().ToList();
         DefendSO pDMove = pMoves.OfType<DefendSO>().FirstOrDefault();
 
         List<MoveSO> cMoves = ScheduleRandomMoves(cCharacter);
+
         List<AttackSO> cAMoves = cMoves.OfType<AttackSO>().ToList();
         DefendSO cDMove = cMoves.OfType<DefendSO>().FirstOrDefault();
         
@@ -153,6 +155,15 @@ public class TurnManager : MonoBehaviour
         yield return StartCoroutine(PerformMoves(pAMoves, cAMoves, pDMove, cDMove, pCharacter, cCharacter));
         Debug.Log("Turn end");
     }
+
+    private void TryRestAction(Character c, int remainingAP)
+    {
+        if(remainingAP >= 1)
+        {
+            c.TryUseRestAction();
+        }
+    }
+
     /// <summary>
     /// Returns defense move first
     /// </summary>
@@ -222,6 +233,8 @@ public class TurnManager : MonoBehaviour
             //Remove the randomly selected move from 'attackChances'
             attackChances.RemoveAll(item => item.attackSO == randomAMove);            
         }
+        TryRestAction(c, remainingAP);
+
         return moves;
         /*while(movesAP > cAP){
             List<MoveSO> attackMoves = c.GetAMoves().OrderBy(x => rnd.Next()).Take(3).ToList<MoveSO>();

@@ -13,4 +13,5 @@ public class AssetsDatabase : MonoBehaviour
     public GameObject characterPf;
     public DefendSO defaultDefendSO;
     public List<ItemSO> items;
+    public List<UpgradesSO> upgradesSOs;
 }

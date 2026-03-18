@@ -1826,9 +1826,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: de406dcfb3efafc498e73f73f203250a, type: 2}
   dMoves:
   - {fileID: 11400000, guid: b0565ee1bb5921d45bbc42a9c61da452, type: 2}
-  - {fileID: 11400000, guid: b3ecc9a0b25be3049a50190efb4ae576, type: 2}
+  - {fileID: 11400000, guid: 021163f496a958942914aaf897105689, type: 2}
   - {fileID: 11400000, guid: 165a7edce86563c4a8534f002600b3f9, type: 2}
   - {fileID: 11400000, guid: 52be9521818ab4d41ad1c41efc940596, type: 2}
+  - {fileID: 11400000, guid: b3ecc9a0b25be3049a50190efb4ae576, type: 2}
+  - {fileID: 11400000, guid: ddf631caf2567e6449dd6ae51788bdfe, type: 2}
+  - {fileID: 11400000, guid: 5d522cf82d3dd0d4b9829e8350ee0fa9, type: 2}
+  - {fileID: 11400000, guid: 349ac2533ff4d4f4c9533df761f948d0, type: 2}
   characterPf: {fileID: 5318015876209848452, guid: 1f71a4730de73604891b338a5b541178, type: 3}
   defaultDefendSO: {fileID: 11400000, guid: 5e17a4a0b0ef85b48bd6682ddbd1b172, type: 2}
   items:
@@ -1839,6 +1843,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d148bf77165e69d4cb4fcd250896a0a7, type: 2}
   - {fileID: 11400000, guid: 3231c206ca4db5844b5c56afa45ebe66, type: 2}
   - {fileID: 11400000, guid: fe89b1959b22a4247b4d89dd67f74573, type: 2}
+  upgradesSOs:
+  - {fileID: 11400000, guid: 3e5b7dfb3c9c4c54ca72767eaf1d1d4c, type: 2}
+  - {fileID: 11400000, guid: e5b9846780fdc834d87f21198c03d480, type: 2}
 --- !u!4 &1356588626
 Transform:
   m_ObjectHideFlags: 0
@@ -2564,6 +2571,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   pCSO: {fileID: 11400000, guid: a73199f1a4385df46ab734a13cad8599, type: 2}
+  cCs:
+  - {fileID: 11400000, guid: 3cf43194f33d71444a38649773b5ae54, type: 2}
+  - {fileID: 11400000, guid: 8ab313d7e61cff74b894270ac4be328f, type: 2}
   cCSO1: {fileID: 11400000, guid: 3cf43194f33d71444a38649773b5ae54, type: 2}
   cCSO2: {fileID: 11400000, guid: 8ab313d7e61cff74b894270ac4be328f, type: 2}
   playerHealthBar: {fileID: 1545752617}
@@ -2818,7 +2828,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 903832209}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.13043478
+  m_Size: 0.13043477
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
