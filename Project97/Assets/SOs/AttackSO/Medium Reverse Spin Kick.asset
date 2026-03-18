@@ -17,7 +17,8 @@ MonoBehaviour:
   AP: 4
   height: 2
   effects:
-  - effect: 7
+  - effect: 8
     chance: 4
   damage: 4
   accuracy: 1
+  ignoresGuard: 1

@@ -9,16 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b6f12e87bcce0b43ad2fee356dd15e0, type: 3}
-  m_Name: Floor Throwdown
-  m_EditorClassIdentifier: Assembly-CSharp::AttackSO
-  moveType: 2
+  m_Script: {fileID: 11500000, guid: 4838c6adad0c36643b18bfe8ebc62bc6, type: 3}
+  m_Name: Medium Counter
+  m_EditorClassIdentifier: Assembly-CSharp::DefendSO
+  moveType: 3
   sprite: {fileID: 0}
-  AP: 4
-  height: 6
-  effects:
-  - effect: 6
-    chance: 5
-  damage: 2
-  accuracy: 1
-  ignoresGuard: 0
+  AP: 3
+  height: 2
+  effects: []
+  damageReductionMultiplier: 1
+  deflect: 1
+  block: 0
+  dodgeBonusPercent: 0

@@ -85,7 +85,7 @@ public class CombatManager
         int basedam = GetDamage(attackSO.damage);
         float initialDamage = CalculateInitialDamage(basedam, attacker.attack);
         bool guarded = false;
-        if(attackSO.height == defendSO.height){ //Guard
+        if(attackSO.height == defendSO.height && !attackSO.ignoresGuard){ //Guard
             totalDamage = TotalDam(initialDamage, 1-defendSO.damageReductionMultiplier);
             guarded = true;
         }
@@ -156,7 +156,7 @@ public class CombatManager
         float baseAccuracy = GetBaseAccuracy(accuracy) * 100f;
         return Mathf.Round(baseAccuracy + CalculateAccuracyEvasionMultiplier(attackerAccuracy, defenderEvasion) - dodgeBonusPercent) / 100f;
     }
-    private static readonly float[] accuracyValues = { 0.4f, 0.65f, 0.8f, 0.88f, 0.95f};
+    private static readonly float[] accuracyValues = { 0.4f, 0.65f, 0.8f, 0.88f, 0.95f, 1f};
 
     private float GetBaseAccuracy(Accuracy accuracy)
     {
@@ -165,7 +165,7 @@ public class CombatManager
     #endregion
     #region Damage Calculation
     private float damageMultiplier = 1f;
-    private static readonly float[] damageValues = { 3f, 5f, 7f, 8.5f, 10f };
+    private static readonly float[] damageValues = { 3f, 5f, 7f, 8.5f, 10f, 0f, 0f /*None*/ }; //Need to ad damage value for very high new
 
     private int GetDamage(Scale damage)
     {

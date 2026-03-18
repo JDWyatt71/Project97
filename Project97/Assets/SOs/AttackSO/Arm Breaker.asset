@@ -10,17 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b6f12e87bcce0b43ad2fee356dd15e0, type: 3}
-  m_Name: Medium Spin Kick
+  m_Name: Arm Breaker
   m_EditorClassIdentifier: Assembly-CSharp::AttackSO
-  moveType: 1
-  sprite: {fileID: -8981823224731982955, guid: 601398e1b692e3f4a92509355bf6a2a6, type: 3}
-  AP: 3
-  height: 2
+  moveType: 2
+  sprite: {fileID: 0}
+  AP: 6
+  height: 6
   effects:
-  - effect: 2
-    chance: 3
-  - effect: 3
-    chance: 1
-  damage: 2
+  - effect: 7
+    chance: 4
+  damage: 4
   accuracy: 2
   ignoresGuard: 0
