@@ -5,7 +5,6 @@ using System.Reflection;
 using NUnit.Framework;
 #endif
 using UnityEngine;
-
 // check that moves run in the order they were picked (no shuffling or doubling)
 public class MoveExecutionOrderTests
 {
