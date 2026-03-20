@@ -34,6 +34,12 @@ public class TelemetryLogger : MonoBehaviour
         }
         _savePath = Path.Combine(persistentfolderPath, $"{_sessionId}-analytics.json");
 
+        string checking = Path.Combine(Directory.GetParent(Application.dataPath).FullName, "Data");
+        if (!Directory.Exists(checking)){
+            Directory.CreateDirectory(checking);
+            UnityEngine.Debug.Log($"Created folder for analytics: {checking}");
+        }
+
         exeSave = Path.Combine(Directory.GetParent(Application.dataPath).FullName, $"Data/{_sessionId}_analytics.json");
 
         UnityEngine.Debug.Log($"JSON Analytics Initialized | Save Path: {_savePath}");
