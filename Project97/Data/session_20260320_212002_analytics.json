@@ -1,0 +1,64 @@
+[
+  {
+    "event_type": "run_start",
+    "timestamp_utc": "2026-03-20T21:20:08.8323630Z",
+    "data": {
+      "run_id": "3eea1db1-05cc-47d2-aeab-e6d31bfefed5",
+      "difficulty": "normal",
+      "start_time": 2.626053
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-03-20T21:20:08.9186492Z",
+    "data": {
+      "fight_id": "6d2738cd-a948-48db-8c77-0f82d57d8856",
+      "start_time": 2.626053
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-20T21:20:34.7145136Z",
+    "data": {
+      "move_name": "High Punch",
+      "user_type": "Player (Character)",
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-20T21:20:36.6917216Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "user_type": "Dojo Challenger (Character)",
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-20T21:20:38.6936530Z",
+    "data": {
+      "move_name": "High Punch",
+      "user_type": "Dojo Challenger (Character)",
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-20T21:20:40.6946290Z",
+    "data": {
+      "move_name": "Pummel",
+      "user_type": "Dojo Challenger (Character)",
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-20T21:20:42.6981665Z",
+    "data": {
+      "move_name": "Low Punch",
+      "user_type": "Dojo Challenger (Character)",
+      "target_type": "Player (Character)"
+    }
+  }
+]

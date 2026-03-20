@@ -1,6 +1,8 @@
 using System.IO;
 using System;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
