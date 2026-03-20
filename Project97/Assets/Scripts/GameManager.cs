@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
         runStartTime = Time.time;
 
         GameEvents.RaiseRunStarted(currentRunId, "normal", runStartTime);
+        TelemetryLogger.Instance.SaveToJson();
         Debug.Log("RunStarted event sent;");
 
         pCharacter = SetupCharacter("Player", pCSO, playerHealthBar);

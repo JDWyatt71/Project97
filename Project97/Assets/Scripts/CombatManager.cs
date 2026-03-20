@@ -55,7 +55,7 @@ public class CombatManager
     private AttackResult PerformAttack(Character attacker, Character target, AttackSO attackSO, DefendSO defendSO = null)
     {
         string moveName = attackSO.name;
-        GameEvents.RaiseMoveUsed(moveName, attacker.ToString());
+        GameEvents.RaiseMoveUsed(moveName, attacker.ToString(), target.ToString());
         analytics.RegisterAttackAttempt();
 
         if (defendSO == null)
