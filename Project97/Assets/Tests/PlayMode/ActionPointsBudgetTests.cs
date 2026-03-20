@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+#if UNITY_EDITOR
 using NUnit.Framework;
+#endif
 using UnityEngine;
 
 // test that AP cant go negative cant select move if too expensive AP goes down when u select and back up when u deselect

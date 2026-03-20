@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+#if UNITY_EDITOR
 using NUnit.Framework;
+#endif
 using UnityEngine;
 
 // damage calc  attack does damage, defend reduces it, health doesnt go below 0

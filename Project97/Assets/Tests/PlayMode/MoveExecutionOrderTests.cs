@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+#if UNITY_EDITOR
 using NUnit.Framework;
+#endif
 using UnityEngine;
 
 // check that moves run in the order they were picked (no shuffling or doubling)

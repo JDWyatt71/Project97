@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+#if UNITY_EDITOR
 using NUnit.Framework;
+#endif
 using UnityEngine;
 
 // when someone hits 0 hp theyre dead and the combat loop should stop

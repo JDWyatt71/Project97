@@ -187,9 +187,9 @@ public class AnalyticsManager : MonoBehaviour
         Record(new UpgradeChosenEvent(level, type, value));
     }
 
-    public void TrackMoveUsed(string moveName, string userType)
+    public void TrackMoveUsed(string moveName, string userType, string target)
     {
-        Record(new MoveUsedEvent(moveName, userType));
+        Record(new MoveUsedEvent(moveName, userType, target));
     }
 
     public void TrackStatusApplied(string statusName, string targetType, string sourceMove = "")
