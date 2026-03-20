@@ -3,5 +3,6 @@ public enum Accuracy{
     Low,
     Medium,
     MediumHigh,
-    High
+    High,
+    Guaranteed
 }

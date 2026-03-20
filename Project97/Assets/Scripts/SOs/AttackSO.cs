@@ -4,5 +4,5 @@ public class AttackSO : MoveSO
 {
    public Scale damage;
    public Accuracy accuracy;
-
+   public bool ignoresGuard = false;
 }

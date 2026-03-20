@@ -19,9 +19,8 @@ MonoBehaviour:
   effects:
   - effect: 2
     chance: 3
-  - effect: 4
-    chance: 2
   - effect: 3
     chance: 1
   damage: 2
   accuracy: 2
+  ignoresGuard: 0

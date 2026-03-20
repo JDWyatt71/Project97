@@ -19,17 +19,24 @@ public class CombatUI : MonoBehaviour
     {
         CombatEvents.OnLogUpdate += UpdateCombatLog;
         CombatEvents.OnDamageDealt += ShowDamagePopup;
+        CombatEvents.OnTurnStart += ClearCombatLog;
     }
 
     private void OnDisable()
     {
         CombatEvents.OnLogUpdate -= UpdateCombatLog;
         CombatEvents.OnDamageDealt -= ShowDamagePopup;
+        CombatEvents.OnTurnStart -= ClearCombatLog;
     }
 
     private void UpdateCombatLog(string message)
     {
         combatLogText.text += "\n" + message + "\n";
+    }
+
+    private void ClearCombatLog()
+    {
+        combatLogText.text = "";
     }
 
     private void ShowDamagePopup(int damageAmount, Character target)
