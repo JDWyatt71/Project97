@@ -64,23 +64,6 @@ public class CombatManager
             defendSO = AssetsDatabase.I.defaultDefendSO;
         }
 
-        //2 non-damaging attack options
-        //Is dodge?
-        float moveAccuracy = CalculateMoveAccuracy(attackSO.accuracy, attacker.accuracy, target.evasion, defendSO.dodgeBonusPercent);
-        if (!UC.RandomEvent(moveAccuracy))
-        {
-            return AttackResult.dodged; //So don't do any damage.
-        }
-
-        //Is block?
-        if(defendSO.block && attackSO.height == defendSO.height && attackSO.moveType != MoveType.Grapple) 
-        {
-            analytics.RegisterDefendSuccess();
-            return AttackResult.blocked;
-        }
-        
-        //3 damaging attack options
-
         //Is guarded?
         int totalDamage;
         int basedam = GetDamage(attackSO.damage);
@@ -94,16 +77,45 @@ public class CombatManager
         {          
             totalDamage = TotalDam(initialDamage, 1);
         }
+
+        //2 non-damaging attack options
+        //Is dodge?
+        float moveAccuracy = CalculateMoveAccuracy(attackSO.accuracy, attacker.accuracy, target.evasion, defendSO.dodgeBonusPercent);
+        if (!UC.RandomEvent(moveAccuracy))
+        {
+            //Check catches dodge
+            bool caughtDodge = attackSO.catchesDodge && UC.RandomEvent(GetEffectChance(attackSO.catchesDodgeChance));
+            if(!caughtDodge){
+                if (defendSO.duck)
+                {
+                    //Ducked successfully 
+                    ApplyAttackDamageAndEffects(attacker, attackSO, totalDamage);
+                    
+                    analytics.RegisterDefendSuccess();
+                    return AttackResult.ducked;
+                } 
+                else
+                {
+                    return AttackResult.dodged; //So don't do any damage.
+                }
+            }
+            
+        }
+
+        //Is block?
+        if(defendSO.block && attackSO.height == defendSO.height && attackSO.moveType != MoveType.Grapple) 
+        {
+            analytics.RegisterDefendSuccess();
+            return AttackResult.blocked;
+        }
+        
+        //3 damaging attack options
+
+        
         //Debug.Log($"basedam: {basedam}, initialDamage: {initialDamage}, total damage: {totalDamage}");
 
-        //Is ducked or deflected/countered?
-        if (defendSO.duck)
-        {
-            //No damage to either player
-            analytics.RegisterDefendSuccess();
-            return AttackResult.ducked;
-        }
-        else if (defendSO.deflect && attackSO.moveType != MoveType.Grapple)
+        //Is deflected/countered?
+        if (defendSO.deflect && attackSO.moveType != MoveType.Grapple)
         {
             ApplyAttackDamageAndEffects(attacker, attackSO, totalDamage);
 
