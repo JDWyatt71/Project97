@@ -95,6 +95,12 @@ public class GameManager : MonoBehaviour
         GameObject cCharacter = SetupCharacter(cSO.name, cSO, computerHealthBar);
         computerImage.sprite = cSO.sprite;
 
+        //Passive upgrades between every round
+        pC.ChangeAccuracy(2); pC.ChangeAttack(2); pC.ChangeEvasion(2);
+        HealthSystem pHS = pCharacter.GetComponent<HealthSystem>();
+        pHS.IncreaseMaxHealth(5);
+        pHS.Heal(5);
+
         turnManager.StartFight(cCharacter.GetComponent<Character>());
     }
 

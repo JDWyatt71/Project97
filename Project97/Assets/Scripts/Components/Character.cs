@@ -33,24 +33,29 @@ public class Character : MonoBehaviour
     }
     private int baseActionPoints;
     public int actionPoints {private set; get;}
+    public void ChangeActionPoints(int amount)
+    {
+        baseActionPoints += amount;
+        baseActionPoints = Mathf.Max(10, baseActionPoints); //Max AP is 10
+    }
     public int hitPoints; //Not used
     private int baseAttack;
     public int attack;
     public void ChangeAttack(int amount)
     {
-        attack += amount;
+        baseAttack += amount;
     }
     private float baseAccuracy;
     public float accuracy {private set; get;}
     public void ChangeAccuracy(float amount)
     {
-        accuracy += amount;
+        baseAccuracy += amount;
     }
     private float baseEvasion;
     public float evasion {private set; get;}
     public void ChangeEvasion(float amount)
     {
-        evasion += amount;
+        baseEvasion += amount;
     }
     public CharacterSO cSO {private set; get;}
     public int restAction {private set; get;}
@@ -85,6 +90,7 @@ public class Character : MonoBehaviour
 
     private void ResetCurrentStats()
     {
+        Debug.Log("reset stats");
         accuracy = baseAccuracy;
         evasion = baseEvasion;
         actionPoints = baseActionPoints;

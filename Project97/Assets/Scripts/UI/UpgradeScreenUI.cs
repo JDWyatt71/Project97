@@ -42,35 +42,74 @@ public class UpgradeScreenUI : MonoBehaviour
             priceForNextActionText.SetText(string.Format("{0}\n", item.name));
         }
     } 
-   private List<string> upgrades = new List<string>()
+    /*
+    Standard increase: HP +15, attack/accuracy/evasion +6, AP +1
+
+    Increase and decrease. HP +20, attack/accuracy/evasion +8. Decrease is 1/4 of this for respective type.
+    increase attack+decrease hp
+    Increase hp+decrease attack
+    Increase accuracy+decrease evasion
+    Increase evasion+decrease accuracy
+    */
+   private Dictionary<string, int[]> upgrades = new Dictionary<string, int[]>
     {
-        "Hit Points +15",
-        "Attack +8 & Evasion -2",
+        { "HP", new[] { 15, 20 } },
+        { "AP", new[] { 1, 0 } },
+        { "attack", new[] { 6, 8 } },
+        { "evasion", new[] { 6, 8 } },
+        { "accuracy", new[] { 6, 8 } }
     };
-    public void ApplyUpgrade(string upgradeName)
+    private List<(string inc, string dec)> comboPairs = new List<(string, string)>
+    {
+        ("attack", "HP"),
+        ("HP", "attack"),
+        ("accuracy", "evasion"),
+        ("evasion", "accuracy")
+    };
+    private void IncreaseStat(string name)
+    {
+        ApplyUpgrade(name, upgrades[name][0]);
+    }
+    private void IncreaseDecreaseStats(string iN, string dN)
+    {
+        ApplyUpgrade(iN, upgrades[iN][1]);
+        ApplyUpgrade(dN, CalculateDecreaseAmount(dN));
+    }
+
+    private int CalculateDecreaseAmount(string dN)
+    {
+        return -1 * Mathf.CeilToInt(upgrades[dN][1] * 0.25f);
+    }
+
+    private void ApplyUpgrade(string name, int amount) 
     {
         var character = GameManager.I.pCharacter;
         var pC = character.GetComponent<Character>();
         var pHS = character.GetComponent<HealthSystem>();
-
-        switch (upgradeName)
+        Debug.Log($"upgraded {name} {amount}");
+        switch (name)
         {
-            case "Hit Points +15":
-                pHS.IncreaseMaxHealth(15);
-                pHS.Heal(15);
+            case "HP":
+                pHS.IncreaseMaxHealth(amount);
+                pHS.Heal(amount);
                 break;
-
-            case "Attack +8 & Evasion -2":
-                pC.ChangeAttack(8);
-                pC.ChangeEvasion(-2);
+            case "AP":
+                pC.ChangeActionPoints(amount);
                 break;
-
+            case "attack":
+                pC.ChangeAttack(amount);
+                break;
+            case "evasion":
+                pC.ChangeEvasion(amount);
+                break;
+            case "accuracy":
+                pC.ChangeAccuracy(amount);
+                break;
             default:
-                Debug.LogWarning($"Upgrade {upgradeName} not found!");
+                Debug.LogWarning($"Upgrade {name} not found!");
                 break;
         }
     }
-    //pC.AddAMoves(AssetsDatabase.I.aMoves[0]);
 
     public void DisplayUpgrades()
     {
@@ -78,15 +117,28 @@ public class UpgradeScreenUI : MonoBehaviour
 
         itemScreen.SetActive(true);
         if (upgradesCreated) return;
-        foreach (string upgrade in upgrades)
+        //Increase upgrades
+        foreach (string upgrade in upgrades.Keys)
         {
-            MakeUpgradeBtn(upgrade).onClick.AddListener(() =>
+            MakeUpgradeBtn($"{upgrade} +{upgrades[upgrade][0]}").onClick.AddListener(() =>
             {
-                ApplyUpgrade(upgrade);
+                IncreaseStat(upgrade);
                 itemScreen.SetActive(false);
                 UpgradeSelected?.Invoke();
             });
         }
+        //Increase & decrease upgrades
+        foreach ((string inc, string dec) in comboPairs)
+        {
+            string name = $"{inc} +{upgrades[inc][1]} & {dec} {CalculateDecreaseAmount(dec)}";
+            MakeUpgradeBtn(name).onClick.AddListener(() =>
+            {
+                IncreaseDecreaseStats(inc, dec);
+                itemScreen.SetActive(false);
+                UpgradeSelected?.Invoke();
+            });
+        }
+
         //Round will be 2 for first in game upgrade screen. Which results in index 1 (the second upgradeSOs, after the starting one)
         UpgradesSO upgradesSO = AssetsDatabase.I.upgradesSOs[GameManager.I.round - 1];
         List<AttackSO> aMovePool = new List<AttackSO>(upgradesSO.aSOs); //Shallow copy

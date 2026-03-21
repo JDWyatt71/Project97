@@ -42,7 +42,8 @@ public class CombatManager
         blocked,
         deflected,
         hit,
-        guardedHit
+        guardedHit,
+        ducked
     }
     /// <summary>
     /// Returns AttackResult of what happened with the move: dodge, block, deflect, hit, guarded hit
@@ -94,9 +95,15 @@ public class CombatManager
             totalDamage = TotalDam(initialDamage, 1);
         }
         //Debug.Log($"basedam: {basedam}, initialDamage: {initialDamage}, total damage: {totalDamage}");
-        
-        //Is deflected?
-        if (defendSO.deflect && attackSO.moveType != MoveType.Grapple)
+
+        //Is ducked or deflected/countered?
+        if (defendSO.duck)
+        {
+            //No damage to either player
+            analytics.RegisterDefendSuccess();
+            return AttackResult.ducked;
+        }
+        else if (defendSO.deflect && attackSO.moveType != MoveType.Grapple)
         {
             ApplyAttackDamageAndEffects(attacker, attackSO, totalDamage);
 
@@ -165,8 +172,7 @@ public class CombatManager
     #endregion
     #region Damage Calculation
     private float damageMultiplier = 1f;
-    private static readonly float[] damageValues = { 3f, 5f, 7f, 8.5f, 10f, 0f, 0f /*None*/ }; //Need to ad damage value for very high new
-
+    private static readonly float[] damageValues = { 3f, 5f, 7f, 8.5f, 10f, 0f, 0f, 13f /*Very high*/, 1.5f /*Very low*/ }; 
     private int GetDamage(Scale damage)
     {
         return Mathf.RoundToInt(damageValues[(int)damage] * damageMultiplier);
