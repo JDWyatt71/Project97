@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Vitamins
   m_EditorClassIdentifier: Assembly-CSharp::ItemSO
   sprite: {fileID: 0}
-  effects: 06000000
+  effects: 05000000
