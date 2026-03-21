@@ -116,7 +116,10 @@ public class TurnManager : MonoBehaviour
         /*currentFight.BattleTimeSeconds = Mathf.RoundToInt(Time.time - fightStartTime);*/
         int HpLeft = playerCharacter != null ? playerCharacter.healthSystem.GetHealth() : 0;
 
+        bool playerDied = playerCharacter == null;
+
         FightResult result = analytics.EndFight(HpLeft);
+        result.player_died = playerDied;
         Debug.Log("Raised Fight End Tracker");
         GameEvents.RaiseFightEnded(result);
     }

@@ -16,6 +16,10 @@ public class FightResult
 
     public int HpLeft;
 
+    public bool player_died;
+
+    public int level;
+
     public Dictionary<string, int> status;
     public Dictionary<string, int> moves;
 }

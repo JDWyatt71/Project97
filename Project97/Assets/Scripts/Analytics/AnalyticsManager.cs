@@ -266,6 +266,8 @@ class FightEndEvent : GameAnalyticsEvent
         SetParameter("defend_attempts", f.DefendAttempts);
         SetParameter("defend_success", f.DefendSuccess);
         SetParameter("hp_left", f.HpLeft);
+        SetParameter("player_died", f.player_died);
+        SetParameter("level", f.level);
     }
 }
 

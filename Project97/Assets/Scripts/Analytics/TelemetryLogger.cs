@@ -112,7 +112,9 @@ public class TelemetryLogger : MonoBehaviour
             attack_success = f.AttackSuccess,
             defend_attempts = f.DefendAttempts,
             defend_success = f.DefendSuccess,
-            hp_left = f.HpLeft
+            hp_left = f.HpLeft,
+            player_died = f.player_died,
+            level = f.level
         });
     }
 

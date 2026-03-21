@@ -107,6 +107,8 @@ public class GameManager : MonoBehaviour
     {
         currentLevel++;
 
+        fightResult.level = currentLevel;
+
         attackAttempt += fightResult.AttackAttempts;
         attackSuccess += fightResult.AttackSuccess;
         defendAttempt += fightResult.DefendAttempts;
