@@ -97,6 +97,7 @@ public class TurnManager : MonoBehaviour
 
         while(running){
             Debug.Log("Turn start");
+            print(pCharacter.GetComponent<Character>().GetAttack());
             DoEffects();
             yield return StartCoroutine(Turn(pCharacter, cCharacter)); //Waits for sub coroutine to finish before continuing to next turn.
         }

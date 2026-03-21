@@ -33,7 +33,12 @@ public class Character : MonoBehaviour
     }
     private int baseActionPoints;
     public int actionPoints {private set; get;}
+    public void ChangeAP(int amount)
+    {
+        actionPoints += amount;
+    }
     public int hitPoints; //Not used
+    private Inventory inventory;
     private int baseAttack;
     public int attack;
     public void ChangeAttack(int amount)
@@ -52,6 +57,36 @@ public class Character : MonoBehaviour
     {
         evasion += amount;
     }
+
+
+
+    public int bonusAttack=0;
+    public void ChangeBonusAttack(int amount)
+    {
+        bonusAttack += amount;
+    }
+    private float bonusAccuracy=0;
+    public void ChangeBonusAccuracy(float amount)
+    {
+        bonusAccuracy += amount;
+    }
+    private float bonusEvasion=0;
+    public void ChangeBonusEvasion(float amount)
+    {
+        bonusEvasion += amount;
+    }
+    public int bonusActionPoints = 0;
+    public void ChangeBonusAP(int amount)
+    {
+        bonusActionPoints += amount;
+    }
+
+
+
+    public int GetAttack()
+    {
+        return attack;
+    }
     public CharacterSO cSO {private set; get;}
     public void Setup(CharacterSO characterSO = default(CharacterSO))
     {
@@ -60,21 +95,31 @@ public class Character : MonoBehaviour
         healthSystem = GetComponent<HealthSystem>();
         healthSystem.Setup(characterSO.hitPoints);
         SetupMoves(characterSO.aMoves, characterSO.dMoves);
-        
+        //inventory.SetupInventory(Difficulty difficulty);
         baseAttack = characterSO.attack;
         baseAccuracy = characterSO.accuracy;
         baseEvasion = characterSO.evasion;
         baseActionPoints = characterSO.actionPoints;
+        //ResetBonusStats();
 
         ResetCurrentStats();
     }
 
     private void ResetCurrentStats()
     {
-        accuracy = baseAccuracy;
-        evasion = baseEvasion;
-        actionPoints = baseActionPoints;
-        attack = baseAttack;
+        print("base attack "+baseAttack+" attack "+attack+" bonus attack " + bonusAttack);
+        accuracy = baseAccuracy + bonusAccuracy;
+        evasion = baseEvasion + bonusEvasion;
+        actionPoints = baseActionPoints + bonusActionPoints;
+        attack = baseAttack + bonusAttack;
+    }
+
+    public void ResetBonusStats()
+    {
+        bonusAccuracy = 0;
+        bonusAttack = 0;
+        bonusActionPoints = 0;
+        bonusEvasion = 0;
     }
     private void TrySetActionPoints(int amount)
     {
@@ -105,6 +150,10 @@ public class Character : MonoBehaviour
     /// <summary>
     /// At start of each turn, TurnManager calls for each Character
     /// </summary>
+    public void HealEffects()
+    {
+        effects.Clear();
+    }
     public void DoEffects(float binderAttack)
     {
         ResetCurrentStats();
@@ -170,6 +219,7 @@ public class Character : MonoBehaviour
             case Effect.Bleed:
                 healthSystem.TakeDamage(5);
                 Debug.Log("5 damage taken to bleed effect");
+
                 break;
 
             default:
