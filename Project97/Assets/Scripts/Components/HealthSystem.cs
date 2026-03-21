@@ -60,8 +60,10 @@ public class HealthSystem : MonoBehaviour
     public void Heal(int amount)
     {
         currentHealth += amount;
+        print("health " + currentHealth);
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         HealthChanged?.Invoke(currentHealth, maxHealth);
+        print("health " + currentHealth);
     }
 
     private void Die()

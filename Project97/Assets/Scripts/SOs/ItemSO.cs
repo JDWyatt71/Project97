@@ -6,6 +6,5 @@ public class ItemSO : ScriptableObject
 {
     public Sprite sprite;
     public List<ItemEffect> effects;
-    
 
 }
