@@ -42,7 +42,8 @@ public class CombatManager
         blocked,
         deflected,
         hit,
-        guardedHit
+        guardedHit,
+        ducked
     }
     /// <summary>
     /// Returns AttackResult of what happened with the move: dodge, block, deflect, hit, guarded hit
@@ -63,23 +64,6 @@ public class CombatManager
             defendSO = AssetsDatabase.I.defaultDefendSO;
         }
 
-        //2 non-damaging attack options
-        //Is dodge?
-        float moveAccuracy = CalculateMoveAccuracy(attackSO.accuracy, attacker.accuracy, target.evasion, defendSO.dodgeBonusPercent);
-        if (!UC.RandomEvent(moveAccuracy))
-        {
-            return AttackResult.dodged; //So don't do any damage.
-        }
-
-        //Is block?
-        if(defendSO.block && attackSO.height == defendSO.height && attackSO.moveType != MoveType.Grapple) 
-        {
-            analytics.RegisterDefendSuccess();
-            return AttackResult.blocked;
-        }
-        
-        //3 damaging attack options
-
         //Is guarded?
         int totalDamage;
         int basedam = GetDamage(attackSO.damage);
@@ -93,9 +77,44 @@ public class CombatManager
         {          
             totalDamage = TotalDam(initialDamage, 1);
         }
-        //Debug.Log($"basedam: {basedam}, initialDamage: {initialDamage}, total damage: {totalDamage}");
+
+        //2 non-damaging attack options
+        //Is dodge?
+        float moveAccuracy = CalculateMoveAccuracy(attackSO.accuracy, attacker.accuracy, target.evasion, defendSO.dodgeBonusPercent);
+        if (!UC.RandomEvent(moveAccuracy))
+        {
+            //Check catches dodge
+            bool caughtDodge = attackSO.catchesDodge && UC.RandomEvent(GetEffectChance(attackSO.catchesDodgeChance));
+            if(!caughtDodge){
+                if (defendSO.duck)
+                {
+                    //Ducked successfully 
+                    ApplyAttackDamageAndEffects(attacker, attackSO, totalDamage);
+                    
+                    analytics.RegisterDefendSuccess();
+                    return AttackResult.ducked;
+                } 
+                else
+                {
+                    return AttackResult.dodged; //So don't do any damage.
+                }
+            }
+            
+        }
+
+        //Is block?
+        if(defendSO.block && attackSO.height == defendSO.height && attackSO.moveType != MoveType.Grapple) 
+        {
+            analytics.RegisterDefendSuccess();
+            return AttackResult.blocked;
+        }
         
-        //Is deflected?
+        //3 damaging attack options
+
+        
+        //Debug.Log($"basedam: {basedam}, initialDamage: {initialDamage}, total damage: {totalDamage}");
+
+        //Is deflected/countered?
         if (defendSO.deflect && attackSO.moveType != MoveType.Grapple)
         {
             ApplyAttackDamageAndEffects(attacker, attackSO, totalDamage);
@@ -165,8 +184,7 @@ public class CombatManager
     #endregion
     #region Damage Calculation
     private float damageMultiplier = 1f;
-    private static readonly float[] damageValues = { 3f, 5f, 7f, 8.5f, 10f, 0f, 0f /*None*/ }; //Need to ad damage value for very high new
-
+    private static readonly float[] damageValues = { 3f, 5f, 7f, 8.5f, 10f, 0f, 0f, 13f /*Very high*/, 1.5f /*Very low*/ }; 
     private int GetDamage(Scale damage)
     {
         return Mathf.RoundToInt(damageValues[(int)damage] * damageMultiplier);

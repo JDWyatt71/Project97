@@ -15,7 +15,7 @@ MonoBehaviour:
   moveType: 2
   sprite: {fileID: 0}
   AP: 4
-  height: 6
+  height: 2
   effects:
   - effect: 4
     chance: 2

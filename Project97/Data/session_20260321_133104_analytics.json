@@ -1,0 +1,37 @@
+[
+  {
+    "event_type": "run_start",
+    "timestamp_utc": "2026-03-21T13:31:05.2510802Z",
+    "data": {
+      "run_id": "9f4e3919-1a52-4f22-a39a-b5a2d8c133a3",
+      "difficulty": "normal",
+      "start_time": 0.0
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-03-21T13:31:05.4077830Z",
+    "data": {
+      "fight_id": "89dc3f23-19a7-4aa0-a12b-d80466f94eef",
+      "start_time": 0.0
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-21T13:31:10.9042126Z",
+    "data": {
+      "move_name": "Medium Spin Kick",
+      "user_type": "Player (Character)",
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-21T13:31:12.8928679Z",
+    "data": {
+      "move_name": "High Punch",
+      "user_type": "Dojo Challenger (Character)",
+      "target_type": "Player (Character)"
+    }
+  }
+]

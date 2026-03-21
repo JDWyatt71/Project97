@@ -22,3 +22,5 @@ MonoBehaviour:
   damage: 4
   accuracy: 3
   ignoresGuard: 0
+  catchesDodge: 1
+  catchesDodgeChance: 5

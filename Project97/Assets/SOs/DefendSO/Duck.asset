@@ -18,6 +18,7 @@ MonoBehaviour:
   height: 6
   effects: []
   damageReductionMultiplier: 0
-  deflect: 1
+  deflect: 0
   block: 0
+  duck: 1
   dodgeBonusPercent: 4

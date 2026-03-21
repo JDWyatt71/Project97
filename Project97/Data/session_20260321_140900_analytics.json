@@ -1,0 +1,42 @@
+[
+  {
+    "event_type": "run_start",
+    "timestamp_utc": "2026-03-21T14:09:00.9580452Z",
+    "data": {
+      "run_id": "ec8cd8bd-f3ba-47e0-ba78-d6f2860bee2c",
+      "difficulty": "normal",
+      "start_time": 0.0
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-03-21T14:09:01.1500848Z",
+    "data": {
+      "fight_id": "72fd2c45-714b-4d2e-b159-38bb084218d2",
+      "start_time": 0.0
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-21T14:09:26.4579162Z",
+    "data": {
+      "move_name": "Medium Spin Kick",
+      "user_type": "Player (Character)",
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "fight_end",
+    "timestamp_utc": "2026-03-21T14:09:28.4544465Z",
+    "data": {
+      "fight_id": "72fd2c45-714b-4d2e-b159-38bb084218d2",
+      "battle_time": 3,
+      "turns": 1,
+      "attack_attempts": 1,
+      "attack_success": 1,
+      "defend_attempts": 0,
+      "defend_success": 0,
+      "hp_left": 250
+    }
+  }
+]

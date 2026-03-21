@@ -1,0 +1,87 @@
+[
+  {
+    "event_type": "run_start",
+    "timestamp_utc": "2026-03-21T13:53:24.2319511Z",
+    "data": {
+      "run_id": "ebc32d9e-cdc5-40b2-81bd-c23bc700d3b6",
+      "difficulty": "normal",
+      "start_time": 0.0
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-03-21T13:53:24.4022182Z",
+    "data": {
+      "fight_id": "df154e3c-3a73-4b5c-aa98-03d87dee45ce",
+      "start_time": 0.0
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-21T13:53:27.4577692Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "user_type": "Player (Character)",
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-21T13:53:29.4492247Z",
+    "data": {
+      "move_name": "Low Punch",
+      "user_type": "Dojo Challenger (Character)",
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-21T13:53:31.4503703Z",
+    "data": {
+      "move_name": "Medium Spin Kick",
+      "user_type": "Player (Character)",
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-21T13:53:33.4519760Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "user_type": "Dojo Challenger (Character)",
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-21T13:53:35.4519226Z",
+    "data": {
+      "move_name": "Low Push Kick",
+      "user_type": "Player (Character)",
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-21T13:53:38.7658163Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "user_type": "Player (Character)",
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "fight_end",
+    "timestamp_utc": "2026-03-21T13:53:40.7694763Z",
+    "data": {
+      "fight_id": "df154e3c-3a73-4b5c-aa98-03d87dee45ce",
+      "battle_time": 15,
+      "turns": 2,
+      "attack_attempts": 6,
+      "attack_success": 4,
+      "defend_attempts": 0,
+      "defend_success": 0,
+      "hp_left": 250
+    }
+  }
+]
