@@ -46,7 +46,6 @@ public class UpgradeScreenUI : MonoBehaviour
     {
         "Hit Points +15",
         "Attack +8 & Evasion -2",
-        
     };
     public void ApplyUpgrade(string upgradeName)
     {
@@ -89,24 +88,51 @@ public class UpgradeScreenUI : MonoBehaviour
             });
         }
         //Round will be 2 for first in game upgrade screen. Which results in index 1 (the second upgradeSOs, after the starting one)
-        List<AttackSO> aMovePool = AssetsDatabase.I.upgradesSOs[GameManager.I.round-1].aSOs; 
+        UpgradesSO upgradesSO = AssetsDatabase.I.upgradesSOs[GameManager.I.round - 1];
+        List<AttackSO> aMovePool = new List<AttackSO>(upgradesSO.aSOs); //Shallow copy
+        List<AttackSO> upgradeAMovePool = new List<AttackSO>();
+        while (upgradeAMovePool.Count < 2) { //Get two new random attackSOs
+            int r = UnityEngine.Random.Range(0,aMovePool.Count);
+
+            AttackSO attackSO = aMovePool[r];
+
+            aMovePool.RemoveAt(r);
+
+            if(!pC.GetAMoves().Contains(attackSO)){
+                upgradeAMovePool.Add(attackSO);
+            }
+            
+        }
+        
+
         List<DefendSO> dMovePool = AssetsDatabase.I.dMoves;
         
-        foreach (AttackSO move in aMovePool)
+        foreach (AttackSO move in upgradeAMovePool)
         {
             AttackSO localMove = move; //Safety copy for closure
-            CreateUpgrade(pC.GetAMoves().Contains(move), localMove.name, (pC) => pC.AddAMoves(localMove));
+            CreateUpgrade(pC.GetAMoves().Contains(localMove), localMove.name, (pC) => pC.AddAMoves(localMove));
         }
 
         foreach (DefendSO move in dMovePool.Take(2))
         {
             DefendSO localMove = move;
-            CreateUpgrade(pC.GetDMoves().Contains(move), localMove.name, (pC) => pC.AddDMoves(localMove));
+            CreateUpgrade(pC.GetDMoves().Contains(localMove), localMove.name, (pC) => pC.AddDMoves(localMove));
         }
 
         CreateUpgrade(pC.GetDMoves().Contains(AssetsDatabase.I.dMoves[2]), "Block", (pC) => pC.AddDMoves(AssetsDatabase.I.dMoves.ToArray()[2..5]));
         CreateUpgrade(pC.GetDMoves().Contains(AssetsDatabase.I.dMoves[5]),"Guard", (pC) => pC.AddDMoves(AssetsDatabase.I.dMoves.ToArray()[5..8]));
 
+        //Add all rest defend moves if applicable (like in level 1 and onwards)
+        if (upgradesSO.allDefendAvailable)
+        {
+            CreateUpgrade(pC.GetDMoves().Contains(AssetsDatabase.I.dMoves[8]), "Counter", (pC) => pC.AddDMoves(AssetsDatabase.I.dMoves.ToArray()[8..11]));
+
+            for(int i = 11; i < dMovePool.Count; i++) //Adds all remaining that have no height - currently only Duck
+            {
+                DefendSO localMove = dMovePool[i];
+                CreateUpgrade(pC.GetDMoves().Contains(localMove), localMove.name, (pC) => pC.AddDMoves(localMove));
+            }
+        }
         upgradesCreated = true;
     }
 
