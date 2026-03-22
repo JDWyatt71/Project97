@@ -250,7 +250,7 @@ public class UpgradeScreenUI : MonoBehaviour
             yield break;
 
         Inventory inventory = GameManager.I.pInventory;
-        Character pC = GameManager.I.pCharacter.GetComponent<Character>();
+        Character pC = GameManager.I.pC;
 
         selectImage.SetActive(true);
 
