@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Bandage
   m_EditorClassIdentifier: Assembly-CSharp::ItemSO
   sprite: {fileID: 0}
-  effects: 0200000003000000
+  effects: 02000000
