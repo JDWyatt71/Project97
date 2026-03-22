@@ -104,9 +104,8 @@ public class UpgradeScreenUI : MonoBehaviour
 
     private void ApplyUpgrade(string name, int amount) 
     {
-        var character = GameManager.I.pCharacter;
-        var pC = character.GetComponent<Character>();
-        var pHS = character.GetComponent<HealthSystem>();
+        var pC = GameManager.I.pC;
+        var pHS = pC.healthSystem;
         Debug.Log($"upgraded {name} {amount}");
         switch (name)
         {
@@ -134,7 +133,7 @@ public class UpgradeScreenUI : MonoBehaviour
 
     public void DisplayUpgrades()
     {
-        Character pC = GameManager.I.pCharacter.GetComponent<Character>();
+        Character pC = GameManager.I.pC;
 
         Clear();
         itemScreen.SetActive(true);
@@ -216,7 +215,7 @@ public class UpgradeScreenUI : MonoBehaviour
         if(haveMove) return;
         MakeUpgradeBtn("Unlock " + name).onClick.AddListener(() =>
         {
-            Character pC = GameManager.I.pCharacter.GetComponent<Character>();
+            Character pC = GameManager.I.pC;
 
             upgradeLogic?.Invoke(pC);
 

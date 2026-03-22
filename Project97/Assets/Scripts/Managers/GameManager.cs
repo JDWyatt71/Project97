@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Image computerImage;
 
     public GameObject pCharacter {private set; get;}
-    private Character pC;
+    public Character pC {private set; get;}
     private TurnManager turnManager;
     public int round {private set; get;} = 1; 
 
@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
         computerImage.sprite = cSO.sprite;
 
         turnManager = gameObject.AddComponent<TurnManager>();
-        turnManager.Setup(pCharacter.GetComponent<Character>(), cCharacter.GetComponent<Character>());
+        turnManager.Setup(pC, cCharacter.GetComponent<Character>());
         GameEvents.FightEnded += OnFightEnded;
         turnManager.RoundComplete += RoundComplete;
         upgradeScreenUI = GetComponent<UpgradeScreenUI>();
