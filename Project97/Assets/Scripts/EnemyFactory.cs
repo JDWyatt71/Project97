@@ -2,19 +2,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-// ──────────────────────────────────────────────────────────────
+
 //  EnemyFactory
 //  Builds all EnemySO instances in memory at runtime by looking
 //  moves up from AssetsDatabase by name.
-//
-//  Attach this to the same GameObject as GameManager.
-//  GameManager calls EnemyFactory.I.BuildAllEnemies() in Start()
-//  before the first fight begins.
-//
-//  IMPORTANT: All AttackSO and DefendSO assets must be registered
-//  in AssetsDatabase.aMoves / AssetsDatabase.dMoves, and their
-//  asset names must match the strings used below exactly.
-// ──────────────────────────────────────────────────────────────
+
 public class EnemyFactory : MonoBehaviour
 {
     public static EnemyFactory I;
@@ -24,10 +16,6 @@ public class EnemyFactory : MonoBehaviour
         I = this;
     }
 
-    /// <summary>
-    /// Builds and returns the full ordered enemy roster.
-    /// Call this after AssetsDatabase.Awake() has run.
-    /// </summary>
     public List<EnemySO> BuildAllEnemies()
     {
         return new List<EnemySO>
@@ -221,9 +209,6 @@ public class EnemyFactory : MonoBehaviour
     }
 
     // ── 9. Rival ─────────────────────────────────────────────
-    // The Rival mirrors the player's moves. GameManager passes
-    // the player's CharacterSO in so we can copy from it.
-    // Called separately by GameManager with the player's CSO.
     public EnemySO BuildRival(CharacterSO playerCSO = null)
     {
         var e = Make("Rival", hp: 100, atk: 20, acc: 20, eva: 20, ap: 7);
@@ -269,9 +254,6 @@ public class EnemyFactory : MonoBehaviour
 
     // ── Helpers ──────────────────────────────────────────────
 
-    /// <summary>
-    /// Creates a blank EnemySO in memory with base stats filled in.
-    /// </summary>
     EnemySO Make(string name, int hp, int atk, float acc, float eva, int ap)
     {
         var e = ScriptableObject.CreateInstance<EnemySO>();
@@ -290,10 +272,8 @@ public class EnemyFactory : MonoBehaviour
         return e;
     }
 
-    /// <summary>
     /// Looks up AttackSO assets from AssetsDatabase by name.
     /// Logs a warning if a move isn't found.
-    /// </summary>
     List<AttackSO> Attacks(params string[] names)
     {
         var result = new List<AttackSO>();
@@ -308,9 +288,7 @@ public class EnemyFactory : MonoBehaviour
         return result;
     }
 
-    /// <summary>
     /// Looks up DefendSO assets from AssetsDatabase by name.
-    /// </summary>
     List<DefendSO> Defends(params string[] names)
     {
         var result = new List<DefendSO>();
@@ -325,9 +303,7 @@ public class EnemyFactory : MonoBehaviour
         return result;
     }
 
-    /// <summary>
     /// Returns all AttackSOs in AssetsDatabase with MoveType.Grapple.
-    /// </summary>
     List<AttackSO> AllGrappleMoves()
     {
         var result = AssetsDatabase.I.aMoves
