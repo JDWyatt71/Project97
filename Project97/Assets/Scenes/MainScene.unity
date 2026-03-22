@@ -2668,8 +2668,6 @@ MonoBehaviour:
   cCs:
   - {fileID: 11400000, guid: 3cf43194f33d71444a38649773b5ae54, type: 2}
   - {fileID: 11400000, guid: 8ab313d7e61cff74b894270ac4be328f, type: 2}
-  cCSO1: {fileID: 11400000, guid: 3cf43194f33d71444a38649773b5ae54, type: 2}
-  cCSO2: {fileID: 11400000, guid: 8ab313d7e61cff74b894270ac4be328f, type: 2}
   playerHealthBar: {fileID: 1545752617}
   computerHealthBar: {fileID: 323433692775634240}
   computerImage: {fileID: 95263672}
@@ -3020,7 +3018,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1853969659
 RectTransform:
   m_ObjectHideFlags: 0

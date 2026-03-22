@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public Inventory pInventory {private set; get;}
     private UpgradeScreenUI upgradeScreenUI;
     [SerializeField] private CharacterSO pCSO;
-    [SerializeField] private List<CharacterSO> cCs;
+    [SerializeField] private List<CharacterSO> computerCharacters;
     [SerializeField] private HealthBarUI playerHealthBar;
     [SerializeField] private HealthBarUI computerHealthBar;
     private string currentRunId;
@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
         pInventory = pCharacter.GetComponent<Inventory>();
 
         pInventory.SetupInventory(UC.GetDifficulty());
-        CharacterSO cSO = cCs[round-1];
+        CharacterSO cSO = computerCharacters[round-1];
         GameObject cCharacter = SetupCharacter(cSO.name, cSO, computerHealthBar);
         computerImage.sprite = cSO.sprite;
 
@@ -90,7 +90,7 @@ public class GameManager : MonoBehaviour
     private void UpgradeSelected()
     {
         //Once upgrade selected at end of a fight, start the next round
-        CharacterSO cSO = cCs[round-1];
+        CharacterSO cSO = computerCharacters[round-1];
 
         GameObject cCharacter = SetupCharacter(cSO.name, cSO, computerHealthBar);
         computerImage.sprite = cSO.sprite;
