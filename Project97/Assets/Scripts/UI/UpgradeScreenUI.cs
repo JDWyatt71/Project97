@@ -62,7 +62,6 @@ public class UpgradeScreenUI : MonoBehaviour
 
             text.SetText($"{item.name} x{count}");
         }
-<<<<<<< HEAD
     } 
     /*
     Standard increase: HP +15, attack/accuracy/evasion +6, AP +1
@@ -74,10 +73,6 @@ public class UpgradeScreenUI : MonoBehaviour
     Increase evasion+decrease accuracy
     */
    private Dictionary<string, int[]> upgrades = new Dictionary<string, int[]>
-=======
-    }
-    private Dictionary<string, Action> upgrades = new Dictionary<string, Action>()
->>>>>>> 964e523 (Items added)
     {
         { "HP", new[] { 15, 20 } },
         { "AP", new[] { 1, 0 } },
@@ -259,7 +254,7 @@ public class UpgradeScreenUI : MonoBehaviour
 
         selectImage.SetActive(true);
 
-        yield return new WaitForSeconds(1f);
+        //yield return new WaitForSeconds(1f);
 
         if (inventory.HasAmountOfItem(item))
         {
