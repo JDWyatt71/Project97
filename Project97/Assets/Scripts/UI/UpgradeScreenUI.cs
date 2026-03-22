@@ -123,6 +123,9 @@ public class UpgradeScreenUI : MonoBehaviour
             MakeUpgradeBtn($"{upgrade} +{upgrades[upgrade][0]}").onClick.AddListener(() =>
             {
                 IncreaseStat(upgrade);
+
+                TrackUpgradeChosen("stat", $"{upgrade}+{upgrades[upgrade][0]}");
+
                 itemScreen.SetActive(false);
                 UpgradeSelected?.Invoke();
             });
@@ -134,6 +137,9 @@ public class UpgradeScreenUI : MonoBehaviour
             MakeUpgradeBtn(name).onClick.AddListener(() =>
             {
                 IncreaseDecreaseStats(inc, dec);
+
+                TrackUpgradeChosen("combo", $"{inc}+{upgrades[inc][1]} & {dec}{CalculateDecreaseAmount(dec)}");
+
                 itemScreen.SetActive(false);
                 UpgradeSelected?.Invoke();
             });
@@ -198,6 +204,8 @@ public class UpgradeScreenUI : MonoBehaviour
 
             upgradeLogic?.Invoke(pC);
 
+            TrackUpgradeChosen("move_unlock", name);
+
             itemScreen.SetActive(false);
             UpgradeSelected?.Invoke();
         });
@@ -229,5 +237,13 @@ public class UpgradeScreenUI : MonoBehaviour
         yield return new WaitForSeconds(1f);
         GameManager.I.PlayerAddItem(item);
         itemScreen.SetActive(false);
+    }
+
+    private void TrackUpgradeChosen(string type, string value)
+    {
+        int level = GameManager.I.round;
+        string runId = GameManager.I.CurrentRunId;
+        GameEvents.RaiseUpgradeChosen(level, type, value, runId, GameManager.I.CurrentSessionId);
+        Debug.Log($"Upgrade Tracked: level: {level}|| type: {type}|| value: {value}");
     }
 }

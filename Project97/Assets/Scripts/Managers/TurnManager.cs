@@ -55,7 +55,7 @@ public class TurnManager : MonoBehaviour
         analytics.StartFight(fightID);
         Debug.Log("Fight start tracker");
 
-        GameEvents.RaiseFightStarted(fightID, analytics.fightStartTime);
+        GameEvents.RaiseFightStarted(fightID, analytics.fightStartTime, GameManager.I.CurrentSessionId);
 
         cM = new CombatManager(analytics);
         playerCharacter.GetComponent<HealthSystem>().RunningIsFalse += RunningIsFalse;
@@ -105,11 +105,15 @@ public class TurnManager : MonoBehaviour
         if (playerCharacter == null)
         {
             RoundComplete?.Invoke(false);
+            //telemetry for a player failing a level
+            GameEvents.RaiseStageFail(fightID, GameManager.I.CurrentSessionId);
             Debug.Log("Computer wins");
         }
         else if (computerCharacter == null)
         {
             RoundComplete?.Invoke(true);
+            //telemtry for a player completing a level
+            GameEvents.RaiseStageComplet(fightID, GameManager.I.CurrentSessionId);
             Debug.Log("Player wins");
         }
 
@@ -119,7 +123,9 @@ public class TurnManager : MonoBehaviour
         bool playerDied = playerCharacter == null;
 
         FightResult result = analytics.EndFight(HpLeft);
-        result.player_died = playerDied;
+        result.runID = GameManager.I.CurrentRunId;
+        result.playerDied = playerDied;
+        result.sessionId = GameManager.I.CurrentSessionId;
         Debug.Log("Raised Fight End Tracker");
         GameEvents.RaiseFightEnded(result);
     }

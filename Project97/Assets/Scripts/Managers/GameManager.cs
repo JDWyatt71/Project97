@@ -33,7 +33,9 @@ public class GameManager : MonoBehaviour
     public GameObject pCharacter {private set; get;}
     private Character pC;
     private TurnManager turnManager;
-    public int round {private set; get;} = 1; 
+    public int round {private set; get;} = 1;
+    public string CurrentRunId => currentRunId;
+    public string CurrentSessionId { get; private set; }
 
     void Awake()
     {
@@ -48,9 +50,11 @@ public class GameManager : MonoBehaviour
         });
 
         currentRunId = Guid.NewGuid().ToString();
+        CurrentSessionId = Guid.NewGuid().ToString();
+        //CurrentRunId = currentRunId;
         runStartTime = Time.time;
 
-        GameEvents.RaiseRunStarted(currentRunId, "normal", runStartTime);
+        GameEvents.RaiseRunStarted(currentRunId, "easy", runStartTime, CurrentSessionId);
         TelemetryLogger.Instance.SaveToJson();
         Debug.Log("RunStarted event sent;");
 
@@ -139,6 +143,7 @@ public class GameManager : MonoBehaviour
                 DefendSuccess = defendSuccess,
                 DeathCause = deathCause,
                 HpLeft = fightResult.HpLeft,
+                sessionID = CurrentSessionId
             };
 
             GameEvents.RaiseRunEnded(runResult);

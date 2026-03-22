@@ -152,9 +152,9 @@ public class AnalyticsManager : MonoBehaviour
 
     // ================= RUN / FIGHT / ITEM / UPGRADE EVENTS =================
 
-    public void TrackRunStart(string runId, string difficulty, float runStartTime)
+    public void TrackRunStart(string runId, string difficulty, float runStartTime, string sessionId)
     {
-        Record(new RunStartEvent(runId, difficulty, runStartTime));
+        Record(new RunStartEvent(runId, difficulty, runStartTime, sessionId));
     }
 
     public void TrackRunEnd(RunResult r)
@@ -162,9 +162,9 @@ public class AnalyticsManager : MonoBehaviour
         Record(new RunEndEvent(r));
     }
 
-    public void TrackFightStart(string id, float time)
+    public void TrackFightStart(string id, float time, string sessionId)
     {
-        Record(new FightStartEvent(id, time));
+        Record(new FightStartEvent(id, time, sessionId));
     }
 
     public void TrackFightEnd(FightResult f)
@@ -182,14 +182,14 @@ public class AnalyticsManager : MonoBehaviour
         Record(new ItemBoughtEvent(itemName));
     }
 
-    public void TrackUpgradeChosen(int level, string type, string value)
+    public void TrackUpgradeChosen(int level, string type, string value, string run_id)
     {
-        Record(new UpgradeChosenEvent(level, type, value));
+        Record(new UpgradeChosenEvent(level, type, value, run_id));
     }
 
-    public void TrackMoveUsed(string moveName, string userType, string target)
+    public void TrackMoveUsed(string moveName, string userType, string target, string sessionId)
     {
-        Record(new MoveUsedEvent(moveName, userType, target));
+        Record(new MoveUsedEvent(moveName, userType, target, sessionId));
     }
 
     public void TrackStatusApplied(string statusName, string targetType, string sourceMove = "")
@@ -211,12 +211,13 @@ abstract class GameAnalyticsEvent : AnalyticsEvent
 // ---------------- RUN ----------------
 class RunStartEvent : GameAnalyticsEvent
 {
-    public RunStartEvent(string runId, string difficulty, float runStartTime)
+    public RunStartEvent(string runId, string difficulty, float runStartTime, string sessionId)
         : base("run_start")
     {
         SetParameter("run_id", runId);
         SetParameter("difficulty", difficulty);
         SetParameter("start_time", runStartTime);
+        SetParameter("sessionId", sessionId);
     }
 }
 
@@ -240,17 +241,19 @@ class RunEndEvent : GameAnalyticsEvent
         SetParameter("defend_success", r.DefendSuccess);
         SetParameter("death_cause", r.DeathCause);
         SetParameter("hp_left", r.HpLeft);
+        SetParameter("sessionId", r.sessionID);
     }
 }
 
 // ---------------- FIGHT ----------------
 class FightStartEvent : GameAnalyticsEvent
 {
-    public FightStartEvent(string fightId, float time)
+    public FightStartEvent(string fightId, float time, string sessionId)
         : base("fight_start")
     {
         SetParameter("fight_id", fightId);
         SetParameter("start_time", time);
+        SetParameter("sessionId", sessionId);
     }
 }
 class FightEndEvent : GameAnalyticsEvent
@@ -266,8 +269,9 @@ class FightEndEvent : GameAnalyticsEvent
         SetParameter("defend_attempts", f.DefendAttempts);
         SetParameter("defend_success", f.DefendSuccess);
         SetParameter("hp_left", f.HpLeft);
-        SetParameter("player_died", f.player_died);
+        SetParameter("player_died", f.playerDied);
         SetParameter("level", f.level);
+        SetParameter("sessionId", f.sessionId);
     }
 }
 
@@ -293,25 +297,27 @@ class ItemBoughtEvent : GameAnalyticsEvent
 // ---------------- UPGRADE ----------------
 class UpgradeChosenEvent : GameAnalyticsEvent
 {
-    public UpgradeChosenEvent(int level, string type, string value)
+    public UpgradeChosenEvent(int level, string type, string value, string run_id)
         : base("upgrade_chosen")
     {
         SetParameter("level", level);
         SetParameter("type", type);
         SetParameter("value", value);
+        SetParameter("run_id", run_id);
     }
 }
 
 // ---------------- MOVE USED ----------------
 class MoveUsedEvent : GameAnalyticsEvent
 {
-    public MoveUsedEvent(string moveName, string userType, string targetType = "")
+    public MoveUsedEvent(string moveName, string sessionID, string userType, string targetType = "")
         : base("move_used")
     {
         SetParameter("move_name", moveName);
         SetParameter("user_type", userType);       // "player" or "enemy"
         if (!string.IsNullOrEmpty(targetType))
             SetParameter("target_type", targetType); // optional
+        SetParameter("sessionId", sessionID);
     }
 }
 

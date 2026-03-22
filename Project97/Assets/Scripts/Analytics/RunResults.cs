@@ -17,5 +17,7 @@ public class RunResult
 
     public string DeathCause;
     public int HpLeft;
+
+    public string sessionID;
 }
 

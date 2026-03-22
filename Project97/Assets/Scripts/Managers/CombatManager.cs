@@ -56,7 +56,7 @@ public class CombatManager
     private AttackResult PerformAttack(Character attacker, Character target, AttackSO attackSO, DefendSO defendSO = null)
     {
         string moveName = attackSO.name;
-        GameEvents.RaiseMoveUsed(moveName, attacker.ToString(), target.ToString());
+        GameEvents.RaiseMoveUsed(moveName, GameManager.I.CurrentSessionId, attacker.ToString(), target.ToString());
         analytics.RegisterAttackAttempt();
 
         if (defendSO == null)
@@ -151,6 +151,8 @@ public class CombatManager
             if (UC.RandomEvent(GetEffectChance(eC.chance)))
             {
                 character.AddEffect(eC.effect, moveHeight);
+
+                GameEvents.RaiseStatus(eC.effect.ToString(), character.ToString(), attackSO.name.ToString());
 
                 //string effectName = eC.effect.name; // once we figure out the effects.
                 //analytics.RegisterEffectApplied(effectName);
