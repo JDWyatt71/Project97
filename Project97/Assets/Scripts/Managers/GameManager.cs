@@ -11,13 +11,10 @@ using System.Collections.Generic;
 public class GameManager : MonoBehaviour
 {
     public static GameManager I {private set; get;}
-    private Inventory pInventory;
+    public Inventory pInventory {private set; get;}
     private UpgradeScreenUI upgradeScreenUI;
     [SerializeField] private CharacterSO pCSO;
-    [SerializeField] private List<CharacterSO> cCs;
-    [SerializeField] private CharacterSO cCSO1;
-    [SerializeField] private CharacterSO cCSO2;
-
+    [SerializeField] private List<CharacterSO> computerCharacters;
     [SerializeField] private HealthBarUI playerHealthBar;
     [SerializeField] private HealthBarUI computerHealthBar;
     private string currentRunId;
@@ -31,7 +28,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Image computerImage;
 
     public GameObject pCharacter {private set; get;}
-    private Character pC;
+    public Character pC {private set; get;}
     private TurnManager turnManager;
     public int round {private set; get;} = 1; 
 
@@ -49,7 +46,6 @@ public class GameManager : MonoBehaviour
 
         currentRunId = Guid.NewGuid().ToString();
         runStartTime = Time.time;
-
         GameEvents.RaiseRunStarted(currentRunId, "normal", runStartTime);
         TelemetryLogger.Instance.SaveToJson();
         Debug.Log("RunStarted event sent;");
@@ -58,16 +54,18 @@ public class GameManager : MonoBehaviour
         pC = pCharacter.GetComponent<Character>();
         pInventory = pCharacter.GetComponent<Inventory>();
 
-        CharacterSO cSO = cCs[round-1];
+        pInventory.SetupInventory(UC.GetDifficulty());
+        CharacterSO cSO = computerCharacters[round-1];
         GameObject cCharacter = SetupCharacter(cSO.name, cSO, computerHealthBar);
         computerImage.sprite = cSO.sprite;
 
         turnManager = gameObject.AddComponent<TurnManager>();
-        turnManager.Setup(pCharacter.GetComponent<Character>(), cCharacter.GetComponent<Character>());
-        turnManager.RoundComplete += RoundComplete;
+        turnManager.Setup(pC, cCharacter.GetComponent<Character>());
         GameEvents.FightEnded += OnFightEnded;
+        turnManager.RoundComplete += RoundComplete;
         upgradeScreenUI = GetComponent<UpgradeScreenUI>();
         upgradeScreenUI.UpgradeSelected += UpgradeSelected;
+
     }
 
     private GameObject SetupCharacter(String name, CharacterSO characterSO, HealthBarUI healthBarUI)
@@ -85,12 +83,14 @@ public class GameManager : MonoBehaviour
         round++;
         pC.ResetRestActions();
         pC.RemoveAllEffects();
-        if(playerWon) upgradeScreenUI.DisplayUpgrades();
+        if(playerWon) upgradeScreenUI.DisplayItems(pInventory.GetInventory());
+        
+
     }
     private void UpgradeSelected()
     {
         //Once upgrade selected at end of a fight, start the next round
-        CharacterSO cSO = cCs[round-1];
+        CharacterSO cSO = computerCharacters[round-1];
 
         GameObject cCharacter = SetupCharacter(cSO.name, cSO, computerHealthBar);
         computerImage.sprite = cSO.sprite;
@@ -112,6 +112,9 @@ public class GameManager : MonoBehaviour
     private void OnFightEnded(FightResult fightResult)
     {
         currentLevel++;
+        pC.ResetBonusStats();
+        //print(pCharacter.GetComponent<Character>().GetAttack());
+
 
         fightResult.level = currentLevel;
 

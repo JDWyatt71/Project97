@@ -1,0 +1,44 @@
+[
+  {
+    "event_type": "run_start",
+    "timestamp_utc": "2026-03-22T16:23:12.4277159Z",
+    "data": {
+      "run_id": "cd2528e3-f616-48d4-8a93-8a78ab415010",
+      "difficulty": "normal",
+      "start_time": 1.08204234
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-03-22T16:23:12.5751279Z",
+    "data": {
+      "fight_id": "96f67b4b-237c-4303-8fb0-851fffe7d79e",
+      "start_time": 1.08204234
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-22T16:23:13.9165208Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "user_type": "Player (Character)",
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "fight_end",
+    "timestamp_utc": "2026-03-22T16:23:15.9135233Z",
+    "data": {
+      "fight_id": "96f67b4b-237c-4303-8fb0-851fffe7d79e",
+      "battle_time": 3,
+      "turns": 1,
+      "attack_attempts": 1,
+      "attack_success": 1,
+      "defend_attempts": 0,
+      "defend_success": 0,
+      "hp_left": 250,
+      "player_died": false,
+      "level": 0
+    }
+  }
+]

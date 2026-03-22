@@ -1,0 +1,194 @@
+[
+  {
+    "event_type": "run_start",
+    "timestamp_utc": "2026-03-22T16:26:11.3155565Z",
+    "data": {
+      "run_id": "2688b3d3-2fc6-4053-a7f2-6f5997396fae",
+      "difficulty": "normal",
+      "start_time": 1.15553927
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-03-22T16:26:11.4607731Z",
+    "data": {
+      "fight_id": "93a03800-ff93-4f18-a5a6-4c0234c3b190",
+      "start_time": 1.15553927
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-22T16:26:13.7771661Z",
+    "data": {
+      "move_name": "High Punch",
+      "user_type": "Player (Character)",
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "fight_end",
+    "timestamp_utc": "2026-03-22T16:26:15.7735296Z",
+    "data": {
+      "fight_id": "93a03800-ff93-4f18-a5a6-4c0234c3b190",
+      "battle_time": 4,
+      "turns": 1,
+      "attack_attempts": 1,
+      "attack_success": 1,
+      "defend_attempts": 0,
+      "defend_success": 0,
+      "hp_left": 250,
+      "player_died": false,
+      "level": 0
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-03-22T16:26:17.7590528Z",
+    "data": {
+      "fight_id": "4feb2895-9335-46ec-9677-6c23d7d27072",
+      "start_time": 7.40968466
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-22T16:26:20.8264023Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "user_type": "Player (Character)",
+      "target_type": "Comeback Fighter (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-22T16:26:22.8266386Z",
+    "data": {
+      "move_name": "Low Push Kick",
+      "user_type": "Comeback Fighter (Character)",
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-22T16:26:24.8285643Z",
+    "data": {
+      "move_name": "Medium Spin Kick",
+      "user_type": "Player (Character)",
+      "target_type": "Comeback Fighter (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-22T16:26:26.8293694Z",
+    "data": {
+      "move_name": "Pummel",
+      "user_type": "Comeback Fighter (Character)",
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-22T16:26:28.8298329Z",
+    "data": {
+      "move_name": "Low Push Kick",
+      "user_type": "Player (Character)",
+      "target_type": "Comeback Fighter (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-22T16:27:20.0856902Z",
+    "data": {
+      "move_name": "Low Push Kick",
+      "user_type": "Player (Character)",
+      "target_type": "Comeback Fighter (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-22T16:27:22.0858327Z",
+    "data": {
+      "move_name": "Floor Throwdown",
+      "user_type": "Comeback Fighter (Character)",
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-22T16:27:24.0857350Z",
+    "data": {
+      "move_name": "High Punch",
+      "user_type": "Player (Character)",
+      "target_type": "Comeback Fighter (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-22T16:27:26.0869438Z",
+    "data": {
+      "move_name": "Medium Push Kick",
+      "user_type": "Comeback Fighter (Character)",
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-22T16:27:28.0875541Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "user_type": "Player (Character)",
+      "target_type": "Comeback Fighter (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-22T16:27:30.0926277Z",
+    "data": {
+      "move_name": "High Crosscut",
+      "user_type": "Comeback Fighter (Character)",
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-22T16:27:34.6815213Z",
+    "data": {
+      "move_name": "Medium Spin Kick",
+      "user_type": "Player (Character)",
+      "target_type": "Comeback Fighter (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-22T16:27:36.6822917Z",
+    "data": {
+      "move_name": "High Uppercut",
+      "user_type": "Comeback Fighter (Character)",
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-22T16:27:38.6834138Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "user_type": "Player (Character)",
+      "target_type": "Comeback Fighter (Character)"
+    }
+  },
+  {
+    "event_type": "fight_end",
+    "timestamp_utc": "2026-03-22T16:27:40.6867375Z",
+    "data": {
+      "fight_id": "4feb2895-9335-46ec-9677-6c23d7d27072",
+      "battle_time": 48,
+      "turns": 4,
+      "attack_attempts": 14,
+      "attack_success": 12,
+      "defend_attempts": 0,
+      "defend_success": 0,
+      "hp_left": 184,
+      "player_died": false,
+      "level": 0
+    }
+  }
+]

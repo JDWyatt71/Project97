@@ -1885,17 +1885,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d148bf77165e69d4cb4fcd250896a0a7, type: 2}
   - {fileID: 11400000, guid: 3231c206ca4db5844b5c56afa45ebe66, type: 2}
   - {fileID: 11400000, guid: fe89b1959b22a4247b4d89dd67f74573, type: 2}
-  upgradesSOs:
-  - {fileID: 11400000, guid: 3e5b7dfb3c9c4c54ca72767eaf1d1d4c, type: 2}
-  - {fileID: 11400000, guid: cb6d077857edc0b4f8dc2f7f01cdb394, type: 2}
-  - {fileID: 11400000, guid: b9dba80dc972eeb4eb45608db48483af, type: 2}
-  - {fileID: 11400000, guid: 0511d3e3ba28e01468bfbf2d964aa1c9, type: 2}
-  - {fileID: 11400000, guid: 67a94f056be6fdf4488925ebe16218a8, type: 2}
-  - {fileID: 11400000, guid: 7c82496e516abcd46b608d1d80311c27, type: 2}
-  - {fileID: 11400000, guid: 11e3f92f4a39ccd4cbc638acca8250d5, type: 2}
-  - {fileID: 11400000, guid: 95b85ebd8338a9e48b403fea04e3f71a, type: 2}
-  - {fileID: 11400000, guid: cb934e199504bb242b2d037e0b624131, type: 2}
-  - {fileID: 11400000, guid: e615725ed88aad94daf992adc243e697, type: 2}
+  upgradesSOs: []
 --- !u!4 &1356588626
 Transform:
   m_ObjectHideFlags: 0
@@ -2617,7 +2607,7 @@ GameObject:
   - component: {fileID: 1719375499}
   - component: {fileID: 1719375500}
   m_Layer: 0
-  m_Name: GM&TM
+  m_Name: GameManager and TurnManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2665,9 +2655,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   pCSO: {fileID: 11400000, guid: a73199f1a4385df46ab734a13cad8599, type: 2}
-  computerCharacters:
-  - {fileID: 11400000, guid: 3cf43194f33d71444a38649773b5ae54, type: 2}
-  - {fileID: 11400000, guid: 8ab313d7e61cff74b894270ac4be328f, type: 2}
+  cCs: []
+  cCSO1: {fileID: 11400000, guid: 3cf43194f33d71444a38649773b5ae54, type: 2}
+  cCSO2: {fileID: 11400000, guid: 8ab313d7e61cff74b894270ac4be328f, type: 2}
   playerHealthBar: {fileID: 1545752617}
   computerHealthBar: {fileID: 323433692775634240}
   computerImage: {fileID: 95263672}
@@ -2683,7 +2673,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8728ae85011d3e4292963442e84f65e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeScreenUI
-  itemsRequired: 2
   itemTemplate: {fileID: 8111996514218801231, guid: 8baace57db0d8ac41b2c4549bf5cdf3e, type: 3}
   itemContainerTransform: {fileID: 955621792}
   itemScreen: {fileID: 1047721789}
@@ -2922,7 +2911,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 903832209}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.13043478
+  m_Size: 0.13043477
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3018,7 +3007,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1853969659
 RectTransform:
   m_ObjectHideFlags: 0

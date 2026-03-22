@@ -10,7 +10,7 @@ public class APBarUI : MonoBehaviour
     public void Setup(SelectMoveUI selectMoveUI)
     {
         this.selectMoveUI = selectMoveUI;
-        max = GameManager.I.pCharacter.GetComponent<Character>().actionPoints;
+        max = GameManager.I.pC.actionPoints;
         UpdateAPBar(selectMoveUI.GetCurrentAP());
         selectMoveUI.APChanged += UpdateAPBar;
     }

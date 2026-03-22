@@ -1,0 +1,44 @@
+[
+  {
+    "event_type": "run_start",
+    "timestamp_utc": "2026-03-22T16:18:49.0759886Z",
+    "data": {
+      "run_id": "ed4e8e18-989b-44ad-bd22-0a5de9a8cbaa",
+      "difficulty": "normal",
+      "start_time": 2.04281068
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-03-22T16:18:49.2123618Z",
+    "data": {
+      "fight_id": "03b0deb5-508f-4d7c-9155-c3f61c619f1e",
+      "start_time": 2.04281068
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-22T16:18:50.2549691Z",
+    "data": {
+      "move_name": "High Punch",
+      "user_type": "Player (Character)",
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "fight_end",
+    "timestamp_utc": "2026-03-22T16:18:52.2534783Z",
+    "data": {
+      "fight_id": "03b0deb5-508f-4d7c-9155-c3f61c619f1e",
+      "battle_time": 3,
+      "turns": 1,
+      "attack_attempts": 1,
+      "attack_success": 1,
+      "defend_attempts": 0,
+      "defend_success": 0,
+      "hp_left": 250,
+      "player_died": false,
+      "level": 0
+    }
+  }
+]
