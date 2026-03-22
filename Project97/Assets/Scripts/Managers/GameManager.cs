@@ -15,9 +15,6 @@ public class GameManager : MonoBehaviour
     private UpgradeScreenUI upgradeScreenUI;
     [SerializeField] private CharacterSO pCSO;
     [SerializeField] private List<CharacterSO> cCs;
-    [SerializeField] private CharacterSO cCSO1;
-    [SerializeField] private CharacterSO cCSO2;
-
     [SerializeField] private HealthBarUI playerHealthBar;
     [SerializeField] private HealthBarUI computerHealthBar;
     private string currentRunId;

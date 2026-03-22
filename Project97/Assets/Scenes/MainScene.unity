@@ -2685,6 +2685,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8728ae85011d3e4292963442e84f65e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeScreenUI
+  itemsRequired: 2
   itemTemplate: {fileID: 8111996514218801231, guid: 8baace57db0d8ac41b2c4549bf5cdf3e, type: 3}
   itemContainerTransform: {fileID: 955621792}
   itemScreen: {fileID: 1047721789}
@@ -2923,7 +2924,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 903832209}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.13043477
+  m_Size: 0.13043478
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

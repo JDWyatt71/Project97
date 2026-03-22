@@ -89,20 +89,6 @@ public class Inventory : MonoBehaviour
         return (inventory[item] >= amount);
         
     }
-    public bool HasItems(Dictionary<ItemSO, int> items)
-    {
-        foreach (ItemSO item in items.Keys)
-        {
-            if (!HasAmountOfItem(item, items[item])) return false;
-        }
-        return true;
-    }
-    public void TransferItemsTo(Dictionary<ItemSO, int> items, Inventory otherInventory) //Transfers items from this inventory to another inputted inventory
-    {
-        RemoveItems(items); //RemoveItems from here
-
-        otherInventory.AddItems(items); //Add items to other inventory
-    }
     public void UseItem(ItemSO item, Character character)
     {
         foreach (ItemEffect effect in item.effects)
