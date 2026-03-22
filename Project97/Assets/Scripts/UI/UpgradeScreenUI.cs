@@ -192,13 +192,13 @@ public class UpgradeScreenUI : MonoBehaviour
             CreateUpgrade(pC.GetDMoves().Contains(localMove), localMove.name, (pC) => pC.AddDMoves(localMove));
         }
 
-        CreateUpgrade(pC.GetDMoves().Contains(AssetsDatabase.I.dMoves[2]), "Block", (pC) => pC.AddDMoves(AssetsDatabase.I.dMoves.ToArray()[2..5]));
-        CreateUpgrade(pC.GetDMoves().Contains(AssetsDatabase.I.dMoves[5]),"Guard", (pC) => pC.AddDMoves(AssetsDatabase.I.dMoves.ToArray()[5..8]));
+        CreateUpgrade(pC.GetDMoves().Contains(dMovePool[2]), "Block", (pC) => pC.AddDMoves(dMovePool.ToArray()[2..5]));
+        CreateUpgrade(pC.GetDMoves().Contains(dMovePool[5]),"Guard", (pC) => pC.AddDMoves(dMovePool.ToArray()[5..8]));
 
         //Add all rest defend moves if applicable (like in level 1 and onwards)
         if (upgradesSO.allDefendAvailable)
         {
-            CreateUpgrade(pC.GetDMoves().Contains(AssetsDatabase.I.dMoves[8]), "Counter", (pC) => pC.AddDMoves(AssetsDatabase.I.dMoves.ToArray()[8..11]));
+            CreateUpgrade(pC.GetDMoves().Contains(dMovePool[8]), "Counter", (pC) => pC.AddDMoves(dMovePool.ToArray()[8..11]));
 
             for(int i = 11; i < dMovePool.Count; i++) //Adds all remaining that have no height - currently only Duck
             {
