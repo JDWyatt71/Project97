@@ -13,9 +13,9 @@ using UnityEngine;
 public static class EnemyAI
 {
     // ── Relative weights ─────────────────────────────────────
-    private const float FAVOURED_WEIGHT = 4f;   // 4× more likely than normal
+    private const float FAVOURED_WEIGHT = 4f;   
     private const float NORMAL_WEIGHT   = 1f;
-    private const float RARE_WEIGHT     = 0.25f; // 4× less likely than normal
+    private const float RARE_WEIGHT     = 0.25f; 
 
     // ── Public API ───────────────────────────────────────────
 
