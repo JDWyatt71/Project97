@@ -167,11 +167,12 @@ public class TelemetryLogger : MonoBehaviour
         });
     }
 
-    private void TrackStatusApplied(string statusName, string targetType, string sourceMove = "")
+    private void TrackStatusApplied(string statusName, string sessionId, string targetType, string sourceMove = "")
     {
         AddEvent("status_applied", new
         {
             status_name = statusName,
+            sessionId = sessionId,
             target_type = targetType,
             source_move = string.IsNullOrEmpty(sourceMove) ? null : sourceMove
         });

@@ -192,9 +192,9 @@ public class AnalyticsManager : MonoBehaviour
         Record(new MoveUsedEvent(moveName, userType, target, sessionId));
     }
 
-    public void TrackStatusApplied(string statusName, string targetType, string sourceMove = "")
+    public void TrackStatusApplied(string statusName, string sessionId, string targetType, string sourceMove = "")
     {
-        Record(new StatusAppliedEvent(statusName, targetType, sourceMove));
+        Record(new StatusAppliedEvent(statusName, sessionId, targetType, sourceMove));
     }
 }
 
@@ -324,10 +324,11 @@ class MoveUsedEvent : GameAnalyticsEvent
 // ---------------- STATUS ----------------
 class StatusAppliedEvent : GameAnalyticsEvent
 {
-    public StatusAppliedEvent(string statusName, string targetType, string sourceMove = "")
+    public StatusAppliedEvent(string statusName, string sessionId, string targetType, string sourceMove = "")
         : base("status_applied")
     {
         SetParameter("status_name", statusName);   // e.g., "bleed", "stun", "poison"
+        SetParameter("sessionId", sessionId);
         SetParameter("target_type", targetType);   // "player" or "enemy"
         if (!string.IsNullOrEmpty(sourceMove))
             SetParameter("source_move", sourceMove);

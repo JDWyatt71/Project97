@@ -152,7 +152,7 @@ public class CombatManager
             {
                 character.AddEffect(eC.effect, moveHeight);
 
-                GameEvents.RaiseStatus(eC.effect.ToString(), character.ToString(), attackSO.name.ToString());
+                GameEvents.RaiseStatus(eC.effect.ToString(), GameManager.I.CurrentSessionId, character.ToString(), attackSO.name.ToString());
 
                 //string effectName = eC.effect.name; // once we figure out the effects.
                 //analytics.RegisterEffectApplied(effectName);

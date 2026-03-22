@@ -19,7 +19,7 @@ public static class GameEvents
 
     public static event Action<int, string, string, string, string> UpgradeChosen;
 
-    public static event Action<string, string, string> StatusApplied;
+    public static event Action<string, string, string, string> StatusApplied;
 
     public static event Action<string> ItemBought;
     public static event Action<string> ItemUsed;
@@ -34,7 +34,7 @@ public static class GameEvents
     public static void RaiseStageFail(string fightID, string sessionId) => StageFail?.Invoke(fightID, sessionId);
     public static void RaiseMoveUsed(string move, string sessionId, string user, string target) => MoveUsed?.Invoke(move, sessionId, user, target);
     public static void RaiseUpgradeChosen(int level, string type, string value, string runId, string sessionId) => UpgradeChosen?.Invoke(level, type, value, runId, sessionId);
-    public static void RaiseStatus(string status, string target, string source) => StatusApplied?.Invoke(status, target, source);
+    public static void RaiseStatus(string status, string sessionId, string target, string source) => StatusApplied?.Invoke(status, sessionId, target, source);
     public static void RaiseItemBought(string name) => ItemBought?.Invoke(name);
     public static void RaiseItemUsed(string name) => ItemUsed?.Invoke(name);
 }
