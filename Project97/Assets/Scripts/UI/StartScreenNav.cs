@@ -14,8 +14,9 @@ public class StartScreenNav : MonoBehaviour
     [SerializeField] private GameObject easyButton;
     [SerializeField] private GameObject normalButton;
     [SerializeField] private GameObject hardButton;
-    public void EnterGame()
+    public void EnterGame(int difficulty)
     {
+        UC.SetDifficulty((Difficulty)difficulty);
         SceneManager.LoadScene(1);
     }
 

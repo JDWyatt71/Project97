@@ -28,7 +28,6 @@ public class GameManager : MonoBehaviour
     private int attackSuccess = 0;
     private int defendAttempt = 0;
     private int defendSuccess = 0;
-    public Difficulty difficulty = Difficulty.Normal;
     [SerializeField] private Image computerImage;
 
     public GameObject pCharacter {private set; get;}
@@ -58,7 +57,7 @@ public class GameManager : MonoBehaviour
         pC = pCharacter.GetComponent<Character>();
         pInventory = pCharacter.GetComponent<Inventory>();
 
-        pInventory.SetupInventory(difficulty);
+        pInventory.SetupInventory(UC.GetDifficulty());
         CharacterSO cSO = cCs[round-1];
         GameObject cCharacter = SetupCharacter(cSO.name, cSO, computerHealthBar);
         computerImage.sprite = cSO.sprite;

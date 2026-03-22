@@ -1,0 +1,61 @@
+[
+  {
+    "event_type": "run_start",
+    "timestamp_utc": "2026-03-22T16:20:45.4356645Z",
+    "data": {
+      "run_id": "01f3650e-664d-4088-ac91-b93b53a10c4e",
+      "difficulty": "normal",
+      "start_time": 0.901542
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-03-22T16:20:45.5970358Z",
+    "data": {
+      "fight_id": "93586cc8-bdb9-4045-a7e5-97673ab7103c",
+      "start_time": 0.901542
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-22T16:20:47.2811619Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "user_type": "Player (Character)",
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "fight_end",
+    "timestamp_utc": "2026-03-22T16:20:49.2762109Z",
+    "data": {
+      "fight_id": "93586cc8-bdb9-4045-a7e5-97673ab7103c",
+      "battle_time": 4,
+      "turns": 1,
+      "attack_attempts": 1,
+      "attack_success": 1,
+      "defend_attempts": 0,
+      "defend_success": 0,
+      "hp_left": 250,
+      "player_died": false,
+      "level": 0
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-03-22T16:20:52.7847474Z",
+    "data": {
+      "fight_id": "9a79ed2d-1664-4039-b72f-50d09924d211",
+      "start_time": 8.014944
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-22T16:20:54.3001328Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "user_type": "Player (Character)",
+      "target_type": "Comeback Fighter (Character)"
+    }
+  }
+]
