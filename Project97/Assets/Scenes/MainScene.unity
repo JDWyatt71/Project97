@@ -2617,7 +2617,7 @@ GameObject:
   - component: {fileID: 1719375499}
   - component: {fileID: 1719375500}
   m_Layer: 0
-  m_Name: GameManager and TurnManager
+  m_Name: GM&TM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2665,7 +2665,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   pCSO: {fileID: 11400000, guid: a73199f1a4385df46ab734a13cad8599, type: 2}
-  cCs:
+  computerCharacters:
   - {fileID: 11400000, guid: 3cf43194f33d71444a38649773b5ae54, type: 2}
   - {fileID: 11400000, guid: 8ab313d7e61cff74b894270ac4be328f, type: 2}
   playerHealthBar: {fileID: 1545752617}
