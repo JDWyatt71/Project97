@@ -11,7 +11,7 @@ using System.Collections.Generic;
 public class GameManager : MonoBehaviour
 {
     public static GameManager I {private set; get;}
-    public Inventory pInventory;
+    public Inventory pInventory {private set; get;}
     private UpgradeScreenUI upgradeScreenUI;
     [SerializeField] private CharacterSO pCSO;
     [SerializeField] private List<CharacterSO> cCs;
@@ -116,7 +116,7 @@ public class GameManager : MonoBehaviour
     private void OnFightEnded(FightResult fightResult)
     {
         currentLevel++;
-        pCharacter.GetComponent<Character>().ResetBonusStats();
+        pC.ResetBonusStats();
         //print(pCharacter.GetComponent<Character>().GetAttack());
 
 
