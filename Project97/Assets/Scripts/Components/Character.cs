@@ -33,7 +33,7 @@ public class Character : MonoBehaviour
     }
     private int baseActionPoints;
     public int actionPoints {private set; get;}
-    public void ChangeAP(int amount)
+    public void ChangeActionPoints(int amount)
     {
         actionPoints += amount;
     }
@@ -56,36 +56,6 @@ public class Character : MonoBehaviour
     public void ChangeEvasion(float amount)
     {
         baseEvasion += amount;
-    }
-
-
-
-    public int bonusAttack=0;
-    public void ChangeBonusAttack(int amount)
-    {
-        bonusAttack += amount;
-    }
-    private float bonusAccuracy=0;
-    public void ChangeBonusAccuracy(float amount)
-    {
-        bonusAccuracy += amount;
-    }
-    private float bonusEvasion=0;
-    public void ChangeBonusEvasion(float amount)
-    {
-        bonusEvasion += amount;
-    }
-    public int bonusActionPoints = 0;
-    public void ChangeBonusAP(int amount)
-    {
-        bonusActionPoints += amount;
-    }
-
-
-
-    public int GetAttack()
-    {
-        return attack;
     }
 
 
