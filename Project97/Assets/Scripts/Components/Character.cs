@@ -35,7 +35,8 @@ public class Character : MonoBehaviour
     public int actionPoints {private set; get;}
     public void ChangeActionPoints(int amount)
     {
-        actionPoints += amount;
+        baseActionPoints += amount;
+        baseActionPoints = Mathf.Max(10, baseActionPoints); //Max AP is 10
     }
     public int hitPoints; //Not used
     private Inventory inventory;
