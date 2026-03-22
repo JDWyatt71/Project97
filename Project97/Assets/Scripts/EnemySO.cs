@@ -1,11 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// ──────────────────────────────────────────────────────────────
 //  EnemySO  –  ScriptableObject that holds an enemy's stats,
 //  move lists, and all AI behaviour data.
-//  Create via: Assets > Create > ScriptableObjects > Enemy
-// ──────────────────────────────────────────────────────────────
 
 [CreateAssetMenu(menuName = "ScriptableObjects/Enemy")]
 public class EnemySO : CharacterSO
@@ -33,11 +30,6 @@ public class EnemySO : CharacterSO
     public List<MoveCondition> moveConditions = new();
 }
 
-// ──────────────────────────────────────────────────────────────
-//  DefendWeight – pairs a DefendSO with a relative probability.
-//  Probabilities are normalised at runtime so they don't need
-//  to sum to 1.
-// ──────────────────────────────────────────────────────────────
 [System.Serializable]
 public class DefendWeight
 {
@@ -45,10 +37,6 @@ public class DefendWeight
     [Range(0f, 1f)] public float weight = 0.25f;
 }
 
-// ──────────────────────────────────────────────────────────────
-//  MoveCondition – restricts a move to a specific game state.
-//  e.g. Choke can only be used when the player is Prone.
-// ──────────────────────────────────────────────────────────────
 [System.Serializable]
 public class MoveCondition
 {
