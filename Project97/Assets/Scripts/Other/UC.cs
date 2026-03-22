@@ -4,6 +4,15 @@ using System;
 using System.Linq;
 public static class UC //Utils Class
 {
+    private static Difficulty difficulty;
+    public static Difficulty GetDifficulty()
+    {
+        return difficulty;
+    }
+    public static void SetDifficulty(Difficulty newDifficulty)
+    {
+        difficulty = newDifficulty;
+    }
     public static bool RandomEvent(float moveAccuracy)
     {
         return UnityEngine.Random.value < moveAccuracy;

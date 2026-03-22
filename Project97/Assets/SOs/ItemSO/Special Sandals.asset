@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Special Sandals
   m_EditorClassIdentifier: Assembly-CSharp::ItemSO
   sprite: {fileID: 0}
-  effects: 05000000
+  effects: 04000000

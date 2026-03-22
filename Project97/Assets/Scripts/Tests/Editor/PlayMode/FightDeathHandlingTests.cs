@@ -40,14 +40,14 @@ public class FightDeathHandlingTests
         attackerObj.AddComponent<HealthSystem>();
         attacker.Setup(characterSO);
         attacker.attack = 10;
-        attacker.hitPoints = 100;
+        attacker.healthSystem.Setup(100);
 
         defenderObj = new GameObject("Defender");
         defender = defenderObj.AddComponent<Character>();
         defenderObj.AddComponent<HealthSystem>();
         defender.Setup(characterSO);
         defender.attack = 8;
-        defender.hitPoints = 100;
+        defender.healthSystem.Setup(100);
 
         testAttack = ScriptableObject.CreateInstance<AttackSO>();
         testAttack.damage = Scale.Medium;

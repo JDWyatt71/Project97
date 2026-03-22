@@ -1,3 +1,5 @@
+
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,35 +13,54 @@ using UnityEngine.UI;
 
 public class UpgradeScreenUI : MonoBehaviour
 {
+    [SerializeField] private int itemsRequired = 2;
     [SerializeField] private GameObject itemTemplate;
     [SerializeField] private Transform itemContainerTransform;
     [SerializeField] private GameObject itemScreen;
+    private int itemsSelected = 0;
+    private bool selectingItems = false;
     public event Action UpgradeSelected;
     private bool upgradesCreated = false;
-    public void DisplayItems(List<ItemSO> items)
+    public void DisplayItems(Dictionary<ItemSO, int> items)
     {
+        Clear();
         itemScreen.SetActive(true);
-        foreach (ItemSO item in items)
+
+        itemsSelected = 0;
+        selectingItems = true;
+
+        foreach (var itemtype in items)
         {
-            RectTransform itemSlotRectTransform = Instantiate(itemTemplate, itemContainerTransform).GetComponent<RectTransform>();
+            ItemSO item = itemtype.Key;
+            int count = itemtype.Value;
+
+            RectTransform itemSlotRectTransform =
+                Instantiate(itemTemplate, itemContainerTransform)
+                .GetComponent<RectTransform>();
+
             itemSlotRectTransform.gameObject.SetActive(true);
 
             Transform imageTransform = itemSlotRectTransform.Find("image");
 
             imageTransform.GetComponent<Button>().onClick.AddListener(() =>
             {
-                StartCoroutine(SelectItem(item, itemSlotRectTransform.Find("selectImage").gameObject));
+                StartCoroutine(
+                    SelectItem(item,
+                    itemSlotRectTransform.Find("selectImage").gameObject,
+                    imageTransform.GetComponent<Button>())
+                );
             });
-            
-            Image image = itemSlotRectTransform.Find("image").GetComponent<Image>();
-            image.preserveAspect = true;
-            if (item.sprite != null)
-            {
-                image.sprite = item.sprite;
-            }
 
-            TextMeshProUGUI priceForNextActionText = itemSlotRectTransform.Find("text").GetComponent<TextMeshProUGUI>();
-            priceForNextActionText.SetText(string.Format("{0}\n", item.name));
+            Image image = imageTransform.GetComponent<Image>();
+            image.preserveAspect = true;
+
+            if (item.sprite != null)
+                image.sprite = item.sprite;
+
+            TextMeshProUGUI text =
+                itemSlotRectTransform.Find("text").GetComponent<TextMeshProUGUI>();
+
+            text.SetText($"{item.name} x{count}");
         }
     } 
     /*
@@ -83,9 +104,8 @@ public class UpgradeScreenUI : MonoBehaviour
 
     private void ApplyUpgrade(string name, int amount) 
     {
-        var character = GameManager.I.pCharacter;
-        var pC = character.GetComponent<Character>();
-        var pHS = character.GetComponent<HealthSystem>();
+        var pC = GameManager.I.pC;
+        var pHS = pC.healthSystem;
         Debug.Log($"upgraded {name} {amount}");
         switch (name)
         {
@@ -113,10 +133,11 @@ public class UpgradeScreenUI : MonoBehaviour
 
     public void DisplayUpgrades()
     {
-        Character pC = GameManager.I.pCharacter.GetComponent<Character>();
+        Character pC = GameManager.I.pC;
 
+        Clear();
         itemScreen.SetActive(true);
-        if (upgradesCreated) return;
+        //if (upgradesCreated) return;
         //Increase upgrades
         foreach (string upgrade in upgrades.Keys)
         {
@@ -177,13 +198,13 @@ public class UpgradeScreenUI : MonoBehaviour
             CreateUpgrade(pC.GetDMoves().Contains(localMove), localMove.name, (pC) => pC.AddDMoves(localMove));
         }
 
-        CreateUpgrade(pC.GetDMoves().Contains(AssetsDatabase.I.dMoves[2]), "Block", (pC) => pC.AddDMoves(AssetsDatabase.I.dMoves.ToArray()[2..5]));
-        CreateUpgrade(pC.GetDMoves().Contains(AssetsDatabase.I.dMoves[5]),"Guard", (pC) => pC.AddDMoves(AssetsDatabase.I.dMoves.ToArray()[5..8]));
+        CreateUpgrade(pC.GetDMoves().Contains(dMovePool[2]), "Block", (pC) => pC.AddDMoves(dMovePool.ToArray()[2..5]));
+        CreateUpgrade(pC.GetDMoves().Contains(dMovePool[5]),"Guard", (pC) => pC.AddDMoves(dMovePool.ToArray()[5..8]));
 
         //Add all rest defend moves if applicable (like in level 1 and onwards)
         if (upgradesSO.allDefendAvailable)
         {
-            CreateUpgrade(pC.GetDMoves().Contains(AssetsDatabase.I.dMoves[8]), "Counter", (pC) => pC.AddDMoves(AssetsDatabase.I.dMoves.ToArray()[8..11]));
+            CreateUpgrade(pC.GetDMoves().Contains(dMovePool[8]), "Counter", (pC) => pC.AddDMoves(dMovePool.ToArray()[8..11]));
 
             for(int i = 11; i < dMovePool.Count; i++) //Adds all remaining that have no height - currently only Duck
             {
@@ -200,7 +221,7 @@ public class UpgradeScreenUI : MonoBehaviour
         if(haveMove) return;
         MakeUpgradeBtn("Unlock " + name).onClick.AddListener(() =>
         {
-            Character pC = GameManager.I.pCharacter.GetComponent<Character>();
+            Character pC = GameManager.I.pC;
 
             upgradeLogic?.Invoke(pC);
 
@@ -230,13 +251,43 @@ public class UpgradeScreenUI : MonoBehaviour
         
     }
 
-    private IEnumerator SelectItem(ItemSO item, GameObject selectImage)
+    private IEnumerator SelectItem(ItemSO item, GameObject selectImage, Button button)
     {
-        //Optional delay
+        if (!selectingItems)
+            yield break;
+
+        Inventory inventory = GameManager.I.pInventory;
+        Character pC = GameManager.I.pC;
+
         selectImage.SetActive(true);
-        yield return new WaitForSeconds(1f);
-        GameManager.I.PlayerAddItem(item);
-        itemScreen.SetActive(false);
+
+        //yield return new WaitForSeconds(1f);
+
+        if (inventory.HasAmountOfItem(item))
+        {
+            GameManager.I.pInventory.UseItem(item, pC);
+
+            itemsSelected++;
+            button.interactable = false;
+        
+            if (itemsSelected >= itemsRequired)
+            {
+                selectingItems = false;
+                DisplayUpgrades();
+            }
+        }
+        else
+        {
+            selectImage.SetActive(false);
+        }
+    }
+
+    private void Clear()
+    {
+        foreach (Transform child in itemContainerTransform)
+        {
+            Destroy(child.gameObject);
+        }
     }
 
     private void TrackUpgradeChosen(string type, string value)

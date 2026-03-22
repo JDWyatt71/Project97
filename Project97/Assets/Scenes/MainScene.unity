@@ -1882,7 +1882,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: eeb1a106c42a5c84b8aebfba560556bf, type: 2}
   - {fileID: 11400000, guid: 2edd97e79033a3942a9696cffa15dd82, type: 2}
   - {fileID: 11400000, guid: 4cce1fdf6f9db1e4cb599f8b9a729b97, type: 2}
-  - {fileID: 11400000, guid: 895b9b365dea5eb4c94f0d7e3ceb7ef0, type: 2}
   - {fileID: 11400000, guid: d148bf77165e69d4cb4fcd250896a0a7, type: 2}
   - {fileID: 11400000, guid: 3231c206ca4db5844b5c56afa45ebe66, type: 2}
   - {fileID: 11400000, guid: fe89b1959b22a4247b4d89dd67f74573, type: 2}
@@ -2618,7 +2617,7 @@ GameObject:
   - component: {fileID: 1719375499}
   - component: {fileID: 1719375500}
   m_Layer: 0
-  m_Name: GameManager and TurnManager
+  m_Name: GM&TM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2666,11 +2665,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   pCSO: {fileID: 11400000, guid: a73199f1a4385df46ab734a13cad8599, type: 2}
-  cCs:
+  computerCharacters:
   - {fileID: 11400000, guid: 3cf43194f33d71444a38649773b5ae54, type: 2}
   - {fileID: 11400000, guid: 8ab313d7e61cff74b894270ac4be328f, type: 2}
-  cCSO1: {fileID: 11400000, guid: 3cf43194f33d71444a38649773b5ae54, type: 2}
-  cCSO2: {fileID: 11400000, guid: 8ab313d7e61cff74b894270ac4be328f, type: 2}
   playerHealthBar: {fileID: 1545752617}
   computerHealthBar: {fileID: 323433692775634240}
   computerImage: {fileID: 95263672}
@@ -2686,6 +2683,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8728ae85011d3e4292963442e84f65e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeScreenUI
+  itemsRequired: 2
   itemTemplate: {fileID: 8111996514218801231, guid: 8baace57db0d8ac41b2c4549bf5cdf3e, type: 3}
   itemContainerTransform: {fileID: 955621792}
   itemScreen: {fileID: 1047721789}
@@ -2924,7 +2922,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 903832209}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.13043477
+  m_Size: 0.13043478
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3020,7 +3018,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1853969659
 RectTransform:
   m_ObjectHideFlags: 0

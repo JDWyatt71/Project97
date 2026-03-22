@@ -1897,6 +1897,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 95b85ebd8338a9e48b403fea04e3f71a, type: 2}
   - {fileID: 11400000, guid: cb934e199504bb242b2d037e0b624131, type: 2}
   - {fileID: 11400000, guid: e615725ed88aad94daf992adc243e697, type: 2}
+  - {fileID: 11400000, guid: d148bf77165e69d4cb4fcd250896a0a7, type: 2}
+  - {fileID: 11400000, guid: 3231c206ca4db5844b5c56afa45ebe66, type: 2}
+  - {fileID: 11400000, guid: fe89b1959b22a4247b4d89dd67f74573, type: 2}
+  upgradesSOs: []
 --- !u!4 &1356588626
 Transform:
   m_ObjectHideFlags: 0
@@ -2666,9 +2670,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   pCSO: {fileID: 11400000, guid: a73199f1a4385df46ab734a13cad8599, type: 2}
-  cCs:
-  - {fileID: 11400000, guid: 3cf43194f33d71444a38649773b5ae54, type: 2}
-  - {fileID: 11400000, guid: 8ab313d7e61cff74b894270ac4be328f, type: 2}
+  cCs: []
   cCSO1: {fileID: 11400000, guid: 3cf43194f33d71444a38649773b5ae54, type: 2}
   cCSO2: {fileID: 11400000, guid: 8ab313d7e61cff74b894270ac4be328f, type: 2}
   playerHealthBar: {fileID: 1545752617}

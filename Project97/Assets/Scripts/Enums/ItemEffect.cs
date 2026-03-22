@@ -2,10 +2,8 @@ public enum ItemEffect
 {
     IAttack,
     IAP,
-    HealBleeding,
-    HealBrokenBones,
+    HealStatus,
     HealHP,
     IEvasion,
-    IAccuracy,
-    IAllStats
+    IAccuracy
 }

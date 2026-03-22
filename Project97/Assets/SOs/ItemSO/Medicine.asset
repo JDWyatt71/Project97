@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Medicine
   m_EditorClassIdentifier: Assembly-CSharp::ItemSO
   sprite: {fileID: 0}
-  effects: 04000000
+  effects: 03000000
