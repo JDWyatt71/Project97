@@ -35,6 +35,11 @@ public class DeveloperAccessUI : MonoBehaviour
 
     public void OpenToolkit()
     {
+        Application.OpenURL("http://localhost:8502");
+    }
+
+    public void OpenDashboard()
+    {
         Application.OpenURL("http://localhost:8501");
     }
 
