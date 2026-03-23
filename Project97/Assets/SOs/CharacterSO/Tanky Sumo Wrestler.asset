@@ -10,16 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4ed182d135f5b54ab14f55bf9b83338, type: 3}
-  m_Name: Kick Fighter
+  m_Name: Tanky Sumo Wrestler
   m_EditorClassIdentifier: Assembly-CSharp::CharacterSO
   sprite: {fileID: 0}
-  hitPoints: 0
-  attack: 0
-  accuracy: 0
-  evasion: 0
-  aMoves: []
+  hitPoints: 150
+  attack: 26
+  accuracy: 30
+  evasion: 10
+  aMoves:
+  - {fileID: 11400000, guid: 057b41ab4004665448c5823da45f8f86, type: 2}
+  - {fileID: 11400000, guid: bdb38d8280fcb9a4e8b82b7a2103f186, type: 2}
+  - {fileID: 11400000, guid: 809c51cec0b7cf343a0aa94e4de9d9aa, type: 2}
+  - {fileID: 11400000, guid: 35f1dabdbb8724541b6b8ab9e2c155d3, type: 2}
   dMoves: []
-  actionPoints: 0
-  defendRate: 1
+  actionPoints: 8
+  defendRate: 0
   attackChances: []
   defendChances: []
