@@ -14,7 +14,6 @@ DEFAULT_DB_PATH = str(Path(__file__).parent.parent / "telemetry.db")
 #FOR TESTING PURPOSES
 PATH = "mock_telemetry.db"
 Issues_PATH = "mock_telemetry_with_issues.db"
-valid_and_issues_path = "mock_telemetry_with_valid_&_issues.db"
 
 st.set_page_config(page_title="Telemetry Dashboard", layout="wide")
 
