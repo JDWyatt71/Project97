@@ -1,0 +1,311 @@
+[
+  {
+    "event_type": "run_start",
+    "timestamp_utc": "2026-03-23T12:14:19.6835437Z",
+    "data": {
+      "run_id": "154d4ddf-b198-4054-b6a5-267a7999e110",
+      "difficulty": "easy",
+      "start_time": 0.0,
+      "sessionId": "71341700-88da-4b19-a2be-90280e44a048"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-03-23T12:14:19.7399928Z",
+    "data": {
+      "fight_id": "4ae82e57-8588-4447-be8c-73ba3d4ffa56",
+      "stage_id": "4ae82e57-8588-4447-be8c-73ba3d4ffa56",
+      "start_time": 0.0,
+      "sessionId": "71341700-88da-4b19-a2be-90280e44a048"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-03-23T12:14:22.8602925Z",
+    "data": {
+      "status_name": "Blindness",
+      "sessionId": "71341700-88da-4b19-a2be-90280e44a048",
+      "target_type": "Dojo Challenger (Character)",
+      "source_move": "High Punch"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-23T12:14:22.8602925Z",
+    "data": {
+      "move_name": "High Punch",
+      "sessionId": "71341700-88da-4b19-a2be-90280e44a048",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 3,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "stage_complete",
+    "timestamp_utc": "2026-03-23T12:14:24.8507749Z",
+    "data": {
+      "fight_id": "4ae82e57-8588-4447-be8c-73ba3d4ffa56",
+      "sessionId": "71341700-88da-4b19-a2be-90280e44a048"
+    }
+  },
+  {
+    "event_type": "fight_end",
+    "timestamp_utc": "2026-03-23T12:14:24.8517744Z",
+    "data": {
+      "fight_id": "4ae82e57-8588-4447-be8c-73ba3d4ffa56",
+      "run_id": "154d4ddf-b198-4054-b6a5-267a7999e110",
+      "battle_time": 4,
+      "turns": 1,
+      "attack_attempts": 1,
+      "attack_success": 1,
+      "defend_attempts": 0,
+      "defend_success": 0,
+      "hp_left": 250,
+      "player_died": false,
+      "level": 0,
+      "sessionId": "71341700-88da-4b19-a2be-90280e44a048"
+    }
+  },
+  {
+    "event_type": "upgrade_chosen",
+    "timestamp_utc": "2026-03-23T12:14:26.7046802Z",
+    "data": {
+      "level": 2,
+      "type": "stat",
+      "value": "AP+1",
+      "run_id": "154d4ddf-b198-4054-b6a5-267a7999e110",
+      "sessionId": "71341700-88da-4b19-a2be-90280e44a048"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-03-23T12:14:26.7061885Z",
+    "data": {
+      "fight_id": "0624fdea-5f5b-4a37-b15b-791e02761b9a",
+      "stage_id": "0624fdea-5f5b-4a37-b15b-791e02761b9a",
+      "start_time": 5.68489552,
+      "sessionId": "71341700-88da-4b19-a2be-90280e44a048"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-03-23T12:14:28.1978184Z",
+    "data": {
+      "status_name": "Blindness",
+      "sessionId": "71341700-88da-4b19-a2be-90280e44a048",
+      "target_type": "Comeback Fighter (Character)",
+      "source_move": "High Punch"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-23T12:14:28.1978184Z",
+    "data": {
+      "move_name": "High Punch",
+      "sessionId": "71341700-88da-4b19-a2be-90280e44a048",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 6,
+      "target_type": "Comeback Fighter (Character)"
+    }
+  },
+  {
+    "event_type": "stage_complete",
+    "timestamp_utc": "2026-03-23T12:14:30.1991442Z",
+    "data": {
+      "fight_id": "0624fdea-5f5b-4a37-b15b-791e02761b9a",
+      "sessionId": "71341700-88da-4b19-a2be-90280e44a048"
+    }
+  },
+  {
+    "event_type": "fight_end",
+    "timestamp_utc": "2026-03-23T12:14:30.1991442Z",
+    "data": {
+      "fight_id": "0624fdea-5f5b-4a37-b15b-791e02761b9a",
+      "run_id": "154d4ddf-b198-4054-b6a5-267a7999e110",
+      "battle_time": 3,
+      "turns": 1,
+      "attack_attempts": 1,
+      "attack_success": 1,
+      "defend_attempts": 0,
+      "defend_success": 0,
+      "hp_left": 255,
+      "player_died": false,
+      "level": 0,
+      "sessionId": "71341700-88da-4b19-a2be-90280e44a048"
+    }
+  },
+  {
+    "event_type": "upgrade_chosen",
+    "timestamp_utc": "2026-03-23T12:14:31.6460113Z",
+    "data": {
+      "level": 3,
+      "type": "stat",
+      "value": "AP+1",
+      "run_id": "154d4ddf-b198-4054-b6a5-267a7999e110",
+      "sessionId": "71341700-88da-4b19-a2be-90280e44a048"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-03-23T12:14:31.6480076Z",
+    "data": {
+      "fight_id": "214d95c6-6006-4345-b923-c731259725bf",
+      "stage_id": "214d95c6-6006-4345-b923-c731259725bf",
+      "start_time": 10.627821,
+      "sessionId": "71341700-88da-4b19-a2be-90280e44a048"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-23T12:14:33.0385709Z",
+    "data": {
+      "move_name": "High Punch",
+      "sessionId": "71341700-88da-4b19-a2be-90280e44a048",
+      "user_type": "Player (Character)",
+      "attack_result": "dodged",
+      "total_damage": 0,
+      "target_type": "Dodger (Character)"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-03-23T12:14:35.0399906Z",
+    "data": {
+      "status_name": "Blindness",
+      "sessionId": "71341700-88da-4b19-a2be-90280e44a048",
+      "target_type": "Player (Character)",
+      "source_move": "Medium Punch"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-03-23T12:14:35.0399906Z",
+    "data": {
+      "status_name": "Bind",
+      "sessionId": "71341700-88da-4b19-a2be-90280e44a048",
+      "target_type": "Player (Character)",
+      "source_move": "Medium Punch"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-23T12:14:35.0399906Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "sessionId": "71341700-88da-4b19-a2be-90280e44a048",
+      "user_type": "Dodger (Character)",
+      "attack_result": "hit",
+      "total_damage": 3,
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-23T12:14:37.0427111Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "sessionId": "71341700-88da-4b19-a2be-90280e44a048",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 6,
+      "target_type": "Dodger (Character)"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-03-23T12:14:39.0424773Z",
+    "data": {
+      "status_name": "Blindness",
+      "sessionId": "71341700-88da-4b19-a2be-90280e44a048",
+      "target_type": "Player (Character)",
+      "source_move": "High Punch"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-23T12:14:39.0424773Z",
+    "data": {
+      "move_name": "High Punch",
+      "sessionId": "71341700-88da-4b19-a2be-90280e44a048",
+      "user_type": "Dodger (Character)",
+      "attack_result": "hit",
+      "total_damage": 4,
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-03-23T12:19:19.1917871Z",
+    "data": {
+      "status_name": "Blindness",
+      "sessionId": "71341700-88da-4b19-a2be-90280e44a048",
+      "target_type": "Dodger (Character)",
+      "source_move": "High Punch"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-03-23T12:19:19.1917871Z",
+    "data": {
+      "status_name": "Bind",
+      "sessionId": "71341700-88da-4b19-a2be-90280e44a048",
+      "target_type": "Dodger (Character)",
+      "source_move": "High Punch"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-23T12:19:19.1917871Z",
+    "data": {
+      "move_name": "High Punch",
+      "sessionId": "71341700-88da-4b19-a2be-90280e44a048",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 6,
+      "target_type": "Dodger (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-23T12:19:21.1932346Z",
+    "data": {
+      "move_name": "Medium Side Fist",
+      "sessionId": "71341700-88da-4b19-a2be-90280e44a048",
+      "user_type": "Dodger (Character)",
+      "attack_result": "blocked",
+      "total_damage": 9,
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-03-23T12:19:23.1940797Z",
+    "data": {
+      "status_name": "Bind",
+      "sessionId": "71341700-88da-4b19-a2be-90280e44a048",
+      "target_type": "Dodger (Character)",
+      "source_move": "Medium Punch"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-23T12:19:23.1940797Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "sessionId": "71341700-88da-4b19-a2be-90280e44a048",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 5,
+      "target_type": "Dodger (Character)"
+    }
+  },
+  {
+    "event_type": "game_quit",
+    "timestamp_utc": "2026-03-23T12:33:23.9950003Z",
+    "data": {
+      "sessionId": "71341700-88da-4b19-a2be-90280e44a048"
+    }
+  }
+]
