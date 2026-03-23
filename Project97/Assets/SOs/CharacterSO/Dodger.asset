@@ -31,5 +31,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 021163f496a958942914aaf897105689, type: 2}
   actionPoints: 6
   defendRate: 1
-  attackChances: []
-  defendChances: []
+  attackChances:
+  - attackSO: {fileID: 11400000, guid: 54e5bbae8c3261541a955f655f480f51, type: 2}
+    weight: 1
+  - attackSO: {fileID: 11400000, guid: 8dc3fa4b48a5b5c48868559f79f753c2, type: 2}
+    weight: 1
+  defendChances:
+  - defendSO: {fileID: 11400000, guid: b0565ee1bb5921d45bbc42a9c61da452, type: 2}
+    probability: 0.75
+  - defendSO: {fileID: 11400000, guid: 021163f496a958942914aaf897105689, type: 2}
+    probability: 0.25

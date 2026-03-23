@@ -25,5 +25,11 @@ MonoBehaviour:
   dMoves: []
   actionPoints: 8
   defendRate: 0
-  attackChances: []
+  attackChances:
+  - attackSO: {fileID: 11400000, guid: 057b41ab4004665448c5823da45f8f86, type: 2}
+    weight: 0
+  - attackSO: {fileID: 11400000, guid: bdb38d8280fcb9a4e8b82b7a2103f186, type: 2}
+    weight: 0
+  - attackSO: {fileID: 11400000, guid: 809c51cec0b7cf343a0aa94e4de9d9aa, type: 2}
+    weight: 1
   defendChances: []

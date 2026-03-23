@@ -29,5 +29,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b3ecc9a0b25be3049a50190efb4ae576, type: 2}
   actionPoints: 7
   defendRate: 0.9
-  attackChances: []
+  attackChances:
+  - attackSO: {fileID: 11400000, guid: 23ae6c69801b0cc498ff40cbe519326c, type: 2}
+    weight: 1
+  - attackSO: {fileID: 11400000, guid: 700a6f9fc773f954486c98cd3b204050, type: 2}
+    weight: 1
+  - attackSO: {fileID: 11400000, guid: c4aeee241cdc63e4eb0f699c5a7fba4c, type: 2}
+    weight: 1
   defendChances: []
