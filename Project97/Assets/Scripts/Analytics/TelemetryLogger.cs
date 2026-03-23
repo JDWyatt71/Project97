@@ -49,8 +49,11 @@ public class TelemetryLogger : MonoBehaviour
     {
         GameEvents.RunStarted -= TrackRunStart;
         GameEvents.RunEnded -= TrackRunEnd;
+        GameEvents.GameQuit -= TrackGameQuit;
         GameEvents.FightStarted -= TrackFightStart;
         GameEvents.FightEnded -= TrackFightEnd;
+        GameEvents.StageComplete -= TrackStageComplete;
+        GameEvents.StageFail -= TrackStageFail;
         GameEvents.MoveUsed -= TrackMoveUsed;
         GameEvents.StatusApplied -= TrackStatusApplied;
         GameEvents.ItemBought -= TrackItemBought;
@@ -59,8 +62,11 @@ public class TelemetryLogger : MonoBehaviour
 
         GameEvents.RunStarted += TrackRunStart;
         GameEvents.RunEnded += TrackRunEnd;
+        GameEvents.GameQuit += TrackGameQuit;
         GameEvents.FightStarted += TrackFightStart;
         GameEvents.FightEnded += TrackFightEnd;
+        GameEvents.StageComplete += TrackStageComplete;
+        GameEvents.StageFail += TrackStageFail;
         GameEvents.MoveUsed += TrackMoveUsed;
         GameEvents.StatusApplied += TrackStatusApplied;
         GameEvents.ItemBought += TrackItemBought;
@@ -70,9 +76,14 @@ public class TelemetryLogger : MonoBehaviour
 
     #region Event Handlers
 
-    private void TrackRunStart(string runId, string difficulty, float runStartTime)
+    private void TrackRunStart(string runId, string difficulty, float runStartTime, string sessionId)
     {
-        AddEvent("run_start", new { run_id = runId, difficulty, start_time = runStartTime });
+        AddEvent("run_start", new { run_id = runId, difficulty, start_time = runStartTime, sessionId });
+    }
+
+    private void TrackGameQuit(string sessionId)
+    {
+        AddEvent("game_quit", new { sessionId });
     }
 
     private void TrackRunEnd(RunResult r)
@@ -92,13 +103,14 @@ public class TelemetryLogger : MonoBehaviour
             defend_attempts = r.DefendAttempts,
             defend_success = r.DefendSuccess,
             death_cause = r.DeathCause,
-            hp_left = r.HpLeft
+            hp_left = r.HpLeft,
+            sessionId = r.sessionID
         });
     }
 
-    private void TrackFightStart(string fightId, float time)
+    private void TrackFightStart(string fightId, float time, string sessionId)
     {
-        AddEvent("fight_start", new { fight_id = fightId, start_time = time });
+        AddEvent("fight_start", new { fight_id = fightId, stage_id = fightId, start_time = time , sessionId});
     }
 
     private void TrackFightEnd(FightResult f)
@@ -106,6 +118,7 @@ public class TelemetryLogger : MonoBehaviour
         AddEvent("fight_end", new
         {
             fight_id = f.FightId,
+            run_id = f.runID,
             battle_time = f.BattleTimeSeconds,
             turns = f.Turns,
             attack_attempts = f.AttackAttempts,
@@ -113,9 +126,20 @@ public class TelemetryLogger : MonoBehaviour
             defend_attempts = f.DefendAttempts,
             defend_success = f.DefendSuccess,
             hp_left = f.HpLeft,
-            player_died = f.player_died,
-            level = f.level
+            player_died = f.playerDied,
+            level = f.level,
+            sessionId = f.sessionId
         });
+    }
+
+    private void TrackStageComplete(string fightId, string sessionId)
+    {
+        AddEvent("stage_complete", new { fight_id = fightId, sessionId });
+    }
+
+    public void TrackStageFail(string fightId, string sessionId)
+    {
+        AddEvent("stage_fail", new { fight_id = fightId, sessionId });
     }
 
     private void TrackItemUsed(string itemName)
@@ -128,26 +152,30 @@ public class TelemetryLogger : MonoBehaviour
         AddEvent("item_bought", new { item_name = itemName });
     }
 
-    private void TrackUpgradeChosen(int level, string type, string value)
+    private void TrackUpgradeChosen(int level, string type, string value, string run_id, string sessionId)
     {
-        AddEvent("upgrade_chosen", new { level, type, value });
+        AddEvent("upgrade_chosen", new { level, type, value, run_id, sessionId});
     }
 
-    private void TrackMoveUsed(string moveName, string userType, string targetType = "")
+    private void TrackMoveUsed(string moveName, string sessionId , string userType, string attackResult, int damage, string targetType = "")
     {
         AddEvent("move_used", new
         {
             move_name = moveName,
+            sessionId = sessionId,
             user_type = userType,
+            attack_result = attackResult,
+            total_damage = damage,
             target_type = string.IsNullOrEmpty(targetType) ? null : targetType
         });
     }
 
-    private void TrackStatusApplied(string statusName, string targetType, string sourceMove = "")
+    private void TrackStatusApplied(string statusName, string sessionId, string targetType, string sourceMove = "")
     {
         AddEvent("status_applied", new
         {
             status_name = statusName,
+            sessionId = sessionId,
             target_type = targetType,
             source_move = string.IsNullOrEmpty(sourceMove) ? null : sourceMove
         });

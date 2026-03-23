@@ -23,7 +23,6 @@ public class FightAnalyticsTracker
 
     public FightResult EndFight(int hpLeft)
     {
-        result.BattleTimeSeconds = Mathf.RoundToInt(Time.time - fightStartTime);
         result.Turns = currentTurn;
         result.HpLeft = hpLeft;
 

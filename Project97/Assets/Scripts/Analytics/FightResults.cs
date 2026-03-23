@@ -16,9 +16,13 @@ public class FightResult
 
     public int HpLeft;
 
-    public bool player_died;
+    public bool playerDied;
 
     public int level;
+
+    public string runID;
+
+    public string sessionId;
 
     public Dictionary<string, int> status;
     public Dictionary<string, int> moves;

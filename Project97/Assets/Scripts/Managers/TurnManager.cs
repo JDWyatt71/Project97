@@ -10,8 +10,8 @@ using UnityEngine.UI;
 public class TurnManager : MonoBehaviour
 {
     private string fightID;
-    /*private float fightStartTime;
-    private FightResult currentFight;*/
+    private float fightStartTime;
+    /*private FightResult currentFight;*/
 
     private FightAnalyticsTracker analytics;
     private bool submittedMoves;
@@ -44,9 +44,9 @@ public class TurnManager : MonoBehaviour
 
         FindObjectOfType<CombatUI>().Setup(playerCharacter);
         
-        /*
+        
         fightStartTime = Time.time;
-        currentFight = new FightResult {
+        /*currentFight = new FightResult {
             FightId = fightID,
             status = new Dictionary<string, int>(),
             moves = new Dictionary<string, int>()};*/
@@ -55,7 +55,7 @@ public class TurnManager : MonoBehaviour
         analytics.StartFight(fightID);
         Debug.Log("Fight start tracker");
 
-        GameEvents.RaiseFightStarted(fightID, analytics.fightStartTime);
+        GameEvents.RaiseFightStarted(fightID, analytics.fightStartTime, GameManager.I.CurrentSessionId);
 
         cM = new CombatManager(analytics);
         playerCharacter.GetComponent<HealthSystem>().RunningIsFalse += RunningIsFalse;
@@ -105,11 +105,15 @@ public class TurnManager : MonoBehaviour
         if (playerCharacter == null)
         {
             RoundComplete?.Invoke(false);
+            //telemetry for a player failing a level
+            GameEvents.RaiseStageFail(fightID, GameManager.I.CurrentSessionId);
             Debug.Log("Computer wins");
         }
         else if (computerCharacter == null)
         {
             RoundComplete?.Invoke(true);
+            //telemtry for a player completing a level
+            GameEvents.RaiseStageComplete(fightID, GameManager.I.CurrentSessionId);
             Debug.Log("Player wins");
         }
 
@@ -117,9 +121,12 @@ public class TurnManager : MonoBehaviour
         int HpLeft = playerCharacter != null ? playerCharacter.healthSystem.GetHealth() : 0;
 
         bool playerDied = playerCharacter == null;
-
+        float duration = Time.time - fightStartTime;
         FightResult result = analytics.EndFight(HpLeft);
-        result.player_died = playerDied;
+        result.runID = GameManager.I.CurrentRunId;
+        result.playerDied = playerDied;
+        result.sessionId = GameManager.I.CurrentSessionId;
+        result.BattleTimeSeconds = Mathf.RoundToInt(duration);
         Debug.Log("Raised Fight End Tracker");
         GameEvents.RaiseFightEnded(result);
     }
