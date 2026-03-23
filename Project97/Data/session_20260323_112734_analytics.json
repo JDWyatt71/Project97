@@ -1,0 +1,229 @@
+[
+  {
+    "event_type": "run_start",
+    "timestamp_utc": "2026-03-23T11:27:34.5965515Z",
+    "data": {
+      "run_id": "3b9f889d-af72-426d-8d25-3a7b7d230839",
+      "difficulty": "easy",
+      "start_time": 0.0,
+      "sessionId": "e4b8e5bd-9ed0-4177-8320-c2ebd79fd066"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-03-23T11:27:34.6459027Z",
+    "data": {
+      "fight_id": "c1e1c820-a3e8-4f1a-8f98-a46767c9de22",
+      "stage_id": "c1e1c820-a3e8-4f1a-8f98-a46767c9de22",
+      "start_time": 0.0,
+      "sessionId": "e4b8e5bd-9ed0-4177-8320-c2ebd79fd066"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-23T11:27:38.2294740Z",
+    "data": {
+      "move_name": "High Punch",
+      "sessionId": "e4b8e5bd-9ed0-4177-8320-c2ebd79fd066",
+      "user_type": "Player (Character)",
+      "attack_result": "dodged",
+      "total_damage": 0,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-03-23T11:27:40.2263841Z",
+    "data": {
+      "status_name": "Blindness",
+      "sessionId": "e4b8e5bd-9ed0-4177-8320-c2ebd79fd066",
+      "target_type": "Player (Character)",
+      "source_move": "Medium Punch"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-23T11:27:40.2263841Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "sessionId": "e4b8e5bd-9ed0-4177-8320-c2ebd79fd066",
+      "user_type": "Dojo Challenger (Character)",
+      "attack_result": "hit",
+      "total_damage": 3,
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-03-23T11:27:42.2241141Z",
+    "data": {
+      "status_name": "Bind",
+      "sessionId": "e4b8e5bd-9ed0-4177-8320-c2ebd79fd066",
+      "target_type": "Dojo Challenger (Character)",
+      "source_move": "Medium Punch"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-23T11:27:42.2241141Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "sessionId": "e4b8e5bd-9ed0-4177-8320-c2ebd79fd066",
+      "user_type": "Player (Character)",
+      "attack_result": "guardedHit",
+      "total_damage": 2,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "stage_complete",
+    "timestamp_utc": "2026-03-23T11:27:44.2267967Z",
+    "data": {
+      "fight_id": "c1e1c820-a3e8-4f1a-8f98-a46767c9de22",
+      "sessionId": "e4b8e5bd-9ed0-4177-8320-c2ebd79fd066"
+    }
+  },
+  {
+    "event_type": "fight_end",
+    "timestamp_utc": "2026-03-23T11:27:44.2267967Z",
+    "data": {
+      "fight_id": "c1e1c820-a3e8-4f1a-8f98-a46767c9de22",
+      "run_id": "3b9f889d-af72-426d-8d25-3a7b7d230839",
+      "battle_time": 8,
+      "turns": 1,
+      "attack_attempts": 3,
+      "attack_success": 2,
+      "defend_attempts": 0,
+      "defend_success": 0,
+      "hp_left": 247,
+      "player_died": false,
+      "level": 0,
+      "sessionId": "e4b8e5bd-9ed0-4177-8320-c2ebd79fd066"
+    }
+  },
+  {
+    "event_type": "upgrade_chosen",
+    "timestamp_utc": "2026-03-23T11:27:46.2577965Z",
+    "data": {
+      "level": 2,
+      "type": "stat",
+      "value": "AP+1",
+      "run_id": "3b9f889d-af72-426d-8d25-3a7b7d230839",
+      "sessionId": "e4b8e5bd-9ed0-4177-8320-c2ebd79fd066"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-03-23T11:27:46.2603250Z",
+    "data": {
+      "fight_id": "20f071f0-53e0-4a61-be19-07fb9cb677c5",
+      "stage_id": "20f071f0-53e0-4a61-be19-07fb9cb677c5",
+      "start_time": 10.5114985,
+      "sessionId": "e4b8e5bd-9ed0-4177-8320-c2ebd79fd066"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-23T11:27:47.8023549Z",
+    "data": {
+      "move_name": "High Punch",
+      "sessionId": "e4b8e5bd-9ed0-4177-8320-c2ebd79fd066",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 5,
+      "target_type": "Comeback Fighter (Character)"
+    }
+  },
+  {
+    "event_type": "stage_complete",
+    "timestamp_utc": "2026-03-23T11:27:49.8041854Z",
+    "data": {
+      "fight_id": "20f071f0-53e0-4a61-be19-07fb9cb677c5",
+      "sessionId": "e4b8e5bd-9ed0-4177-8320-c2ebd79fd066"
+    }
+  },
+  {
+    "event_type": "fight_end",
+    "timestamp_utc": "2026-03-23T11:27:49.8041854Z",
+    "data": {
+      "fight_id": "20f071f0-53e0-4a61-be19-07fb9cb677c5",
+      "run_id": "3b9f889d-af72-426d-8d25-3a7b7d230839",
+      "battle_time": 4,
+      "turns": 1,
+      "attack_attempts": 1,
+      "attack_success": 1,
+      "defend_attempts": 0,
+      "defend_success": 0,
+      "hp_left": 255,
+      "player_died": false,
+      "level": 0,
+      "sessionId": "e4b8e5bd-9ed0-4177-8320-c2ebd79fd066"
+    }
+  },
+  {
+    "event_type": "upgrade_chosen",
+    "timestamp_utc": "2026-03-23T11:27:51.3463898Z",
+    "data": {
+      "level": 3,
+      "type": "combo",
+      "value": "attack+8 & HP-5",
+      "run_id": "3b9f889d-af72-426d-8d25-3a7b7d230839",
+      "sessionId": "e4b8e5bd-9ed0-4177-8320-c2ebd79fd066"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-03-23T11:27:51.3474494Z",
+    "data": {
+      "fight_id": "a6756455-6103-46d2-94cd-9bc553024975",
+      "stage_id": "a6756455-6103-46d2-94cd-9bc553024975",
+      "start_time": 15.599679,
+      "sessionId": "e4b8e5bd-9ed0-4177-8320-c2ebd79fd066"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-23T11:27:53.2522354Z",
+    "data": {
+      "move_name": "High Punch",
+      "sessionId": "e4b8e5bd-9ed0-4177-8320-c2ebd79fd066",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 9,
+      "target_type": "Comeback Fighter (Character)"
+    }
+  },
+  {
+    "event_type": "stage_complete",
+    "timestamp_utc": "2026-03-23T11:27:55.2536548Z",
+    "data": {
+      "fight_id": "a6756455-6103-46d2-94cd-9bc553024975",
+      "sessionId": "e4b8e5bd-9ed0-4177-8320-c2ebd79fd066"
+    }
+  },
+  {
+    "event_type": "fight_end",
+    "timestamp_utc": "2026-03-23T11:27:55.2536548Z",
+    "data": {
+      "fight_id": "a6756455-6103-46d2-94cd-9bc553024975",
+      "run_id": "3b9f889d-af72-426d-8d25-3a7b7d230839",
+      "battle_time": 4,
+      "turns": 1,
+      "attack_attempts": 1,
+      "attack_success": 1,
+      "defend_attempts": 0,
+      "defend_success": 0,
+      "hp_left": 255,
+      "player_died": false,
+      "level": 0,
+      "sessionId": "e4b8e5bd-9ed0-4177-8320-c2ebd79fd066"
+    }
+  },
+  {
+    "event_type": "game_quit",
+    "timestamp_utc": "2026-03-23T11:27:56.8927836Z",
+    "data": {
+      "sessionId": "e4b8e5bd-9ed0-4177-8320-c2ebd79fd066"
+    }
+  }
+]

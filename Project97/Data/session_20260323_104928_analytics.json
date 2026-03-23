@@ -1,0 +1,22 @@
+[
+  {
+    "event_type": "run_start",
+    "timestamp_utc": "2026-03-23T10:49:30.3651184Z",
+    "data": {
+      "run_id": "efafcdbf-ff3f-4c2c-9568-eab958015867",
+      "difficulty": "easy",
+      "start_time": 0.0,
+      "sessionId": "fe605c3b-76a7-495a-a2ce-224ef030c83f"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-03-23T10:49:30.4181188Z",
+    "data": {
+      "fight_id": "0da6bd13-8893-48a6-a964-18250e88aacb",
+      "stage_id": "0da6bd13-8893-48a6-a964-18250e88aacb",
+      "start_time": 0.0,
+      "sessionId": "fe605c3b-76a7-495a-a2ce-224ef030c83f"
+    }
+  }
+]

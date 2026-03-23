@@ -1,0 +1,12 @@
+[
+  {
+    "event_type": "run_start",
+    "timestamp_utc": "2026-03-23T09:39:04.3535683Z",
+    "data": {
+      "run_id": "d84a9367-2dbb-40bb-8557-ef9f953ba95e",
+      "difficulty": "easy",
+      "start_time": 0.0,
+      "sessionId": "1ba68f76-de7d-4960-801b-e861d5e79664"
+    }
+  }
+]

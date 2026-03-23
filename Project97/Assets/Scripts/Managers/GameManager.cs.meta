@@ -1,2 +1,17 @@
 fileFormatVersion: 2
 guid: 6afab9cc4d3e30a4e8c7a42c57099ee2
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - pCSO: {instanceID: 0}
+  - cCSO1: {instanceID: 0}
+  - cCSO2: {instanceID: 0}
+  - playerHealthBar: {instanceID: 0}
+  - computerHealthBar: {instanceID: 0}
+  - computerImage: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
