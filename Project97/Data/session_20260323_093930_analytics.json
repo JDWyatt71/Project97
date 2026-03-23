@@ -1,0 +1,88 @@
+[
+  {
+    "event_type": "run_start",
+    "timestamp_utc": "2026-03-23T09:39:31.0761343Z",
+    "data": {
+      "run_id": "79a54602-87a2-4a1e-b296-e8bb0d8fc486",
+      "difficulty": "easy",
+      "start_time": 0.0,
+      "sessionId": "2b3fbcf7-21ec-415d-a25f-ab57164706e4"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-03-23T09:39:31.2186893Z",
+    "data": {
+      "fight_id": "2f12eddd-9e3e-43f6-9848-29e33c8acfb9",
+      "stage_id": "2f12eddd-9e3e-43f6-9848-29e33c8acfb9",
+      "start_time": 0.0,
+      "sessionId": "2b3fbcf7-21ec-415d-a25f-ab57164706e4"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-23T09:39:33.5039441Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "sessionId": "2b3fbcf7-21ec-415d-a25f-ab57164706e4",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 3,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "stage_complete",
+    "timestamp_utc": "2026-03-23T09:39:35.4999863Z",
+    "data": {
+      "fight_id": "2f12eddd-9e3e-43f6-9848-29e33c8acfb9",
+      "sessionId": "2b3fbcf7-21ec-415d-a25f-ab57164706e4"
+    }
+  },
+  {
+    "event_type": "fight_end",
+    "timestamp_utc": "2026-03-23T09:39:35.5009785Z",
+    "data": {
+      "fight_id": "2f12eddd-9e3e-43f6-9848-29e33c8acfb9",
+      "run_id": "79a54602-87a2-4a1e-b296-e8bb0d8fc486",
+      "battle_time": 3,
+      "turns": 1,
+      "attack_attempts": 1,
+      "attack_success": 1,
+      "defend_attempts": 0,
+      "defend_success": 0,
+      "hp_left": 250,
+      "player_died": false,
+      "level": 0,
+      "sessionId": "2b3fbcf7-21ec-415d-a25f-ab57164706e4"
+    }
+  },
+  {
+    "event_type": "upgrade_chosen",
+    "timestamp_utc": "2026-03-23T09:39:36.1513887Z",
+    "data": {
+      "level": 2,
+      "type": "combo",
+      "value": "HP+20 & attack-2",
+      "run_id": "79a54602-87a2-4a1e-b296-e8bb0d8fc486",
+      "sessionId": "2b3fbcf7-21ec-415d-a25f-ab57164706e4"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-03-23T09:39:36.1972028Z",
+    "data": {
+      "fight_id": "48195868-c183-4a30-bc9d-bd403f07afa8",
+      "stage_id": "48195868-c183-4a30-bc9d-bd403f07afa8",
+      "start_time": 3.75508714,
+      "sessionId": "2b3fbcf7-21ec-415d-a25f-ab57164706e4"
+    }
+  },
+  {
+    "event_type": "game_quit",
+    "timestamp_utc": "2026-03-23T09:39:37.9280900Z",
+    "data": {
+      "sessionId": "2b3fbcf7-21ec-415d-a25f-ab57164706e4"
+    }
+  }
+]

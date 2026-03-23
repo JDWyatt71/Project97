@@ -1,0 +1,91 @@
+[
+  {
+    "event_type": "run_start",
+    "timestamp_utc": "2026-03-23T08:41:33.6067268Z",
+    "data": {
+      "run_id": "adf664cc-3614-4a97-9edf-57a02cf9dd87",
+      "difficulty": "easy",
+      "start_time": 0.0,
+      "sessionId": "130c133c-7aca-44ae-872c-d0efcf61ba38"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-03-23T08:41:33.7094127Z",
+    "data": {
+      "fight_id": "a3d6aab2-6488-489b-8080-65a867ff02ab",
+      "stage_id": "a3d6aab2-6488-489b-8080-65a867ff02ab",
+      "start_time": 0.0,
+      "sessionId": "130c133c-7aca-44ae-872c-d0efcf61ba38"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-03-23T08:41:44.7886620Z",
+    "data": {
+      "status_name": "Bind",
+      "sessionId": "130c133c-7aca-44ae-872c-d0efcf61ba38",
+      "target_type": "Dojo Challenger (Character)",
+      "source_move": "Medium Punch"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-23T08:41:44.7886620Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "sessionId": "130c133c-7aca-44ae-872c-d0efcf61ba38",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 3,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "stage_complete",
+    "timestamp_utc": "2026-03-23T08:41:46.7832606Z",
+    "data": {
+      "fight_id": "a3d6aab2-6488-489b-8080-65a867ff02ab",
+      "sessionId": "130c133c-7aca-44ae-872c-d0efcf61ba38"
+    }
+  },
+  {
+    "event_type": "fight_end",
+    "timestamp_utc": "2026-03-23T08:41:46.7839825Z",
+    "data": {
+      "fight_id": "a3d6aab2-6488-489b-8080-65a867ff02ab",
+      "run_id": "adf664cc-3614-4a97-9edf-57a02cf9dd87",
+      "battle_time": 12,
+      "turns": 1,
+      "attack_attempts": 1,
+      "attack_success": 1,
+      "defend_attempts": 0,
+      "defend_success": 0,
+      "hp_left": 250,
+      "player_died": false,
+      "level": 0,
+      "sessionId": "130c133c-7aca-44ae-872c-d0efcf61ba38"
+    }
+  },
+  {
+    "event_type": "upgrade_chosen",
+    "timestamp_utc": "2026-03-23T08:41:49.5483093Z",
+    "data": {
+      "level": 2,
+      "type": "move_unlock",
+      "value": "Low Spin Kick",
+      "run_id": "adf664cc-3614-4a97-9edf-57a02cf9dd87",
+      "sessionId": "130c133c-7aca-44ae-872c-d0efcf61ba38"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-03-23T08:41:49.5508402Z",
+    "data": {
+      "fight_id": "67b3556e-07f0-408b-b7f5-d611a5bb3e00",
+      "stage_id": "67b3556e-07f0-408b-b7f5-d611a5bb3e00",
+      "start_time": 14.9340277,
+      "sessionId": "130c133c-7aca-44ae-872c-d0efcf61ba38"
+    }
+  }
+]
