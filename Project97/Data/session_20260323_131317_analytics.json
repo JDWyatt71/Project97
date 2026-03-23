@@ -1,0 +1,137 @@
+[
+  {
+    "event_type": "run_start",
+    "timestamp_utc": "2026-03-23T13:13:17.9632887Z",
+    "data": {
+      "run_id": "db5a8128-f598-4f84-a3b9-c7936d267163",
+      "difficulty": "easy",
+      "start_time": 0.0,
+      "sessionId": "05f7859f-4c9e-4d19-9d66-ae6d122a2b46"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-03-23T13:13:18.1822405Z",
+    "data": {
+      "fight_id": "0ef4d05a-37ec-4a26-b750-1c9f86c58e3f",
+      "stage_id": "0ef4d05a-37ec-4a26-b750-1c9f86c58e3f",
+      "start_time": 0.0,
+      "sessionId": "05f7859f-4c9e-4d19-9d66-ae6d122a2b46"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-23T13:13:22.7220983Z",
+    "data": {
+      "move_name": "Medium Spin Kick",
+      "sessionId": "05f7859f-4c9e-4d19-9d66-ae6d122a2b46",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 8,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "stage_complete",
+    "timestamp_utc": "2026-03-23T13:13:24.7120353Z",
+    "data": {
+      "fight_id": "0ef4d05a-37ec-4a26-b750-1c9f86c58e3f",
+      "sessionId": "05f7859f-4c9e-4d19-9d66-ae6d122a2b46"
+    }
+  },
+  {
+    "event_type": "fight_end",
+    "timestamp_utc": "2026-03-23T13:13:24.7120353Z",
+    "data": {
+      "fight_id": "0ef4d05a-37ec-4a26-b750-1c9f86c58e3f",
+      "run_id": "db5a8128-f598-4f84-a3b9-c7936d267163",
+      "battle_time": 5,
+      "turns": 1,
+      "attack_attempts": 1,
+      "attack_success": 1,
+      "defend_attempts": 0,
+      "defend_success": 0,
+      "hp_left": 250,
+      "player_died": false,
+      "level": 0,
+      "sessionId": "05f7859f-4c9e-4d19-9d66-ae6d122a2b46"
+    }
+  },
+  {
+    "event_type": "upgrade_chosen",
+    "timestamp_utc": "2026-03-23T13:13:29.1682175Z",
+    "data": {
+      "level": 2,
+      "type": "stat",
+      "value": "attack+6",
+      "run_id": "db5a8128-f598-4f84-a3b9-c7936d267163",
+      "sessionId": "05f7859f-4c9e-4d19-9d66-ae6d122a2b46"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-03-23T13:13:29.2149553Z",
+    "data": {
+      "fight_id": "5f9c5da7-caa5-49a4-b515-d9e206085659",
+      "stage_id": "5f9c5da7-caa5-49a4-b515-d9e206085659",
+      "start_time": 9.767876,
+      "sessionId": "05f7859f-4c9e-4d19-9d66-ae6d122a2b46"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-03-23T13:13:34.0836591Z",
+    "data": {
+      "status_name": "Bind",
+      "sessionId": "05f7859f-4c9e-4d19-9d66-ae6d122a2b46",
+      "target_type": "Comeback Fighter (Character)",
+      "source_move": "Medium Punch"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-23T13:13:34.0836591Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "sessionId": "05f7859f-4c9e-4d19-9d66-ae6d122a2b46",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 7,
+      "target_type": "Comeback Fighter (Character)"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-03-23T13:13:36.0807916Z",
+    "data": {
+      "status_name": "Bind",
+      "sessionId": "05f7859f-4c9e-4d19-9d66-ae6d122a2b46",
+      "target_type": "Player (Character)",
+      "source_move": "Pummel"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-23T13:13:36.0807916Z",
+    "data": {
+      "move_name": "Pummel",
+      "sessionId": "05f7859f-4c9e-4d19-9d66-ae6d122a2b46",
+      "user_type": "Comeback Fighter (Character)",
+      "attack_result": "hit",
+      "total_damage": 5,
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-23T13:13:38.0804936Z",
+    "data": {
+      "move_name": "Medium Spin Kick",
+      "sessionId": "05f7859f-4c9e-4d19-9d66-ae6d122a2b46",
+      "user_type": "Player (Character)",
+      "attack_result": "dodged",
+      "total_damage": 0,
+      "target_type": "Comeback Fighter (Character)"
+    }
+  }
+]

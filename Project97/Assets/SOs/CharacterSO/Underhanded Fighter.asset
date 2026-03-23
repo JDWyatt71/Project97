@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4ed182d135f5b54ab14f55bf9b83338, type: 3}
+  m_Name: Underhanded Fighter
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterSO
+  sprite: {fileID: 0}
+  hitPoints: 100
+  attack: 28
+  accuracy: 25
+  evasion: 25
+  aMoves:
+  - {fileID: 11400000, guid: a58620e7768ce03438a60893fbfa34b0, type: 2}
+  - {fileID: 11400000, guid: 326914e69ca6c7f4baa2ff34a2e61374, type: 2}
+  - {fileID: 11400000, guid: ffde724a7c9c4204ba1423863a9cdd46, type: 2}
+  - {fileID: 11400000, guid: 316771bfdd2a5eb48a27a2acb7413f13, type: 2}
+  - {fileID: 11400000, guid: 84d84aaa0d9b637439fe53b797522fcf, type: 2}
+  - {fileID: 11400000, guid: 4689e27e0a9b9444cb5bdeccabf967a7, type: 2}
+  - {fileID: 11400000, guid: 99747cb231236f5439d946424544c73e, type: 2}
+  - {fileID: 11400000, guid: 684e788427ee37f4785673d9b1094689, type: 2}
+  - {fileID: 11400000, guid: 56f2796a7548d74439728c80d1d3efd8, type: 2}
+  - {fileID: 11400000, guid: 721dc7116e007df4190c70a89797e1be, type: 2}
+  dMoves:
+  - {fileID: 11400000, guid: b3ecc9a0b25be3049a50190efb4ae576, type: 2}
+  - {fileID: 11400000, guid: 52be9521818ab4d41ad1c41efc940596, type: 2}
+  - {fileID: 11400000, guid: 165a7edce86563c4a8534f002600b3f9, type: 2}
+  actionPoints: 7
+  defendRate: 0.75
+  attackChances:
+  - attackSO: {fileID: 11400000, guid: 326914e69ca6c7f4baa2ff34a2e61374, type: 2}
+    weight: 1
+  - attackSO: {fileID: 11400000, guid: 316771bfdd2a5eb48a27a2acb7413f13, type: 2}
+    weight: 1
+  - attackSO: {fileID: 11400000, guid: 84d84aaa0d9b637439fe53b797522fcf, type: 2}
+    weight: 1
+  defendChances:
+  - defendSO: {fileID: 11400000, guid: 52be9521818ab4d41ad1c41efc940596, type: 2}
+    probability: 0.5
+  - defendSO: {fileID: 11400000, guid: b3ecc9a0b25be3049a50190efb4ae576, type: 2}
+    probability: 0.25
+  - defendSO: {fileID: 11400000, guid: 165a7edce86563c4a8534f002600b3f9, type: 2}
+    probability: 0.25
