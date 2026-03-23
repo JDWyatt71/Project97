@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
         CurrentSessionId = Guid.NewGuid().ToString();
         //CurrentRunId = currentRunId;
         runStartTime = Time.time;
+        Difficulty difficulty = UC.GetDifficulty();
 
         GameEvents.RaiseRunStarted(currentRunId, "easy", runStartTime, CurrentSessionId);
         TelemetryLogger.Instance.SaveToJson();
@@ -61,6 +62,7 @@ public class GameManager : MonoBehaviour
         pCharacter = SetupCharacter("Player", pCSO, playerHealthBar);
         pC = pCharacter.GetComponent<Character>();
         pInventory = pCharacter.GetComponent<Inventory>();
+        pInventory.SetupInventory(difficulty);
 
         int index = Mathf.Clamp(round - 1, 0, cCs.Count - 1);
         CharacterSO cSO = cCs[index];
@@ -90,7 +92,7 @@ public class GameManager : MonoBehaviour
         round++;
         pC.ResetRestActions();
         pC.RemoveAllEffects();
-        if(playerWon) upgradeScreenUI.DisplayUpgrades();
+        if(playerWon) upgradeScreenUI.DisplayItems(pInventory.GetInventory());
     }
     private void UpgradeSelected()
     {
