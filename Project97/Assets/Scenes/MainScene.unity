@@ -2668,7 +2668,7 @@ MonoBehaviour:
   cCs:
   - {fileID: 11400000, guid: 3cf43194f33d71444a38649773b5ae54, type: 2}
   - {fileID: 11400000, guid: 8ab313d7e61cff74b894270ac4be328f, type: 2}
-  - {fileID: 11400000, guid: 1725c534ee65a1142bf64c26f8265da9, type: 2}
+  - {fileID: 11400000, guid: e54a73219ac94f4488f932ae178678c6, type: 2}
   - {fileID: 11400000, guid: 166df87b2bd47b34998620e7796b6d1e, type: 2}
   cCSO1: {fileID: 0}
   cCSO2: {fileID: 0}
@@ -2926,7 +2926,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 903832209}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.13043478
+  m_Size: 0.13043477
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
