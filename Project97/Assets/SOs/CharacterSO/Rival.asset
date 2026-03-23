@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4ed182d135f5b54ab14f55bf9b83338, type: 3}
-  m_Name: Computer
+  m_Name: Rival
   m_EditorClassIdentifier: Assembly-CSharp::CharacterSO
-  sprite: {fileID: -5452217726016363601, guid: 26c4fb08973ecf5409efbdcb6196f74b, type: 3}
-  hitPoints: 10
-  attack: 10
-  accuracy: 1
-  evasion: 1
+  sprite: {fileID: 0}
+  hitPoints: 100
+  attack: 20
+  accuracy: 20
+  evasion: 20
   aMoves:
   - {fileID: 11400000, guid: 9f21e557d2d156d4c861db52facdfc68, type: 2}
   - {fileID: 11400000, guid: c9c1e8e0ee24855418f3fb50ca466748, type: 2}
@@ -24,7 +24,16 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7ea672a8d28247a4faf6f8f424342c34, type: 2}
   dMoves:
   - {fileID: 11400000, guid: b0565ee1bb5921d45bbc42a9c61da452, type: 2}
-  - {fileID: 11400000, guid: b3ecc9a0b25be3049a50190efb4ae576, type: 2}
   - {fileID: 11400000, guid: 165a7edce86563c4a8534f002600b3f9, type: 2}
   - {fileID: 11400000, guid: 52be9521818ab4d41ad1c41efc940596, type: 2}
-  actionPoints: 20
+  - {fileID: 11400000, guid: b3ecc9a0b25be3049a50190efb4ae576, type: 2}
+  actionPoints: 7
+  defendRate: 0.9
+  attackChances:
+  - attackSO: {fileID: 11400000, guid: 23ae6c69801b0cc498ff40cbe519326c, type: 2}
+    weight: 1
+  - attackSO: {fileID: 11400000, guid: 700a6f9fc773f954486c98cd3b204050, type: 2}
+    weight: 1
+  - attackSO: {fileID: 11400000, guid: c4aeee241cdc63e4eb0f699c5a7fba4c, type: 2}
+    weight: 1
+  defendChances: []

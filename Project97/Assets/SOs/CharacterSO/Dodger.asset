@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4ed182d135f5b54ab14f55bf9b83338, type: 3}
   m_Name: Dodger
   m_EditorClassIdentifier: Assembly-CSharp::CharacterSO
-  sprite: {fileID: 7240235940475004440, guid: 5009850597f2fba44a7c977cca14ed79, type: 3}
+  sprite: {fileID: 0}
   hitPoints: 60
   attack: 18
   accuracy: 20
@@ -22,7 +22,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c9c1e8e0ee24855418f3fb50ca466748, type: 2}
   - {fileID: 11400000, guid: de406dcfb3efafc498e73f73f203250a, type: 2}
   - {fileID: 11400000, guid: 84d84aaa0d9b637439fe53b797522fcf, type: 2}
-  - {fileID: 11400000, guid: 28dee3720e3ac35439b49cf887927807, type: 2}
+  - {fileID: 11400000, guid: 4689e27e0a9b9444cb5bdeccabf967a7, type: 2}
   - {fileID: 11400000, guid: dfda57787aa490248bca8e2dba9efd6c, type: 2}
   - {fileID: 11400000, guid: 54e5bbae8c3261541a955f655f480f51, type: 2}
   - {fileID: 11400000, guid: 8dc3fa4b48a5b5c48868559f79f753c2, type: 2}
@@ -31,7 +31,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 021163f496a958942914aaf897105689, type: 2}
   actionPoints: 6
   defendRate: 1
-  attackChances: []
+  attackChances:
+  - attackSO: {fileID: 11400000, guid: 54e5bbae8c3261541a955f655f480f51, type: 2}
+    weight: 1
+  - attackSO: {fileID: 11400000, guid: 8dc3fa4b48a5b5c48868559f79f753c2, type: 2}
+    weight: 1
   defendChances:
   - defendSO: {fileID: 11400000, guid: b0565ee1bb5921d45bbc42a9c61da452, type: 2}
-    probability: 1
+    probability: 0.75
+  - defendSO: {fileID: 11400000, guid: 021163f496a958942914aaf897105689, type: 2}
+    probability: 0.25

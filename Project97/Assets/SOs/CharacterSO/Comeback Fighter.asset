@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Comeback Fighter
   m_EditorClassIdentifier: Assembly-CSharp::CharacterSO
   sprite: {fileID: -8442873888116319421, guid: dd014c24d65b7c149994fbfb5bafebec, type: 3}
-  hitPoints: 50
+  hitPoints: 20
   attack: 22
   accuracy: 12
   evasion: 16

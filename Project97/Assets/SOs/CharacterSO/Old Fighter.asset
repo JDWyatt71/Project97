@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4ed182d135f5b54ab14f55bf9b83338, type: 3}
+  m_Name: Old Fighter
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterSO
+  sprite: {fileID: 0}
+  hitPoints: 100
+  attack: 32
+  accuracy: 80
+  evasion: 20
+  aMoves:
+  - {fileID: 11400000, guid: 9f21e557d2d156d4c861db52facdfc68, type: 2}
+  - {fileID: 11400000, guid: c9c1e8e0ee24855418f3fb50ca466748, type: 2}
+  - {fileID: 11400000, guid: 54e5bbae8c3261541a955f655f480f51, type: 2}
+  - {fileID: 11400000, guid: de406dcfb3efafc498e73f73f203250a, type: 2}
+  - {fileID: 11400000, guid: 84d84aaa0d9b637439fe53b797522fcf, type: 2}
+  - {fileID: 11400000, guid: dfda57787aa490248bca8e2dba9efd6c, type: 2}
+  - {fileID: 11400000, guid: 7ea672a8d28247a4faf6f8f424342c34, type: 2}
+  - {fileID: 11400000, guid: 56f2796a7548d74439728c80d1d3efd8, type: 2}
+  - {fileID: 11400000, guid: 933c9122e6c9b2b4fbacc60ef76b7d3f, type: 2}
+  - {fileID: 11400000, guid: ffde724a7c9c4204ba1423863a9cdd46, type: 2}
+  - {fileID: 11400000, guid: 28dee3720e3ac35439b49cf887927807, type: 2}
+  - {fileID: 11400000, guid: de45c4f7c54443c43bb90dc3caebce13, type: 2}
+  - {fileID: 11400000, guid: 684e788427ee37f4785673d9b1094689, type: 2}
+  dMoves:
+  - {fileID: 11400000, guid: 3e2440ab417ddfd428db2008777286db, type: 2}
+  - {fileID: 11400000, guid: a8e90e67d18d4c8499ca7c2c35839bdf, type: 2}
+  - {fileID: 11400000, guid: b3ecc9a0b25be3049a50190efb4ae576, type: 2}
+  - {fileID: 11400000, guid: 52be9521818ab4d41ad1c41efc940596, type: 2}
+  - {fileID: 11400000, guid: 165a7edce86563c4a8534f002600b3f9, type: 2}
+  actionPoints: 8
+  defendRate: 1
+  attackChances:
+  - attackSO: {fileID: 11400000, guid: 684e788427ee37f4785673d9b1094689, type: 2}
+    weight: 1
+  - attackSO: {fileID: 11400000, guid: 56f2796a7548d74439728c80d1d3efd8, type: 2}
+    weight: 1
+  - attackSO: {fileID: 11400000, guid: 933c9122e6c9b2b4fbacc60ef76b7d3f, type: 2}
+    weight: 1
+  defendChances:
+  - defendSO: {fileID: 11400000, guid: b3ecc9a0b25be3049a50190efb4ae576, type: 2}
+    probability: 0.4
+  - defendSO: {fileID: 11400000, guid: 52be9521818ab4d41ad1c41efc940596, type: 2}
+    probability: 0.2
+  - defendSO: {fileID: 11400000, guid: 165a7edce86563c4a8534f002600b3f9, type: 2}
+    probability: 0.1
+  - defendSO: {fileID: 11400000, guid: 3e2440ab417ddfd428db2008777286db, type: 2}
+    probability: 0.1
+  - defendSO: {fileID: 11400000, guid: a8e90e67d18d4c8499ca7c2c35839bdf, type: 2}
+    probability: 0.2

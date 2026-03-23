@@ -1,0 +1,19 @@
+[
+  {
+    "event_type": "run_start",
+    "timestamp_utc": "2026-03-23T13:36:23.2719739Z",
+    "data": null
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-03-23T13:36:23.4095770Z",
+    "data": null
+  },
+  {
+    "event_type": "game_quit",
+    "timestamp_utc": "2026-03-23T13:37:54.2321171Z",
+    "data": {
+      "sessionId": "3fdae6d0-bb4f-4f36-ab6b-33bf724d1a4e"
+    }
+  }
+]
