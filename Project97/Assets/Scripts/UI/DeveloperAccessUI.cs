@@ -7,6 +7,7 @@ public class DeveloperAccessUI : MonoBehaviour
     [SerializeField] private GameObject devToolsScreen;
     [SerializeField] private TMP_InputField passwordInput;
     [SerializeField] private TextMeshProUGUI errorMessage;
+    [SerializeField] private GameObject dBackButton;
 
     private const string PASSWORD = "dev97";
 
