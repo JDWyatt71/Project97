@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System;
 
 public class DeveloperAccessUI : MonoBehaviour
 {
@@ -30,6 +31,11 @@ public class DeveloperAccessUI : MonoBehaviour
         {
             errorMessage.text = "Incrorrect Password";
         }
+    }
+
+    public void OpenToolkit()
+    {
+        Application.OpenURL("http://localhost:8501");
     }
 
     public void CloseDevMenu()
