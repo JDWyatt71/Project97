@@ -2669,7 +2669,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3cf43194f33d71444a38649773b5ae54, type: 2}
   - {fileID: 11400000, guid: 8ab313d7e61cff74b894270ac4be328f, type: 2}
   - {fileID: 11400000, guid: e54a73219ac94f4488f932ae178678c6, type: 2}
-  - {fileID: 11400000, guid: 166df87b2bd47b34998620e7796b6d1e, type: 2}
+  - {fileID: 11400000, guid: b5cc7e13e424ae845aa71c57ee80fd93, type: 2}
+  - {fileID: 11400000, guid: 39e4bd260b4e8bc439a50a1d48b15824, type: 2}
+  - {fileID: 11400000, guid: 9536b15d9da63ae4280c5d938ad50821, type: 2}
+  - {fileID: 11400000, guid: 900f7ef0d45702445aa97f1e67ede7bf, type: 2}
+  - {fileID: 11400000, guid: dbadcb42efe58f54ba6d84ef2273edbf, type: 2}
+  - {fileID: 11400000, guid: b5f477185ab088546898d54b2edf2b90, type: 2}
+  - {fileID: 11400000, guid: c09e3566003086a41a74524772f72631, type: 2}
   cCSO1: {fileID: 0}
   cCSO2: {fileID: 0}
   playerHealthBar: {fileID: 1545752617}
@@ -2926,7 +2932,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 903832209}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.13043477
+  m_Size: 0.1304348
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
