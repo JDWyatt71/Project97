@@ -12,7 +12,7 @@ from Seeded_Dataset_Generator import (
 
 _loaded = False
 _active_params = None
-_mem_conn = sqlite3.connect(":memory:")
+_mem_conn = sqlite3.connect(":memory:", check_same_thread=False)
 
 def ensure_loaded():
     global _loaded
