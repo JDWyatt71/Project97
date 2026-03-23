@@ -110,7 +110,7 @@ public class TelemetryLogger : MonoBehaviour
 
     private void TrackFightStart(string fightId, float time, string sessionId)
     {
-        AddEvent("fight_start", new { fight_id = fightId, start_time = time , sessionId});
+        AddEvent("fight_start", new { fight_id = fightId, stage_id = fightId, start_time = time , sessionId});
     }
 
     private void TrackFightEnd(FightResult f)
@@ -118,6 +118,7 @@ public class TelemetryLogger : MonoBehaviour
         AddEvent("fight_end", new
         {
             fight_id = f.FightId,
+            run_id = f.runID,
             battle_time = f.BattleTimeSeconds,
             turns = f.Turns,
             attack_attempts = f.AttackAttempts,
@@ -156,13 +157,15 @@ public class TelemetryLogger : MonoBehaviour
         AddEvent("upgrade_chosen", new { level, type, value, run_id, sessionId});
     }
 
-    private void TrackMoveUsed(string moveName, string sessionId , string userType, string targetType = "")
+    private void TrackMoveUsed(string moveName, string sessionId , string userType, string attackResult, int damage, string targetType = "")
     {
         AddEvent("move_used", new
         {
             move_name = moveName,
             sessionId = sessionId,
             user_type = userType,
+            attack_result = attackResult,
+            total_damage = damage,
             target_type = string.IsNullOrEmpty(targetType) ? null : targetType
         });
     }

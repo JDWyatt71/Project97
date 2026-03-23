@@ -187,9 +187,9 @@ public class AnalyticsManager : MonoBehaviour
         Record(new UpgradeChosenEvent(level, type, value, run_id));
     }
 
-    public void TrackMoveUsed(string moveName, string userType, string target, string sessionId)
+    public void TrackMoveUsed(string moveName, string userType, string target, string attackResult, int damage, string sessionId)
     {
-        Record(new MoveUsedEvent(moveName, userType, target, sessionId));
+        Record(new MoveUsedEvent(moveName, userType, target, attackResult, damage, sessionId));
     }
 
     public void TrackStatusApplied(string statusName, string sessionId, string targetType, string sourceMove = "")
@@ -310,11 +310,13 @@ class UpgradeChosenEvent : GameAnalyticsEvent
 // ---------------- MOVE USED ----------------
 class MoveUsedEvent : GameAnalyticsEvent
 {
-    public MoveUsedEvent(string moveName, string sessionID, string userType, string targetType = "")
+    public MoveUsedEvent(string moveName, string sessionID, string userType, string attackResult, int damage, string targetType = "")
         : base("move_used")
     {
         SetParameter("move_name", moveName);
         SetParameter("user_type", userType);       // "player" or "enemy"
+        SetParameter("attackRes", attackResult);
+        SetParameter("totalDamage", damage);
         if (!string.IsNullOrEmpty(targetType))
             SetParameter("target_type", targetType); // optional
         SetParameter("sessionId", sessionID);

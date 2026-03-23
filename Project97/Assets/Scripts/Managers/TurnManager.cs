@@ -10,8 +10,8 @@ using UnityEngine.UI;
 public class TurnManager : MonoBehaviour
 {
     private string fightID;
-    /*private float fightStartTime;
-    private FightResult currentFight;*/
+    private float fightStartTime;
+    /*private FightResult currentFight;*/
 
     private FightAnalyticsTracker analytics;
     private bool submittedMoves;
@@ -44,9 +44,9 @@ public class TurnManager : MonoBehaviour
 
         FindObjectOfType<CombatUI>().Setup(playerCharacter);
         
-        /*
+        
         fightStartTime = Time.time;
-        currentFight = new FightResult {
+        /*currentFight = new FightResult {
             FightId = fightID,
             status = new Dictionary<string, int>(),
             moves = new Dictionary<string, int>()};*/
@@ -113,7 +113,7 @@ public class TurnManager : MonoBehaviour
         {
             RoundComplete?.Invoke(true);
             //telemtry for a player completing a level
-            GameEvents.RaiseStageComplet(fightID, GameManager.I.CurrentSessionId);
+            GameEvents.RaiseStageComplete(fightID, GameManager.I.CurrentSessionId);
             Debug.Log("Player wins");
         }
 
@@ -121,11 +121,12 @@ public class TurnManager : MonoBehaviour
         int HpLeft = playerCharacter != null ? playerCharacter.healthSystem.GetHealth() : 0;
 
         bool playerDied = playerCharacter == null;
-
+        float duration = Time.time - fightStartTime;
         FightResult result = analytics.EndFight(HpLeft);
         result.runID = GameManager.I.CurrentRunId;
         result.playerDied = playerDied;
         result.sessionId = GameManager.I.CurrentSessionId;
+        result.BattleTimeSeconds = Mathf.RoundToInt(duration);
         Debug.Log("Raised Fight End Tracker");
         GameEvents.RaiseFightEnded(result);
     }

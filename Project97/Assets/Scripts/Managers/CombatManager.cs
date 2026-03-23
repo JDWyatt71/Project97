@@ -56,7 +56,6 @@ public class CombatManager
     private AttackResult PerformAttack(Character attacker, Character target, AttackSO attackSO, DefendSO defendSO = null)
     {
         string moveName = attackSO.name;
-        GameEvents.RaiseMoveUsed(moveName, GameManager.I.CurrentSessionId, attacker.ToString(), target.ToString());
         analytics.RegisterAttackAttempt();
 
         if (defendSO == null)
@@ -92,10 +91,13 @@ public class CombatManager
                     ApplyAttackDamageAndEffects(attacker, attackSO, totalDamage);
                     
                     analytics.RegisterDefendSuccess();
+
+                    GameEvents.RaiseMoveUsed(moveName, GameManager.I.CurrentSessionId, attacker.ToString(), AttackResult.ducked.ToString(), totalDamage, target.ToString());
                     return AttackResult.ducked;
                 } 
                 else
                 {
+                    GameEvents.RaiseMoveUsed(moveName, GameManager.I.CurrentSessionId, attacker.ToString(), AttackResult.dodged.ToString(), 0, target.ToString());
                     return AttackResult.dodged; //So don't do any damage.
                 }
             }
@@ -106,6 +108,7 @@ public class CombatManager
         if(defendSO.block && attackSO.height == defendSO.height && attackSO.moveType != MoveType.Grapple) 
         {
             analytics.RegisterDefendSuccess();
+            GameEvents.RaiseMoveUsed(moveName, GameManager.I.CurrentSessionId, attacker.ToString(), AttackResult.blocked.ToString(), totalDamage, target.ToString());
             return AttackResult.blocked;
         }
         
@@ -120,6 +123,7 @@ public class CombatManager
             ApplyAttackDamageAndEffects(attacker, attackSO, totalDamage);
 
             analytics.RegisterDefendSuccess();
+            GameEvents.RaiseMoveUsed(moveName, GameManager.I.CurrentSessionId, attacker.ToString(), AttackResult.deflected.ToString(), totalDamage, target.ToString());
             return AttackResult.deflected;
         }
         else //Not deflected, hit
@@ -127,7 +131,15 @@ public class CombatManager
             ApplyAttackDamageAndEffects(target, attackSO, totalDamage);
 
             analytics.RegisterAttackSuccess();
-            return guarded ? AttackResult.guardedHit : AttackResult.hit;
+            if (guarded)
+            {
+                GameEvents.RaiseMoveUsed(moveName, GameManager.I.CurrentSessionId, attacker.ToString(), AttackResult.guardedHit.ToString(), totalDamage, target.ToString());
+                return AttackResult.guardedHit;
+            } else
+            {
+                GameEvents.RaiseMoveUsed(moveName, GameManager.I.CurrentSessionId, attacker.ToString(), AttackResult.hit.ToString(), totalDamage, target.ToString());
+                return AttackResult.hit;
+            }
         }
     }
 
