@@ -1,0 +1,328 @@
+[
+  {
+    "event_type": "run_start",
+    "timestamp_utc": "2026-03-23T11:14:46.9794298Z",
+    "data": {
+      "run_id": "d7114feb-f93f-4c3f-856b-b0a1c284a98e",
+      "difficulty": "easy",
+      "start_time": 0.0,
+      "sessionId": "831c4f93-1a59-441a-b677-31d320e07d29"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-03-23T11:14:47.0463424Z",
+    "data": {
+      "fight_id": "061abe43-27c5-4f8b-bd82-b7b5678def30",
+      "stage_id": "061abe43-27c5-4f8b-bd82-b7b5678def30",
+      "start_time": 0.0,
+      "sessionId": "831c4f93-1a59-441a-b677-31d320e07d29"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-03-23T11:14:52.3659141Z",
+    "data": {
+      "status_name": "Blindness",
+      "sessionId": "831c4f93-1a59-441a-b677-31d320e07d29",
+      "target_type": "Dojo Challenger (Character)",
+      "source_move": "High Punch"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-23T11:14:52.3659141Z",
+    "data": {
+      "move_name": "High Punch",
+      "sessionId": "831c4f93-1a59-441a-b677-31d320e07d29",
+      "user_type": "Player (Character)",
+      "attack_result": "guardedHit",
+      "total_damage": 2,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "stage_complete",
+    "timestamp_utc": "2026-03-23T11:14:54.3571250Z",
+    "data": {
+      "fight_id": "061abe43-27c5-4f8b-bd82-b7b5678def30",
+      "sessionId": "831c4f93-1a59-441a-b677-31d320e07d29"
+    }
+  },
+  {
+    "event_type": "fight_end",
+    "timestamp_utc": "2026-03-23T11:14:54.3571250Z",
+    "data": {
+      "fight_id": "061abe43-27c5-4f8b-bd82-b7b5678def30",
+      "run_id": "d7114feb-f93f-4c3f-856b-b0a1c284a98e",
+      "battle_time": 6,
+      "turns": 1,
+      "attack_attempts": 1,
+      "attack_success": 1,
+      "defend_attempts": 0,
+      "defend_success": 0,
+      "hp_left": 250,
+      "player_died": false,
+      "level": 0,
+      "sessionId": "831c4f93-1a59-441a-b677-31d320e07d29"
+    }
+  },
+  {
+    "event_type": "upgrade_chosen",
+    "timestamp_utc": "2026-03-23T11:14:56.2154307Z",
+    "data": {
+      "level": 2,
+      "type": "stat",
+      "value": "attack+6",
+      "run_id": "d7114feb-f93f-4c3f-856b-b0a1c284a98e",
+      "sessionId": "831c4f93-1a59-441a-b677-31d320e07d29"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-03-23T11:14:56.2181858Z",
+    "data": {
+      "fight_id": "de80a033-20f2-4ffd-a251-067d4ec75ebf",
+      "stage_id": "de80a033-20f2-4ffd-a251-067d4ec75ebf",
+      "start_time": 7.665114,
+      "sessionId": "831c4f93-1a59-441a-b677-31d320e07d29"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-03-23T11:15:01.4005369Z",
+    "data": {
+      "status_name": "Blindness",
+      "sessionId": "831c4f93-1a59-441a-b677-31d320e07d29",
+      "target_type": "Comeback Fighter (Character)",
+      "source_move": "High Punch"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-03-23T11:15:01.4005369Z",
+    "data": {
+      "status_name": "Bind",
+      "sessionId": "831c4f93-1a59-441a-b677-31d320e07d29",
+      "target_type": "Comeback Fighter (Character)",
+      "source_move": "High Punch"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-23T11:15:01.4005369Z",
+    "data": {
+      "move_name": "High Punch",
+      "sessionId": "831c4f93-1a59-441a-b677-31d320e07d29",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 6,
+      "target_type": "Comeback Fighter (Character)"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-03-23T11:15:03.4073206Z",
+    "data": {
+      "status_name": "Blindness",
+      "sessionId": "831c4f93-1a59-441a-b677-31d320e07d29",
+      "target_type": "Player (Character)",
+      "source_move": "Low Push Kick"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-03-23T11:15:03.4073206Z",
+    "data": {
+      "status_name": "Bind",
+      "sessionId": "831c4f93-1a59-441a-b677-31d320e07d29",
+      "target_type": "Player (Character)",
+      "source_move": "Low Push Kick"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-23T11:15:03.4073206Z",
+    "data": {
+      "move_name": "Low Push Kick",
+      "sessionId": "831c4f93-1a59-441a-b677-31d320e07d29",
+      "user_type": "Comeback Fighter (Character)",
+      "attack_result": "hit",
+      "total_damage": 8,
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-03-23T11:15:05.4155075Z",
+    "data": {
+      "status_name": "Blindness",
+      "sessionId": "831c4f93-1a59-441a-b677-31d320e07d29",
+      "target_type": "Comeback Fighter (Character)",
+      "source_move": "Medium Punch"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-23T11:15:05.4155075Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "sessionId": "831c4f93-1a59-441a-b677-31d320e07d29",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 7,
+      "target_type": "Comeback Fighter (Character)"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-03-23T11:15:07.4194181Z",
+    "data": {
+      "status_name": "Bind",
+      "sessionId": "831c4f93-1a59-441a-b677-31d320e07d29",
+      "target_type": "Player (Character)",
+      "source_move": "Pummel"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-23T11:15:07.4194181Z",
+    "data": {
+      "move_name": "Pummel",
+      "sessionId": "831c4f93-1a59-441a-b677-31d320e07d29",
+      "user_type": "Comeback Fighter (Character)",
+      "attack_result": "hit",
+      "total_damage": 5,
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-03-23T11:15:09.4221889Z",
+    "data": {
+      "status_name": "Blindness",
+      "sessionId": "831c4f93-1a59-441a-b677-31d320e07d29",
+      "target_type": "Comeback Fighter (Character)",
+      "source_move": "Low Push Kick"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-23T11:15:09.4221889Z",
+    "data": {
+      "move_name": "Low Push Kick",
+      "sessionId": "831c4f93-1a59-441a-b677-31d320e07d29",
+      "user_type": "Player (Character)",
+      "attack_result": "guardedHit",
+      "total_damage": 11,
+      "target_type": "Comeback Fighter (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-23T11:15:15.9811123Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "sessionId": "831c4f93-1a59-441a-b677-31d320e07d29",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 7,
+      "target_type": "Comeback Fighter (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-23T11:15:17.9827363Z",
+    "data": {
+      "move_name": "Medium Push Kick",
+      "sessionId": "831c4f93-1a59-441a-b677-31d320e07d29",
+      "user_type": "Comeback Fighter (Character)",
+      "attack_result": "blocked",
+      "total_damage": 9,
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-23T11:15:19.9866121Z",
+    "data": {
+      "move_name": "Medium Spin Kick",
+      "sessionId": "831c4f93-1a59-441a-b677-31d320e07d29",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 13,
+      "target_type": "Comeback Fighter (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-23T11:15:21.9956948Z",
+    "data": {
+      "move_name": "Pummel",
+      "sessionId": "831c4f93-1a59-441a-b677-31d320e07d29",
+      "user_type": "Comeback Fighter (Character)",
+      "attack_result": "guardedHit",
+      "total_damage": 4,
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-03-23T11:15:23.9999407Z",
+    "data": {
+      "status_name": "Bind",
+      "sessionId": "831c4f93-1a59-441a-b677-31d320e07d29",
+      "target_type": "Comeback Fighter (Character)",
+      "source_move": "High Punch"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-23T11:15:23.9999407Z",
+    "data": {
+      "move_name": "High Punch",
+      "sessionId": "831c4f93-1a59-441a-b677-31d320e07d29",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 6,
+      "target_type": "Comeback Fighter (Character)"
+    }
+  },
+  {
+    "event_type": "stage_complete",
+    "timestamp_utc": "2026-03-23T11:15:26.0029994Z",
+    "data": {
+      "fight_id": "de80a033-20f2-4ffd-a251-067d4ec75ebf",
+      "sessionId": "831c4f93-1a59-441a-b677-31d320e07d29"
+    }
+  },
+  {
+    "event_type": "fight_end",
+    "timestamp_utc": "2026-03-23T11:15:26.0029994Z",
+    "data": {
+      "fight_id": "de80a033-20f2-4ffd-a251-067d4ec75ebf",
+      "run_id": "d7114feb-f93f-4c3f-856b-b0a1c284a98e",
+      "battle_time": 30,
+      "turns": 2,
+      "attack_attempts": 10,
+      "attack_success": 9,
+      "defend_attempts": 0,
+      "defend_success": 1,
+      "hp_left": 238,
+      "player_died": false,
+      "level": 0,
+      "sessionId": "831c4f93-1a59-441a-b677-31d320e07d29"
+    }
+  },
+  {
+    "event_type": "upgrade_chosen",
+    "timestamp_utc": "2026-03-23T11:15:31.5138947Z",
+    "data": {
+      "level": 3,
+      "type": "stat",
+      "value": "HP+15",
+      "run_id": "d7114feb-f93f-4c3f-856b-b0a1c284a98e",
+      "sessionId": "831c4f93-1a59-441a-b677-31d320e07d29"
+    }
+  }
+]
