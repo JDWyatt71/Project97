@@ -62,7 +62,8 @@ public class GameManager : MonoBehaviour
         pC = pCharacter.GetComponent<Character>();
         pInventory = pCharacter.GetComponent<Inventory>();
 
-        CharacterSO cSO = cCs[round-1];
+        int index = Mathf.Clamp(round - 1, 0, cCs.Count - 1);
+        CharacterSO cSO = cCs[index];
         GameObject cCharacter = SetupCharacter(cSO.name, cSO, computerHealthBar);
         computerImage.sprite = cSO.sprite;
 
