@@ -10,8 +10,9 @@ using System.IO;
 //  Builds all CharacterSO instances in memory at runtime by looking
 //  moves up from AssetsDatabase by name.
 
+
 public class EnemyFactory : MonoBehaviour
-{
+{/*
     public static EnemyFactory I;
 
     void Start()
@@ -233,7 +234,8 @@ public class EnemyFactory : MonoBehaviour
             Debug.LogWarning("[EnemyFactory] No Grapple moves found in AssetsDatabase for Grappler.");
 
         return result;
-    }
+    }*/
+
 
     
 }
