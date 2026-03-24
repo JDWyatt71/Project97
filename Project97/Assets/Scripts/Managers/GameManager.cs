@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
         runStartTime = Time.time;
         Difficulty difficulty = UC.GetDifficulty();
 
-        GameEvents.RaiseRunStarted(currentRunId, "easy", runStartTime, CurrentSessionId);
+        GameEvents.RaiseRunStarted(currentRunId, difficulty.ToString(), runStartTime, CurrentSessionId);
         TelemetryLogger.Instance.SaveToJson();
         Debug.Log("RunStarted event sent;");
 
