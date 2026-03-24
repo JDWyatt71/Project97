@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.UnityConsent;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,9 +16,6 @@ public class GameManager : MonoBehaviour
     private UpgradeScreenUI upgradeScreenUI;
     [SerializeField] private CharacterSO pCSO;
     [SerializeField] private List<CharacterSO> cCs;
-    [SerializeField] private CharacterSO cCSO1;
-    [SerializeField] private CharacterSO cCSO2;
-
     [SerializeField] private HealthBarUI playerHealthBar;
     [SerializeField] private HealthBarUI computerHealthBar;
     private string currentRunId;
@@ -84,6 +82,8 @@ public class GameManager : MonoBehaviour
 
     private void RoundComplete(bool playerWon)
     {
+        if(round == 10) SceneManager.LoadScene(0); //All rounds finished, return to start scene
+
         //upgradeScreenUI.DisplayItems(AssetsDatabase.I.items);
         round++;
         pC.ResetRestActions();
