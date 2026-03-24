@@ -43,11 +43,7 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        EndUserConsent.SetConsentState(new ConsentState
-        {
-            AnalyticsIntent = ConsentStatus.Granted,
-            AdsIntent = ConsentStatus.Denied
-        });
+        TelemetryConsentManager.ApplyConsent(TelemetryConsentManager.IsEnabled());
 
         currentRunId = Guid.NewGuid().ToString();
         CurrentSessionId = Guid.NewGuid().ToString();

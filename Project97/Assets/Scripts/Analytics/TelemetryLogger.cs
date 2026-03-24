@@ -187,6 +187,9 @@ public class TelemetryLogger : MonoBehaviour
 
     private void AddEvent(string eventType, object parameters)
     {
+        if (!TelemetryConsentManager.IsEnabled())
+            return; //BLOCKS EVENTS
+
         _events.Add(new EventEntry
         {
             event_type = eventType,
@@ -197,6 +200,9 @@ public class TelemetryLogger : MonoBehaviour
 
     public void SaveToJson()
     {
+        if (!TelemetryConsentManager.IsEnabled())
+            return; //BLOCKS EVENTS
+
         try
         {
             var json = JsonConvert.SerializeObject(_events, Formatting.Indented);
