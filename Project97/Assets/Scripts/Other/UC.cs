@@ -48,10 +48,4 @@ public static class UC //Utils Class
         Debug.Log($"Weighted random failed! Total Probability: {cumulative}, Rand Value: {rand}");
         return dict.Keys.Last();
     }
-    private static readonly float[] attackWeightValues = { 0.5f, 0.15f, 0.35f };
-
-    private static float GetAttackProbability(MoveWeight moveWeight)
-    {
-        return attackWeightValues[(int)moveWeight];
-    }
 }
