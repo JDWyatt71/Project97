@@ -40,7 +40,8 @@ public class HandbookUI : MonoBehaviour
     {
         Dictionary<string, Action> strings = new Dictionary<string, Action>
         {
-        { "Character", () => DisplaySO(GameManager.I.GetCCs()) },
+        { "Character", () => 
+        {List<CharacterSO> cs = new List<CharacterSO>(GameManager.I.GetCCs()); cs.Insert(0, AssetsDatabase.I.pCSO); DisplaySO(cs); }},
         { "Items", () => DisplaySO(AssetsDatabase.I.items) },
         { "Attack Moves", () => DisplaySO(AssetsDatabase.I.aMoves) },
         { "Defend Moves", () => DisplaySO(AssetsDatabase.I.dMoves) }

@@ -40,6 +40,9 @@ public class GameManager : MonoBehaviour
     public string CurrentRunId => currentRunId;
     public string CurrentSessionId { get; private set; }
     public float moveDelay = 2f;
+    [SerializeField] private Transform pEffectsCT;
+    [SerializeField] private Transform cEffectsCT;
+
 
     void Awake()
     {
@@ -81,7 +84,7 @@ public class GameManager : MonoBehaviour
     {
         GameObject character = Instantiate(AssetsDatabase.I.characterPf);
         character.name = name;
-        character.GetComponent<Character>().Setup(characterSO);
+        character.GetComponent<Character>().Setup(characterSO, (name == "Player") ? pEffectsCT : cEffectsCT);
         healthBarUI.Setup(character.GetComponent<HealthSystem>());
         return character;
     }

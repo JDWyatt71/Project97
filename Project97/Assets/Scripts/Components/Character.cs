@@ -101,7 +101,7 @@ public class Character : MonoBehaviour
     {
         restAction = 3;
     }
-    public void Setup(CharacterSO characterSO = default(CharacterSO))
+    public void Setup(CharacterSO characterSO, Transform effectsContainerTransform = default)
     {
         cSO = characterSO;
 
@@ -117,6 +117,8 @@ public class Character : MonoBehaviour
 
         ResetCurrentStats();
         ResetRestActions();
+
+        gameObject.AddComponent<EffectsUI>().Setup(this, effectsContainerTransform);
     }
 
     private void ResetCurrentStats()
@@ -156,17 +158,20 @@ public class Character : MonoBehaviour
     }
     #region Effects
     private Dictionary<Effect, EffectData> effects = new Dictionary<Effect, EffectData>();
+    public event Action<Dictionary<Effect, EffectData>> OnEffectsChanged;
     public void RemoveAllEffects()
     {
         effects = new Dictionary<Effect, EffectData>();
+        OnEffectsChanged?.Invoke(effects);
     }
     public void AddEffect(Effect effect, Scale height)
     {
-        effects[effect] = new EffectData(EffectDefaults.Durations[effect], height);
+        effects[effect] = new EffectData(EffectDefaults.Durations[effect], AssetsDatabase.I.effectsSprites[(int)effect], height);
         if(effect == Effect.Bind)
         {
             bindDPercentage = 0.03f;
         }
+        OnEffectsChanged?.Invoke(effects);
     }
     public EffectData TryGetEffect(Effect effect)
     {
@@ -178,6 +183,7 @@ public class Character : MonoBehaviour
     public void HealEffects()
     {
         effects.Clear();
+        OnEffectsChanged?.Invoke(effects);
     }
     public void DoEffects(float binderAttack)
     {
@@ -188,19 +194,26 @@ public class Character : MonoBehaviour
             effects[effect].duration -= 1;
             if (effects[effect].duration == 0) //Doesn't remove -1 or below which signifies unlimited
             {
-                effects.Remove(effect);
-                
+                RemoveEffect(effect);
+
             }
             else if(effect == Effect.Bind && effects[effect].duration <= 2)
             {
                 if (UC.RandomEventPercentage( ((evasion - binderAttack) / 100f) + 0.5f) )
                 {
-                    effects.Remove(effect);
+                    RemoveEffect(effect);
                     Debug.Log("Bind removed early");
                 }
             }
         }
     }
+
+    private void RemoveEffect(Effect effect)
+    {
+        effects.Remove(effect);
+        OnEffectsChanged?.Invoke(effects);
+    }
+
     private float bindDPercentage;
     private void DoEffect(Effect effect)
     {

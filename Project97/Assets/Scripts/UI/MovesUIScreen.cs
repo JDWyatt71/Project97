@@ -29,7 +29,7 @@ public class MovesUIScreen : MonoBehaviour
                 SelectMoveUI.I.TrySelectMove(move, itemSlotRectTransform.Find("selectImage").gameObject);
             });
             
-            Image image = itemSlotRectTransform.Find("image").GetComponent<Image>();
+            Image image = imageTransform.GetComponent<Image>();
             image.preserveAspect = true;
             if (move.sprite != null)
             {

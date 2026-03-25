@@ -15,5 +15,6 @@ public class AssetsDatabase : MonoBehaviour
     public List<ItemSO> items;
     public List<UpgradesSO> upgradesSOs;
     public CharacterSO pCSO;
-
+    public List<Sprite> effectsSprites;
+    public GameObject effectItemPf;
 }
