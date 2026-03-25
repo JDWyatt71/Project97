@@ -14,8 +14,11 @@ public class GameManager : MonoBehaviour
     public static GameManager I {private set; get;}
     public Inventory pInventory { private set; get; }
     private UpgradeScreenUI upgradeScreenUI;
-    [SerializeField] private CharacterSO pCSO;
     [SerializeField] private List<CharacterSO> cCs;
+    public List<CharacterSO> GetCCs()
+    {
+        return cCs;
+    }
     [SerializeField] private HealthBarUI playerHealthBar;
     [SerializeField] private HealthBarUI computerHealthBar;
     [SerializeField] private EndScreenUI endScreenUI;
@@ -56,7 +59,7 @@ public class GameManager : MonoBehaviour
         TelemetryLogger.Instance.SaveToJson();
         Debug.Log("RunStarted event sent;");
 
-        pCharacter = SetupCharacter("Player", pCSO, playerHealthBar);
+        pCharacter = SetupCharacter("Player", AssetsDatabase.I.pCSO, playerHealthBar);
         pC = pCharacter.GetComponent<Character>();
         pInventory = pCharacter.GetComponent<Inventory>();
         pInventory.SetupInventory(difficulty);
@@ -173,5 +176,14 @@ public class GameManager : MonoBehaviour
     public void TMAttemptStartTurn()
     {
         turnManager.AttemptStartTurn();
+    }
+    [SerializeField] private GameObject instructionsScreenObj;
+    public void ShowInstructions()
+    {
+        instructionsScreenObj.SetActive(true);
+    }
+    public void HideInstructions()
+    {
+        instructionsScreenObj.SetActive(false);
     }
 }

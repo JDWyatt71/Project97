@@ -1,4 +1,5 @@
 using UnityEngine;
+
 [CreateAssetMenu(menuName = "ScriptableObjects/Attack")]
 public class AttackSO : MoveSO
 {
@@ -7,4 +8,5 @@ public class AttackSO : MoveSO
    public bool ignoresGuard = false;
    public bool catchesDodge = false;
    public Scale catchesDodgeChance;
+   
 }
