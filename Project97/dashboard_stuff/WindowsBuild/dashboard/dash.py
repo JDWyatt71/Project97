@@ -406,7 +406,7 @@ def item_frequency(runs_df):
 # LOAD DATA
 
 try:
-    sessions_df, runs_df, fights_df, upgrades_df, moves_df, status_df = load_tables(Issues_PATH)
+    sessions_df, runs_df, fights_df, upgrades_df, moves_df, status_df = load_tables(PATH)
 
 except Exception as e:
     st.error(f"Database error: {e}")
