@@ -232,7 +232,6 @@ public class TelemetryLogger : MonoBehaviour
                 };
 
                 Process.Start(psi);
-                UnityEngine.Debug.LogError("Python script got triggered.");
             }
             catch (Exception ex)
             {
