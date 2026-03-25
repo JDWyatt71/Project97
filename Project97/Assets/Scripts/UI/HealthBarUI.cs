@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +7,7 @@ public class HealthBarUI : MonoBehaviour
 {
     private HealthSystem healthSystem;
     [SerializeField] private Slider slider;
+    [SerializeField] private TextMeshProUGUI healthAmountText;
 
     public void Setup(HealthSystem healthSystem)
     {
@@ -19,5 +21,6 @@ public class HealthBarUI : MonoBehaviour
     private void UpdateHealthBar(int current, int max)
     {
         slider.value = (float)current / (float)max;
+        healthAmountText.text = $"{current} / {max}";
     }
 }

@@ -10,13 +10,6 @@ public class CombatUI : MonoBehaviour
     [SerializeField] private Transform playerDamagePopupSpawn; // Spawn point for player damage popups
     [SerializeField] private Transform enemyDamagePopupSpawn; // Spawn point for enemy damage popups
 
-    private Character player;
-
-    public void Setup(Character newCharacter)
-    {
-        player = newCharacter;
-    }
-
     private void OnEnable()
     {
         CombatEvents.OnLogUpdate += UpdateCombatLog;
@@ -48,7 +41,7 @@ public class CombatUI : MonoBehaviour
 
     private void ShowDamagePopup(int damageAmount, Character target)
     {
-        Transform spawnPoint = target == player ? playerDamagePopupSpawn : enemyDamagePopupSpawn;
+        Transform spawnPoint = target == GameManager.I.pC ? playerDamagePopupSpawn : enemyDamagePopupSpawn;
 
         GameObject popup = Instantiate(damagePopup, spawnPoint);
         popup.GetComponent<DamageNumber>().Setup(damageAmount);

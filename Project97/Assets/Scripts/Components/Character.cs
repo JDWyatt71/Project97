@@ -121,7 +121,6 @@ public class Character : MonoBehaviour
 
     private void ResetCurrentStats()
     {
-        print("base attack "+baseAttack+" attack "+attack+" bonus attack " + bonusAttack);
         accuracy = baseAccuracy + bonusAccuracy;
         evasion = baseEvasion + bonusEvasion;
         actionPoints = baseActionPoints + bonusActionPoints;

@@ -1,0 +1,53 @@
+[
+  {
+    "event_type": "run_start",
+    "timestamp_utc": "2026-03-25T14:25:44.1156707Z",
+    "data": {
+      "run_id": "195890d2-55a2-4dcd-955f-27ca216a1f8b",
+      "difficulty": "Easy",
+      "start_time": 1.22469342,
+      "sessionId": "8d750e5b-8c3d-4bbf-8e03-fb13bff7e39b"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-03-25T14:25:44.3293958Z",
+    "data": {
+      "fight_id": "c868bb74-2cdd-45ce-8bda-ba8e5985247b",
+      "stage_id": "c868bb74-2cdd-45ce-8bda-ba8e5985247b",
+      "start_time": 1.22469342,
+      "sessionId": "8d750e5b-8c3d-4bbf-8e03-fb13bff7e39b"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-25T14:25:46.5545664Z",
+    "data": {
+      "move_name": "Medium Spin Kick",
+      "sessionId": "8d750e5b-8c3d-4bbf-8e03-fb13bff7e39b",
+      "user_type": "Player (Character)",
+      "attack_result": "dodged",
+      "total_damage": 0,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-25T14:25:48.5371785Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "sessionId": "8d750e5b-8c3d-4bbf-8e03-fb13bff7e39b",
+      "user_type": "Dojo Challenger (Character)",
+      "attack_result": "blocked",
+      "total_damage": 3,
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "game_quit",
+    "timestamp_utc": "2026-03-25T14:25:49.7302219Z",
+    "data": {
+      "sessionId": "8d750e5b-8c3d-4bbf-8e03-fb13bff7e39b"
+    }
+  }
+]

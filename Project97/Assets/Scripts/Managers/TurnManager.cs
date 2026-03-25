@@ -16,8 +16,6 @@ public class TurnManager : MonoBehaviour
     private FightAnalyticsTracker analytics;
     private bool submittedMoves;
 
-    [SerializeField] private CombatUI combatUI;
-
     public void Setup(Character pCharacter, Character cCharacter)
     {
         I = this;
@@ -40,10 +38,7 @@ public class TurnManager : MonoBehaviour
     {
         this.computerCharacter = cCharacter;
 
-        fightID = Guid.NewGuid().ToString();
-
-        FindObjectOfType<CombatUI>().Setup(playerCharacter);
-        
+        fightID = Guid.NewGuid().ToString();        
         
         fightStartTime = Time.time;
         /*currentFight = new FightResult {
@@ -81,14 +76,18 @@ public class TurnManager : MonoBehaviour
         //Temporary for testing, to end player move selection
         if (!turnsProcessing && Input.GetKeyDown(KeyCode.Space))
         {
-            if (SelectMoveUI.I.CanAffordMoves())
-            {
-                submittedMoves = true;
-            }
+            AttemptStartTurn();
         }
     }
 
-    
+    public void AttemptStartTurn()
+    {
+        if (SelectMoveUI.I.CanAffordMoves())
+        {
+            submittedMoves = true;
+        }
+    }
+
 
     private IEnumerator Turns(Character pCharacter, Character cCharacter)
     {
@@ -221,7 +220,7 @@ public class TurnManager : MonoBehaviour
         };
 
 
-        while(moves.Count <= 4){
+        while(moves.Count < 4){
             attackChances.RemoveAll(item => item.attackSO.AP > remainingAP); //Remove all moves that cannot be afforded
             
             //If there are no moves in a category due to being unaffordable or already selected, set that category probability to 0.
