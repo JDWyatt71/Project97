@@ -1,0 +1,84 @@
+[
+  {
+    "event_type": "run_start",
+    "timestamp_utc": "2026-03-25T11:55:16.8501602Z",
+    "data": {
+      "run_id": "bfb4400c-7510-474f-ad9f-583b1a08937b",
+      "difficulty": "Easy",
+      "start_time": 0.0,
+      "sessionId": "8067d825-8d06-4acb-bea1-538e3cd944e0"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-03-25T11:55:17.0440767Z",
+    "data": {
+      "fight_id": "ce356e9a-6580-42d2-a600-d47db8ada81c",
+      "stage_id": "ce356e9a-6580-42d2-a600-d47db8ada81c",
+      "start_time": 0.0,
+      "sessionId": "8067d825-8d06-4acb-bea1-538e3cd944e0"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-25T11:55:20.1159308Z",
+    "data": {
+      "move_name": "Medium Spin Kick",
+      "sessionId": "8067d825-8d06-4acb-bea1-538e3cd944e0",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 8,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-25T11:55:22.1030033Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "sessionId": "8067d825-8d06-4acb-bea1-538e3cd944e0",
+      "user_type": "Dojo Challenger (Character)",
+      "attack_result": "dodged",
+      "total_damage": 0,
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-25T11:55:24.1050724Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "sessionId": "8067d825-8d06-4acb-bea1-538e3cd944e0",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 3,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "stage_complete",
+    "timestamp_utc": "2026-03-25T11:55:26.1096237Z",
+    "data": {
+      "fight_id": "ce356e9a-6580-42d2-a600-d47db8ada81c",
+      "sessionId": "8067d825-8d06-4acb-bea1-538e3cd944e0"
+    }
+  },
+  {
+    "event_type": "fight_end",
+    "timestamp_utc": "2026-03-25T11:55:26.1106234Z",
+    "data": {
+      "fight_id": "ce356e9a-6580-42d2-a600-d47db8ada81c",
+      "run_id": "bfb4400c-7510-474f-ad9f-583b1a08937b",
+      "battle_time": 8,
+      "turns": 1,
+      "attack_attempts": 3,
+      "attack_success": 2,
+      "defend_attempts": 0,
+      "defend_success": 0,
+      "hp_left": 250,
+      "player_died": false,
+      "level": 0,
+      "sessionId": "8067d825-8d06-4acb-bea1-538e3cd944e0"
+    }
+  }
+]

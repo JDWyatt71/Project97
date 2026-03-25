@@ -163,6 +163,7 @@ public class TurnManager : MonoBehaviour
         
         Debug.Log($"Player moves chosen: {pMoves.Count}, Computer moves chosen: {cMoves.Count}");
 
+        CombatEvents.AllMovesSelected(pDMove, cDMove);
         yield return StartCoroutine(PerformMoves(pAMoves, cAMoves, pDMove, cDMove, pCharacter, cCharacter));
         Debug.Log("Turn end");
     }

@@ -153,4 +153,8 @@ public class GameManager : MonoBehaviour
     {
         GameEvents.RaiseGameQuit(CurrentSessionId);
     }
+    public void ReturnHome()
+    {
+        SceneManager.LoadScene(0);
+    }
 }

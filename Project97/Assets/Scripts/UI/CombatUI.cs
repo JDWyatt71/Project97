@@ -4,6 +4,8 @@ using TMPro;
 public class CombatUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI combatLogText;
+    [SerializeField] private TextMeshProUGUI defendingMovesText;
+
     [SerializeField] private GameObject damagePopup;
     [SerializeField] private Transform playerDamagePopupSpawn; // Spawn point for player damage popups
     [SerializeField] private Transform enemyDamagePopupSpawn; // Spawn point for enemy damage popups
@@ -20,6 +22,7 @@ public class CombatUI : MonoBehaviour
         CombatEvents.OnLogUpdate += UpdateCombatLog;
         CombatEvents.OnDamageDealt += ShowDamagePopup;
         CombatEvents.OnTurnStart += ClearCombatLog;
+        CombatEvents.DefendingMovesSelected += DisplayDefendingMoves;
     }
 
     private void OnDisable()
@@ -27,6 +30,8 @@ public class CombatUI : MonoBehaviour
         CombatEvents.OnLogUpdate -= UpdateCombatLog;
         CombatEvents.OnDamageDealt -= ShowDamagePopup;
         CombatEvents.OnTurnStart -= ClearCombatLog;
+        CombatEvents.DefendingMovesSelected -= DisplayDefendingMoves;
+
     }
 
     private void UpdateCombatLog(string message)
@@ -37,6 +42,10 @@ public class CombatUI : MonoBehaviour
     private void ClearCombatLog()
     {
         combatLogText.text = "";
+    }
+    private void DisplayDefendingMoves(string message)
+    {
+        defendingMovesText.text = message;
     }
 
     private void ShowDamagePopup(int damageAmount, Character target)

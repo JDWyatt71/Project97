@@ -4,6 +4,8 @@ using System;
 public static class CombatEvents
 {
     public static event Action<string> OnLogUpdate;
+    public static event Action<string> DefendingMovesSelected; //Triggered with defending moves text for display
+
     public static event Action<int, Character> OnDamageDealt; // int: amount of damage, Character: the character who took damage
     public static event System.Action OnTurnStart;
 
@@ -20,5 +22,10 @@ public static class CombatEvents
     public static void RaiseTurnStart()
     {
         OnTurnStart?.Invoke();
+    }
+    public static void AllMovesSelected(DefendSO pDefendSO, DefendSO cDefendSO)
+    {
+        string message = $"Defending moves:\nPlayer - {pDefendSO?.name ?? "None"}\nComputer - {cDefendSO?.name ?? "None"}";
+        DefendingMovesSelected?.Invoke(message);
     }
 }
