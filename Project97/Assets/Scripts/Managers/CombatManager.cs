@@ -77,8 +77,7 @@ public class CombatManager
             totalDamage = TotalDam(initialDamage, 1);
         }
 
-        //2 non-damaging attack options
-        //Is dodge?
+        //Is dodge / duck
         float moveAccuracy = CalculateMoveAccuracy(attackSO.accuracy, attacker.accuracy, target.evasion, defendSO.dodgeBonusPercent);
         if (!UC.RandomEvent(moveAccuracy))
         {
@@ -111,11 +110,6 @@ public class CombatManager
             GameEvents.RaiseMoveUsed(moveName, GameManager.I.CurrentSessionId, attacker.ToString(), AttackResult.blocked.ToString(), totalDamage, target.ToString());
             return AttackResult.blocked;
         }
-        
-        //3 damaging attack options
-
-        
-        //Debug.Log($"basedam: {basedam}, initialDamage: {initialDamage}, total damage: {totalDamage}");
 
         //Is deflected/countered?
         if (defendSO.deflect && attackSO.moveType != MoveType.Grapple)
@@ -126,7 +120,7 @@ public class CombatManager
             GameEvents.RaiseMoveUsed(moveName, GameManager.I.CurrentSessionId, attacker.ToString(), AttackResult.deflected.ToString(), totalDamage, target.ToString());
             return AttackResult.deflected;
         }
-        else //Not deflected, hit
+        else //Not deflected, hit - is it guardedHit or standard hit
         {
             ApplyAttackDamageAndEffects(target, attackSO, totalDamage);
 

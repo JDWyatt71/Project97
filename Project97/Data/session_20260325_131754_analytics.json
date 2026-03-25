@@ -1,0 +1,56 @@
+[
+  {
+    "event_type": "run_start",
+    "timestamp_utc": "2026-03-25T13:17:54.6617018Z",
+    "data": {
+      "run_id": "458d7672-05f1-45e6-96b9-57eac024a13b",
+      "difficulty": "Easy",
+      "start_time": 0.0,
+      "sessionId": "7bb749bb-a3b4-44a9-8c7f-c460249a69e4"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-03-25T13:17:54.8262454Z",
+    "data": {
+      "fight_id": "1c9019b3-47d0-480f-9ade-318428f5fd7b",
+      "stage_id": "1c9019b3-47d0-480f-9ade-318428f5fd7b",
+      "start_time": 0.0,
+      "sessionId": "7bb749bb-a3b4-44a9-8c7f-c460249a69e4"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-25T13:17:57.0884679Z",
+    "data": {
+      "move_name": "Medium Spin Kick",
+      "sessionId": "7bb749bb-a3b4-44a9-8c7f-c460249a69e4",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 8,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-03-25T13:17:59.0750373Z",
+    "data": {
+      "status_name": "Slow",
+      "sessionId": "7bb749bb-a3b4-44a9-8c7f-c460249a69e4",
+      "target_type": "Player (Character)",
+      "source_move": "Low Spin Kick"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-25T13:17:59.0750373Z",
+    "data": {
+      "move_name": "Low Spin Kick",
+      "sessionId": "7bb749bb-a3b4-44a9-8c7f-c460249a69e4",
+      "user_type": "Dojo Challenger (Character)",
+      "attack_result": "guardedHit",
+      "total_damage": 7,
+      "target_type": "Player (Character)"
+    }
+  }
+]

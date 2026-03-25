@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<CharacterSO> cCs;
     [SerializeField] private HealthBarUI playerHealthBar;
     [SerializeField] private HealthBarUI computerHealthBar;
+    [SerializeField] private EndScreenUI endScreenUI;
     private string currentRunId;
     private float runStartTime;
     private int currentLevel = 0;
@@ -26,6 +27,7 @@ public class GameManager : MonoBehaviour
     private int attackSuccess = 0;
     private int defendAttempt = 0;
     private int defendSuccess = 0;
+    private int hpLeft;
     [SerializeField] private Image computerImage;
 
     public GameObject pCharacter {private set; get;}
@@ -82,7 +84,16 @@ public class GameManager : MonoBehaviour
 
     private void RoundComplete(bool playerWon)
     {
-        if(round == 10) SceneManager.LoadScene(0); //All rounds finished, return to start scene
+        if (!playerWon)
+        {
+            endScreenUI.DisplayEndScreen("Defeat", round, attackAttempt, attackSuccess, defendAttempt, defendSuccess, hpLeft, runStartTime);
+
+        }
+        if(round >= cCs.Count)
+        {
+            //All rounds complete show victory screen
+            endScreenUI.DisplayEndScreen("Victory", round, attackAttempt, attackSuccess, defendAttempt, defendSuccess, hpLeft, runStartTime);
+        }
 
         //upgradeScreenUI.DisplayItems(AssetsDatabase.I.items);
         round++;
@@ -122,6 +133,7 @@ public class GameManager : MonoBehaviour
         attackSuccess += fightResult.AttackSuccess;
         defendAttempt += fightResult.DefendAttempts;
         defendSuccess += fightResult.DefendSuccess;
+        hpLeft = fightResult.HpLeft;
 
         bool runSucessful = currentLevel >= maxLevel;
         string deathCause = fightResult.HpLeft <= 0 ? "death" : "";
@@ -132,7 +144,7 @@ public class GameManager : MonoBehaviour
             {
                 RunId = currentRunId,
                 Successful = runSucessful,
-                Difficulty = "normal", // can be changed when difficulty selection is done
+                Difficulty = UC.GetDifficulty().ToString(), // can be changed when difficulty selection is done
                 RunStartTime = runStartTime,
                 RunEndTime = Time.time,
                 LevelFinish = currentLevel,

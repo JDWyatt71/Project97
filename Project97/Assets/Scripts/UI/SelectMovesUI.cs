@@ -9,20 +9,8 @@ public class SelectMoveUI : MonoBehaviour
     {
         I = this;
     }
-    public void ResetSelectedMoves()
-    {
-        selectedMoves = new List<MoveSO>();
-        selectedObjs = new List<GameObject>();  
-    }
     #region Select player moves
-    public void ResetMoveSelection()
-    {
-        DeselectAllObjs();
-
-        defenseMoves = 0;
-        attackMoves = 0;
-    }
-
+    
     private int pAPRemaining;
     public int GetCurrentAP()
     {
@@ -98,20 +86,6 @@ public class SelectMoveUI : MonoBehaviour
         
     }
     
-    private void DeselectAllObjs()
-    {
-        if (selectedObjs == null)
-        {
-            return;
-        }
-        foreach(GameObject selectedObj in selectedObjs)
-        {
-            selectedObj.SetActive(false);
-
-        }
-        selectedObjs.Clear();
-
-    }
     private bool CanSelectMove(MoveSO move)
     {
         bool limitMet = false;
@@ -131,11 +105,32 @@ public class SelectMoveUI : MonoBehaviour
         return pAPRemaining >= 0;
 
     }
-    public void SchedulePlayerMoves(Character c)
+    public void ResetMoveSelection()
     {
-        pAPRemaining = c.actionPoints;
+        DeselectAllObjs();
         selectedMoves = new List<MoveSO>();
+
+        defenseMoves = 0;
+        attackMoves = 0;
+
         GetComponent<APBarUI>().Setup(this);
+        pAPRemaining = GameManager.I.pC.actionPoints;
+        APChanged?.Invoke(pAPRemaining);
+    }
+
+    private void DeselectAllObjs()
+    {
+        if (selectedObjs == null)
+        {
+            return;
+        }
+        foreach(GameObject selectedObj in selectedObjs)
+        {
+            selectedObj.SetActive(false);
+
+        }
+        selectedObjs.Clear();
+
     }
     #endregion
 }

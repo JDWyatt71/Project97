@@ -21,7 +21,6 @@ public class CombatUI : MonoBehaviour
     {
         CombatEvents.OnLogUpdate += UpdateCombatLog;
         CombatEvents.OnDamageDealt += ShowDamagePopup;
-        CombatEvents.OnTurnStart += ClearCombatLog;
         CombatEvents.DefendingMovesSelected += DisplayDefendingMoves;
     }
 
@@ -29,9 +28,7 @@ public class CombatUI : MonoBehaviour
     {
         CombatEvents.OnLogUpdate -= UpdateCombatLog;
         CombatEvents.OnDamageDealt -= ShowDamagePopup;
-        CombatEvents.OnTurnStart -= ClearCombatLog;
         CombatEvents.DefendingMovesSelected -= DisplayDefendingMoves;
-
     }
 
     private void UpdateCombatLog(string message)
@@ -45,6 +42,7 @@ public class CombatUI : MonoBehaviour
     }
     private void DisplayDefendingMoves(string message)
     {
+        ClearCombatLog();
         defendingMovesText.text = message;
     }
 

@@ -1,0 +1,32 @@
+[
+  {
+    "event_type": "run_start",
+    "timestamp_utc": "2026-03-25T13:18:45.8761080Z",
+    "data": null
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-03-25T13:18:46.0574379Z",
+    "data": null
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-03-25T13:18:48.1561746Z",
+    "data": null
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-25T13:18:48.1561746Z",
+    "data": null
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-03-25T13:18:50.1387891Z",
+    "data": null
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-25T13:18:50.1387891Z",
+    "data": null
+  }
+]

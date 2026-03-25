@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: Assembly-CSharp::CharacterSO
   sprite: {fileID: 0}
-  hitPoints: 250
+  hitPoints: 20
   attack: 10
   accuracy: 10
   evasion: 10
@@ -28,3 +28,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 165a7edce86563c4a8534f002600b3f9, type: 2}
   - {fileID: 11400000, guid: 52be9521818ab4d41ad1c41efc940596, type: 2}
   actionPoints: 20
+  defendRate: 1
+  attackChances: []
+  defendChances: []

@@ -61,7 +61,7 @@ public class TurnManager : MonoBehaviour
         playerCharacter.GetComponent<HealthSystem>().RunningIsFalse += RunningIsFalse;
         computerCharacter.GetComponent<HealthSystem>().RunningIsFalse += RunningIsFalse;
 
-
+        SelectMoveUI.I.ResetMoveSelection();
         StartCoroutine(Turns(playerCharacter, computerCharacter));
          
     }
@@ -75,15 +75,15 @@ public class TurnManager : MonoBehaviour
     private MovesUIScreen movesUIScreen;
     public event Action<bool> RoundComplete; //If player won then call with True, otherwise if player has died we call with false.
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private bool turnsProcessing;
     void Update()
     {
         //Temporary for testing, to end player move selection
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (!turnsProcessing && Input.GetKeyDown(KeyCode.Space))
         {
             if (SelectMoveUI.I.CanAffordMoves())
             {
                 submittedMoves = true;
-                SelectMoveUI.I.ResetMoveSelection();
             }
         }
     }
@@ -101,6 +101,20 @@ public class TurnManager : MonoBehaviour
             DoEffects();
             yield return StartCoroutine(Turn(pCharacter, cCharacter)); //Waits for sub coroutine to finish before continuing to next turn.
         }
+
+        /*currentFight.BattleTimeSeconds = Mathf.RoundToInt(Time.time - fightStartTime);*/
+        int HpLeft = playerCharacter != null ? playerCharacter.healthSystem.GetHealth() : 0;
+
+        bool playerDied = playerCharacter == null;
+        float duration = Time.time - fightStartTime;
+        FightResult result = analytics.EndFight(HpLeft);
+        result.runID = GameManager.I.CurrentRunId;
+        result.playerDied = playerDied;
+        result.sessionId = GameManager.I.CurrentSessionId;
+        result.BattleTimeSeconds = Mathf.RoundToInt(duration);
+        Debug.Log("Raised Fight End Tracker");
+        GameEvents.RaiseFightEnded(result);
+
         //Debug.Log("End game");
         if (playerCharacter == null)
         {
@@ -117,18 +131,7 @@ public class TurnManager : MonoBehaviour
             Debug.Log("Player wins");
         }
 
-        /*currentFight.BattleTimeSeconds = Mathf.RoundToInt(Time.time - fightStartTime);*/
-        int HpLeft = playerCharacter != null ? playerCharacter.healthSystem.GetHealth() : 0;
-
-        bool playerDied = playerCharacter == null;
-        float duration = Time.time - fightStartTime;
-        FightResult result = analytics.EndFight(HpLeft);
-        result.runID = GameManager.I.CurrentRunId;
-        result.playerDied = playerDied;
-        result.sessionId = GameManager.I.CurrentSessionId;
-        result.BattleTimeSeconds = Mathf.RoundToInt(duration);
-        Debug.Log("Raised Fight End Tracker");
-        GameEvents.RaiseFightEnded(result);
+        
     }
 
     private void DoEffects()
@@ -139,15 +142,15 @@ public class TurnManager : MonoBehaviour
 
     private IEnumerator Turn(Character pCharacter, Character cCharacter)
     {
+        turnsProcessing = false;
         analytics.RegisterTurn();
         //currentFight.Turns++; to keep track of turns.
-
-        SelectMoveUI.I.SchedulePlayerMoves(pCharacter);
 
         submittedMoves = pCharacter.actionPoints == 0; //Skips turn without waiting if have no AP
 
         yield return new WaitUntil(() => submittedMoves);
         submittedMoves = false;
+        turnsProcessing = true;
 
         //Get player moves from
         List<MoveSO> pMoves = new List<MoveSO>(SelectMoveUI.I.GetSelectedMoves()); //Shallow copy of list
@@ -164,6 +167,8 @@ public class TurnManager : MonoBehaviour
         Debug.Log($"Player moves chosen: {pMoves.Count}, Computer moves chosen: {cMoves.Count}");
 
         CombatEvents.AllMovesSelected(pDMove, cDMove);
+        SelectMoveUI.I.ResetMoveSelection();
+
         yield return StartCoroutine(PerformMoves(pAMoves, cAMoves, pDMove, cDMove, pCharacter, cCharacter));
         Debug.Log("Turn end");
     }
