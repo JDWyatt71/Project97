@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
     public int round {private set; get;} = 1;
     public string CurrentRunId => currentRunId;
     public string CurrentSessionId { get; private set; }
+    public float moveDelay = 2f;
 
     void Awake()
     {

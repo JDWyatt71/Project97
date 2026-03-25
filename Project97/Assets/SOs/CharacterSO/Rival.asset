@@ -17,16 +17,8 @@ MonoBehaviour:
   attack: 20
   accuracy: 20
   evasion: 20
-  aMoves:
-  - {fileID: 11400000, guid: 9f21e557d2d156d4c861db52facdfc68, type: 2}
-  - {fileID: 11400000, guid: c9c1e8e0ee24855418f3fb50ca466748, type: 2}
-  - {fileID: 11400000, guid: de406dcfb3efafc498e73f73f203250a, type: 2}
-  - {fileID: 11400000, guid: 7ea672a8d28247a4faf6f8f424342c34, type: 2}
-  dMoves:
-  - {fileID: 11400000, guid: b0565ee1bb5921d45bbc42a9c61da452, type: 2}
-  - {fileID: 11400000, guid: 165a7edce86563c4a8534f002600b3f9, type: 2}
-  - {fileID: 11400000, guid: 52be9521818ab4d41ad1c41efc940596, type: 2}
-  - {fileID: 11400000, guid: b3ecc9a0b25be3049a50190efb4ae576, type: 2}
+  aMoves: []
+  dMoves: []
   actionPoints: 7
   defendRate: 0.9
   attackChances:
@@ -37,3 +29,4 @@ MonoBehaviour:
   - attackSO: {fileID: 11400000, guid: c4aeee241cdc63e4eb0f699c5a7fba4c, type: 2}
     weight: 1
   defendChances: []
+  sameMovesAsPlayer: 1

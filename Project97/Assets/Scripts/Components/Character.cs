@@ -107,7 +107,7 @@ public class Character : MonoBehaviour
 
         healthSystem = GetComponent<HealthSystem>();
         healthSystem.Setup(characterSO.hitPoints);
-        SetupMoves(characterSO.aMoves, characterSO.dMoves);
+        SetupMoves(characterSO.aMoves, characterSO.dMoves, characterSO.sameMovesAsPlayer);
         //inventory.SetupInventory(Difficulty difficulty);
         baseAttack = characterSO.attack;
         baseAccuracy = characterSO.accuracy;
@@ -139,11 +139,19 @@ public class Character : MonoBehaviour
         //Prone effect sets action points to 0 to skip turn, therefore if turn has been skipped do not update action points from another effect.
         if(actionPoints != 0) actionPoints = amount;  
     }
-    private void SetupMoves(List<AttackSO> initialAMoves, List<DefendSO> initialDMoves)
+    private void SetupMoves(List<AttackSO> initialAMoves, List<DefendSO> initialDMoves, bool sameMovesAsPlayer)
     {
-        //Copy the character's starting moves to this character
-        aMoves = new List<AttackSO>(initialAMoves);
-        dMoves = new List<DefendSO>(initialDMoves);
+        if (sameMovesAsPlayer)
+        {
+            //Copy the player's current moves to this character
+            aMoves = new List<AttackSO>(GameManager.I.pC.GetAMoves());
+            dMoves = new List<DefendSO>(GameManager.I.pC.GetDMoves());        
+        }
+        else{
+            //Copy the character's starting moves to this character
+            aMoves = new List<AttackSO>(initialAMoves);
+            dMoves = new List<DefendSO>(initialDMoves);
+        }
 
     }
     #region Effects

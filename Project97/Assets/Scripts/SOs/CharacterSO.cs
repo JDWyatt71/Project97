@@ -18,4 +18,5 @@ public class CharacterSO : ScriptableObject
     public float defendRate = 1f;
     public List<AttackChance> attackChances;
     public List<DefendChance> defendChances;
+    public bool sameMovesAsPlayer = false;
 }
