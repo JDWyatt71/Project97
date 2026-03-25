@@ -14,10 +14,20 @@ public class MoveExecutionOrderTests
     private Character defender;
     private CombatManager combatManager;
     private GameObject assetsDatabaseObj;
+    private GameObject gameManagerObj;
 
     [SetUp]
     public void SetUp()
     {
+        // CombatManager logs telemetry using GameManager.I.CurrentSessionId so we need a minimal GameManager
+        gameManagerObj = new GameObject("GameManager_TEST");
+        GameManager gm = gameManagerObj.AddComponent<GameManager>(); // Awake() sets GameManager.I
+        FieldInfo sessionField = typeof(GameManager).GetField("<CurrentSessionId>k__BackingField", BindingFlags.Instance | BindingFlags.NonPublic);
+        if (sessionField != null)
+        {
+            sessionField.SetValue(gm, Guid.NewGuid().ToString());
+        }
+
         assetsDatabaseObj = new GameObject("AssetsDatabase");
         AssetsDatabase db = assetsDatabaseObj.AddComponent<AssetsDatabase>();
         db.aMoves = new List<AttackSO>();
@@ -66,6 +76,8 @@ public class MoveExecutionOrderTests
         AssetsDatabase.I = null;
         if (assetsDatabaseObj != null)
             UnityEngine.Object.DestroyImmediate(assetsDatabaseObj);
+        if (gameManagerObj != null)
+            UnityEngine.Object.DestroyImmediate(gameManagerObj);
         UnityEngine.Object.DestroyImmediate(attackerObj);
         UnityEngine.Object.DestroyImmediate(defenderObj);
     }
