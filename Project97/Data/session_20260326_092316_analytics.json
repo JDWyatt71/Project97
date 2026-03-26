@@ -1,0 +1,88 @@
+[
+  {
+    "event_type": "upgrade_chosen",
+    "timestamp_utc": "2026-03-26T09:23:28.4107926Z",
+    "data": {
+      "level": 1,
+      "type": "move_unlock",
+      "value": "High Palm Strike",
+      "run_id": "00129830-0aca-430f-b6fa-53a2e7be20ca",
+      "sessionId": "67d7936a-879e-4424-a704-51df82447a8f"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-03-26T09:23:28.4137916Z",
+    "data": {
+      "fight_id": "e5f128a5-1955-4c8b-adfb-b2652ebd553e",
+      "stage_id": "e5f128a5-1955-4c8b-adfb-b2652ebd553e",
+      "start_time": 9.48012352,
+      "sessionId": "67d7936a-879e-4424-a704-51df82447a8f"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-26T09:23:29.5199444Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "sessionId": "67d7936a-879e-4424-a704-51df82447a8f",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 3,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-03-26T09:23:32.6695135Z",
+    "data": {
+      "status_name": "Blindness",
+      "sessionId": "67d7936a-879e-4424-a704-51df82447a8f",
+      "target_type": "Player (Character)",
+      "source_move": "Low Spin Kick"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-26T09:23:32.6695135Z",
+    "data": {
+      "move_name": "Low Spin Kick",
+      "sessionId": "67d7936a-879e-4424-a704-51df82447a8f",
+      "user_type": "Dojo Challenger (Character)",
+      "attack_result": "guardedHit",
+      "total_damage": 7,
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-26T09:23:33.6621233Z",
+    "data": {
+      "move_name": "High Punch",
+      "sessionId": "67d7936a-879e-4424-a704-51df82447a8f",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 3,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-26T09:23:38.3248429Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "sessionId": "67d7936a-879e-4424-a704-51df82447a8f",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 3,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "game_quit",
+    "timestamp_utc": "2026-03-26T09:26:22.8380059Z",
+    "data": {
+      "sessionId": "67d7936a-879e-4424-a704-51df82447a8f"
+    }
+  }
+]

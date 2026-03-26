@@ -134,40 +134,41 @@ public class UpgradeScreenUI : MonoBehaviour
     public void DisplayUpgrades()
     {
         Character pC = GameManager.I.pC;
-
+        UpgradesSO upgradesSO = AssetsDatabase.I.upgradesSOs[GameManager.I.round - 1];
         Clear();
         itemScreen.SetActive(true);
-        //if (upgradesCreated) return;
-        //Increase upgrades
-        foreach (string upgrade in upgrades.Keys)
-        {
-            MakeUpgradeBtn($"{upgrade} +{upgrades[upgrade][0]}").onClick.AddListener(() =>
+        if(upgradesSO.statsUpgradesPossible){
+            //if (upgradesCreated) return;
+            //Increase upgrades
+            foreach (string upgrade in upgrades.Keys)
             {
-                IncreaseStat(upgrade);
+                MakeUpgradeBtn($"{upgrade} +{upgrades[upgrade][0]}").onClick.AddListener(() =>
+                {
+                    IncreaseStat(upgrade);
 
-                TrackUpgradeChosen("stat", $"{upgrade}+{upgrades[upgrade][0]}");
+                    TrackUpgradeChosen("stat", $"{upgrade}+{upgrades[upgrade][0]}");
 
-                itemScreen.SetActive(false);
-                UpgradeSelected?.Invoke();
-            });
-        }
-        //Increase & decrease upgrades
-        foreach ((string inc, string dec) in comboPairs)
-        {
-            string name = $"{inc} +{upgrades[inc][1]} & {dec} {CalculateDecreaseAmount(dec)}";
-            MakeUpgradeBtn(name).onClick.AddListener(() =>
+                    itemScreen.SetActive(false);
+                    UpgradeSelected?.Invoke();
+                });
+            }
+            //Increase & decrease upgrades
+            foreach ((string inc, string dec) in comboPairs)
             {
-                IncreaseDecreaseStats(inc, dec);
+                string name = $"{inc} +{upgrades[inc][1]} & {dec} {CalculateDecreaseAmount(dec)}";
+                MakeUpgradeBtn(name).onClick.AddListener(() =>
+                {
+                    IncreaseDecreaseStats(inc, dec);
 
-                TrackUpgradeChosen("combo", $"{inc}+{upgrades[inc][1]} & {dec}{CalculateDecreaseAmount(dec)}");
+                    TrackUpgradeChosen("combo", $"{inc}+{upgrades[inc][1]} & {dec}{CalculateDecreaseAmount(dec)}");
 
-                itemScreen.SetActive(false);
-                UpgradeSelected?.Invoke();
-            });
+                    itemScreen.SetActive(false);
+                    UpgradeSelected?.Invoke();
+                });
+            }
         }
 
         //Round will be 2 for first in game upgrade screen. Which results in index 1 (the second upgradeSOs, after the starting one)
-        UpgradesSO upgradesSO = AssetsDatabase.I.upgradesSOs[GameManager.I.round - 1];
         List<AttackSO> availableMoves = new List<AttackSO>();
         foreach(var move in upgradesSO.aSOs)
         {

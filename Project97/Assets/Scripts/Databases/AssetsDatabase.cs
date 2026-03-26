@@ -17,4 +17,5 @@ public class AssetsDatabase : MonoBehaviour
     public CharacterSO pCSO;
     public List<Sprite> effectsSprites;
     public GameObject effectItemPf;
+    public Color greenColour;
 }

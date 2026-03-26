@@ -69,17 +69,15 @@ public class GameManager : MonoBehaviour
         pInventory = pCharacter.GetComponent<Inventory>();
         pInventory.SetupInventory(difficulty);
 
-        int index = Mathf.Clamp(round - 1, 0, cCs.Count - 1);
-        CharacterSO cSO = cCs[index];
-        GameObject cCharacter = SetupCharacter(cSO.name, cSO, computerHealthBar);
-        computerImage.sprite = cSO.sprite;
-
         turnManager = gameObject.AddComponent<TurnManager>();
-        turnManager.Setup(pC, cCharacter.GetComponent<Character>());
+        turnManager.Setup(pC);
         turnManager.RoundComplete += RoundComplete;
         GameEvents.FightEnded += OnFightEnded;
         upgradeScreenUI = GetComponent<UpgradeScreenUI>();
         upgradeScreenUI.UpgradeSelected += UpgradeSelected;
+
+        upgradeScreenUI.DisplayUpgrades();
+
     }
 
     private GameObject SetupCharacter(String name, CharacterSO characterSO, HealthBarUI healthBarUI)
@@ -118,11 +116,13 @@ public class GameManager : MonoBehaviour
         GameObject cCharacter = SetupCharacter(cSO.name, cSO, computerHealthBar);
         computerImage.sprite = cSO.sprite;
 
-        //Passive upgrades between every round
-        pC.ChangeAccuracy(2); pC.ChangeAttack(2); pC.ChangeEvasion(2);
-        HealthSystem pHS = pCharacter.GetComponent<HealthSystem>();
-        pHS.IncreaseMaxHealth(5);
-        pHS.Heal(5);
+        if (round != 1){
+            //Passive upgrades between every round apart from start
+            pC.ChangeAccuracy(2); pC.ChangeAttack(2); pC.ChangeEvasion(2);
+            HealthSystem pHS = pCharacter.GetComponent<HealthSystem>();
+            pHS.IncreaseMaxHealth(5);
+            pHS.Heal(5);
+        }
 
         turnManager.StartFight(cCharacter.GetComponent<Character>());
     }

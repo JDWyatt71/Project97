@@ -7,9 +7,18 @@ public class DamageNumber : MonoBehaviour
     [SerializeField] private float floatSpeed = 40f;
     [SerializeField] private float lifetime = 1f;
 
-    public void Setup(int damageAmount)
+    public void Setup(int damageAmount, bool heal = false)
     {
-        damageText.text = damageAmount.ToString();
+        if(!heal){
+            damageText.text = damageAmount.ToString();
+        }
+        else
+        {
+            Debug.Log("heal damage popup");
+            damageText.text = $"+{damageAmount}";
+            damageText.color = AssetsDatabase.I.greenColour;
+
+        }
         Destroy(gameObject, lifetime);
     }
 

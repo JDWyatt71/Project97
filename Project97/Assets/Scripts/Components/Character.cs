@@ -89,12 +89,16 @@ public class Character : MonoBehaviour
     }
     public CharacterSO cSO {private set; get;}
     public int restAction {private set; get;}
+
     public void TryUseRestAction()
     {
         if(restAction > 0)
         {
             restAction -= 1;
-            healthSystem.Heal(Mathf.CeilToInt(healthSystem.GetMaxHealth() * 0.03f)); //Heal 3% of max health
+            int healAmount = Mathf.CeilToInt(healthSystem.GetMaxHealth() * 0.03f); //Heal 3% of max health
+            healthSystem.Heal(healAmount); 
+            CombatUI.I.ShowNumberPopup(healAmount, this, true);
+            Debug.Log("Rest Action");
         }
     }
     public void ResetRestActions()

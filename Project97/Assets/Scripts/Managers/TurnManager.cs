@@ -16,13 +16,11 @@ public class TurnManager : MonoBehaviour
     private FightAnalyticsTracker analytics;
     private bool submittedMoves;
 
-    public void Setup(Character pCharacter, Character cCharacter)
+    public void Setup(Character pCharacter)
     {
         I = this;
         movesUIScreen = GetComponent<MovesUIScreen>();
         this.playerCharacter = pCharacter;
-
-        StartFight(cCharacter);
     }
 
     private void RunningIsFalse()
@@ -167,6 +165,7 @@ public class TurnManager : MonoBehaviour
         CombatEvents.AllMovesSelected(pDMove, cDMove);
         SelectMoveUI.I.ResetMoveSelection();
 
+        yield return new WaitForSeconds(GameManager.I.moveDelay); //Wait for rest actions to complete
         yield return StartCoroutine(PerformMoves(pAMoves, cAMoves, pDMove, cDMove, pCharacter, cCharacter));
         Debug.Log("Turn end");
     }
@@ -251,25 +250,6 @@ public class TurnManager : MonoBehaviour
         TryRestAction(c, remainingAP);
 
         return moves;
-        /*while(movesAP > cAP){
-            List<MoveSO> attackMoves = c.GetAMoves().OrderBy(x => rnd.Next()).Take(3).ToList<MoveSO>();
-
-            moves = new List<MoveSO>(attackMoves);
-
-            //Count AP of all moves
-            movesAP = 0;
-            foreach(MoveSO moveSO in moves)
-            {
-                movesAP += moveSO.AP;
-            }
-            if (i > maxIterations)
-            {
-                Debug.LogError($"ScheduleRandomMoves exceeded {maxIterations} iterations for character {c.name}");
-                break; // Use current moves, even though can't afford
-            }
-            i+=1;
-        }*/
-        
     }
 
     private IEnumerator PerformMoves(List<AttackSO> ms1, List<AttackSO> ms2, DefendSO d1, DefendSO d2, Character c1, Character c2)

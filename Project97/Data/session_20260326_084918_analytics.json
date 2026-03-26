@@ -1,0 +1,12 @@
+[
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-03-26T08:49:19.1967792Z",
+    "data": {
+      "fight_id": "8997c35a-55b7-47b7-840d-7c8440a99e17",
+      "stage_id": "8997c35a-55b7-47b7-840d-7c8440a99e17",
+      "start_time": 0.0,
+      "sessionId": "5cbd5fab-4e54-4560-a4fa-0338be2bf86b"
+    }
+  }
+]

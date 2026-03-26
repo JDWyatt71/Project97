@@ -1,0 +1,55 @@
+[
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-03-26T08:50:22.3959040Z",
+    "data": {
+      "fight_id": "a5c84a5b-8638-464c-a2ac-3160ee9b6753",
+      "stage_id": "a5c84a5b-8638-464c-a2ac-3160ee9b6753",
+      "start_time": 0.0,
+      "sessionId": "4223a799-7529-4554-8fc2-5bacefa29b9c"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-26T08:50:29.5511555Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "sessionId": "4223a799-7529-4554-8fc2-5bacefa29b9c",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 3,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-26T08:50:30.5420410Z",
+    "data": {
+      "move_name": "Low Punch",
+      "sessionId": "4223a799-7529-4554-8fc2-5bacefa29b9c",
+      "user_type": "Dojo Challenger (Character)",
+      "attack_result": "guardedHit",
+      "total_damage": 3,
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-03-26T08:50:31.5425801Z",
+    "data": {
+      "move_name": "High Punch",
+      "sessionId": "4223a799-7529-4554-8fc2-5bacefa29b9c",
+      "user_type": "Player (Character)",
+      "attack_result": "guardedHit",
+      "total_damage": 2,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "game_quit",
+    "timestamp_utc": "2026-03-26T08:50:32.3189299Z",
+    "data": {
+      "sessionId": "4223a799-7529-4554-8fc2-5bacefa29b9c"
+    }
+  }
+]
