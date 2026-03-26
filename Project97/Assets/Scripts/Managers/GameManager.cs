@@ -59,7 +59,9 @@ public class GameManager : MonoBehaviour
         Difficulty difficulty = UC.GetDifficulty();
 
         GameEvents.RaiseRunStarted(currentRunId, difficulty.ToString(), runStartTime, CurrentSessionId);
+#if !UNITY_WEBGL || UNITY_EDITOR
         TelemetryLogger.Instance.SaveToJson();
+#endif
         Debug.Log("RunStarted event sent;");
 
         pCharacter = SetupCharacter("Player", AssetsDatabase.I.pCSO, playerHealthBar);

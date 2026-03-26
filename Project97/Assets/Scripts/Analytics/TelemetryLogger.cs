@@ -13,9 +13,16 @@ public class TelemetryLogger : MonoBehaviour
     private List<EventEntry> _events = new List<EventEntry>();
     private string _savePath;
     private string exeSave;
+    private bool isWebGL;
 
     void Awake()
     {
+#if UNITY_WEBGL && !UNITY_EDITOR
+        isWebGL = true;
+#else
+        isWebGL = false;
+#endif
+
         if (Instance != null)
         {
             Destroy(gameObject);
@@ -24,6 +31,12 @@ public class TelemetryLogger : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        if (isWebGL)
+        {
+            UnityEngine.Debug.Log("Telemetry running in WebGL mode (file saving disabled)");
+            return;
+        }
 
         _sessionId = $"session_{DateTime.UtcNow:yyyyMMdd_HHmmss}";
         string persistentfolderPath = Path.Combine(Application.persistentDataPath, "Data");
@@ -47,6 +60,8 @@ public class TelemetryLogger : MonoBehaviour
 
     void OnEnable()
     {
+        if (isWebGL) return;
+
         GameEvents.RunStarted -= TrackRunStart;
         GameEvents.RunEnded -= TrackRunEnd;
         GameEvents.GameQuit -= TrackGameQuit;
@@ -187,8 +202,22 @@ public class TelemetryLogger : MonoBehaviour
 
     private void AddEvent(string eventType, object parameters)
     {
+        //disables telemetry completly in WebGL build
+        if (isWebGL)
+        {
+            return;
+        }
+
         if (!TelemetryConsentManager.IsEnabled())
+        {
             return; //BLOCKS EVENTS
+        }
+
+        if (_events.Count > 500)
+        {
+            _events.Clear();
+            UnityEngine.Debug.Log("Telemetry buffer cleared to prevent memory issues.");
+        }
 
         _events.Add(new EventEntry
         {
@@ -201,7 +230,15 @@ public class TelemetryLogger : MonoBehaviour
     public void SaveToJson()
     {
         if (!TelemetryConsentManager.IsEnabled())
+        {
             return; //BLOCKS EVENTS
+        }
+
+        if (isWebGL)
+        {
+            UnityEngine.Debug.Log("Skipping JSON save (WebGL build)");
+            return;
+        }
 
         try
         {
@@ -210,6 +247,7 @@ public class TelemetryLogger : MonoBehaviour
             UnityEngine.Debug.Log($"Analytics saved to JSON: {_savePath}");
             File.WriteAllText(exeSave, json);
             UnityEngine.Debug.Log($"Analytics saved to JSON: {exeSave}");
+            _events.Clear();
             RunPython(_savePath);
         }
         catch (Exception ex)
@@ -220,6 +258,9 @@ public class TelemetryLogger : MonoBehaviour
         void RunPython(string jsonPath)
         {
             // THE PYTHON SCRIPT MUST BE IN THE SAME FOLDER AS THE EXE OF THE GAME TO WORK.
+
+            if (isWebGL) return;
+
             try
             {
                 ProcessStartInfo psi = new ProcessStartInfo
