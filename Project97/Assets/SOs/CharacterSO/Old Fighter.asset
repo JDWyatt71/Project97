@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4ed182d135f5b54ab14f55bf9b83338, type: 3}
   m_Name: Old Fighter
   m_EditorClassIdentifier: Assembly-CSharp::CharacterSO
-  sprite: {fileID: -5452217726016363601, guid: 26c4fb08973ecf5409efbdcb6196f74b, type: 3}
+  sprite: {fileID: 2597836692863313569, guid: 727070bf086e0024dacc885ece9cb6bd, type: 3}
   hitPoints: 100
   attack: 32
   accuracy: 80
@@ -57,3 +57,4 @@ MonoBehaviour:
     probability: 0.1
   - defendSO: {fileID: 11400000, guid: a8e90e67d18d4c8499ca7c2c35839bdf, type: 2}
     probability: 0.2
+  sameMovesAsPlayer: 0
