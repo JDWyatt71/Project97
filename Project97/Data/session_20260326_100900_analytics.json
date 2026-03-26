@@ -1,0 +1,30 @@
+[
+  {
+    "event_type": "upgrade_chosen",
+    "timestamp_utc": "2026-03-26T10:09:08.7502654Z",
+    "data": {
+      "level": 1,
+      "type": "move_unlock",
+      "value": "Medium Palm Strike",
+      "run_id": "5fa9b392-9191-40e7-bf48-187c11ec4e01",
+      "sessionId": "663e9b31-8c33-4f41-9eba-a2659844bebe"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-03-26T10:09:08.7537872Z",
+    "data": {
+      "fight_id": "52443278-3857-4ddc-b66c-fc942d92fe51",
+      "stage_id": "52443278-3857-4ddc-b66c-fc942d92fe51",
+      "start_time": 29.7830029,
+      "sessionId": "663e9b31-8c33-4f41-9eba-a2659844bebe"
+    }
+  },
+  {
+    "event_type": "game_quit",
+    "timestamp_utc": "2026-03-26T10:09:11.6471915Z",
+    "data": {
+      "sessionId": "663e9b31-8c33-4f41-9eba-a2659844bebe"
+    }
+  }
+]
