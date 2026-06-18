@@ -13,13 +13,16 @@ MonoBehaviour:
   m_Name: High Elbow
   m_EditorClassIdentifier: Assembly-CSharp::AttackSO
   moveType: 0
-  sprite: {fileID: 0}
+  sprite: {fileID: 7774959560647176793, guid: b5aa85609c012ba4fbefd0c91cdbe582, type: 3}
   AP: 3
   height: 4
   effects:
   - effect: 8
-    chance: 3
-  - effect: 5
     chance: 2
   damage: 4
   accuracy: 1
+  ignoresGuard: 0
+  catchesDodge: 0
+  unblockable: 0
+  onlyUsableOnProne: 0
+  catchesDodgeChance: 0

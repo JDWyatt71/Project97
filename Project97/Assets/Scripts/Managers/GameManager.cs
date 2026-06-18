@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
         upgradeScreenUI = GetComponent<UpgradeScreenUI>();
         upgradeScreenUI.UpgradeSelected += UpgradeSelected;
 
-        upgradeScreenUI.DisplayUpgrades();
+        upgradeScreenUI.DisplayInitialUpgrades();
 
     }
 
@@ -102,7 +102,6 @@ public class GameManager : MonoBehaviour
             endScreenUI.DisplayEndScreen("Victory", round, attackAttempt, attackSuccess, defendAttempt, defendSuccess, hpLeft, runStartTime);
         }
 
-        //upgradeScreenUI.DisplayItems(AssetsDatabase.I.items);
         round++;
         pC.ResetRestActions();
         pC.RemoveAllEffects();
@@ -116,12 +115,15 @@ public class GameManager : MonoBehaviour
         GameObject cCharacter = SetupCharacter(cSO.name, cSO, computerHealthBar);
         computerImage.sprite = cSO.sprite;
 
-        if (round != 1){
+        if (round != 1) {
             //Passive upgrades between every round apart from start
             pC.ChangeAccuracy(2); pC.ChangeAttack(2); pC.ChangeEvasion(2);
             HealthSystem pHS = pCharacter.GetComponent<HealthSystem>();
             pHS.IncreaseMaxHealth(5);
-            pHS.Heal(5);
+
+            //Passive healing inbetween rounds
+            float healAmount = pHS.GetHealth() / 10;
+            pHS.Heal(Mathf.RoundToInt(healAmount));
         }
 
         turnManager.StartFight(cCharacter.GetComponent<Character>());

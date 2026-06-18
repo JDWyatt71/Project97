@@ -7,6 +7,19 @@ public class DefendSO : MoveSO
     public bool deflect = false;
     public bool block = false;
     public bool duck = false;
+    public bool guard = false;
     public float dodgeBonusPercent = 0f;
+    private Scale heightTwo = Scale.None;
+
+    public void setHeightTwo(Scale heightTwo)
+    {
+        this.heightTwo = heightTwo;
+    }
+
+    public Scale getHeightTwo()
+    {
+        return this.heightTwo;
+    }
+
     //Block, guard, deflect
 }

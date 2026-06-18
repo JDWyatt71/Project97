@@ -1,0 +1,19 @@
+[
+  {
+    "event_type": "upgrade_chosen",
+    "timestamp_utc": "2026-06-06T12:17:33.2378866Z",
+    "data": null
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-06-06T12:17:33.2404107Z",
+    "data": null
+  },
+  {
+    "event_type": "game_quit",
+    "timestamp_utc": "2026-06-06T13:20:14.0555678Z",
+    "data": {
+      "sessionId": "8f7ada9a-e181-408d-ad08-4a8e0c505169"
+    }
+  }
+]

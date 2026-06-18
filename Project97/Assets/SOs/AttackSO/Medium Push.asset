@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Medium Push
   m_EditorClassIdentifier: Assembly-CSharp::AttackSO
   moveType: 0
-  sprite: {fileID: 0}
+  sprite: {fileID: 8679330019714442169, guid: 196aa054f9580864a9454efd984b4902, type: 3}
   AP: 3
   height: 2
   effects:
@@ -22,3 +22,7 @@ MonoBehaviour:
   damage: 0
   accuracy: 2
   ignoresGuard: 0
+  catchesDodge: 0
+  unblockable: 0
+  onlyUsableOnProne: 0
+  catchesDodgeChance: 0

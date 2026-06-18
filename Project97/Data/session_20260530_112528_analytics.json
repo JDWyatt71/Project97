@@ -1,0 +1,210 @@
+[
+  {
+    "event_type": "upgrade_chosen",
+    "timestamp_utc": "2026-05-30T11:25:29.7344183Z",
+    "data": {
+      "level": 1,
+      "type": "move_unlock",
+      "value": "High Palm Strike",
+      "run_id": "77367fdf-47e1-4288-b0ce-5996de6f6021",
+      "sessionId": "c69e2f6c-d632-422e-9f5f-2b230b77862c"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-05-30T11:25:29.7389791Z",
+    "data": {
+      "fight_id": "70cf8a2f-2533-4dae-9df0-7cdf915a0871",
+      "stage_id": "70cf8a2f-2533-4dae-9df0-7cdf915a0871",
+      "start_time": 1.95695531,
+      "sessionId": "c69e2f6c-d632-422e-9f5f-2b230b77862c"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-30T11:25:32.1675275Z",
+    "data": {
+      "move_name": "High Punch",
+      "sessionId": "c69e2f6c-d632-422e-9f5f-2b230b77862c",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 154353,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "fight_end",
+    "timestamp_utc": "2026-05-30T11:25:33.1653457Z",
+    "data": {
+      "fight_id": "70cf8a2f-2533-4dae-9df0-7cdf915a0871",
+      "run_id": "77367fdf-47e1-4288-b0ce-5996de6f6021",
+      "battle_time": 3,
+      "turns": 1,
+      "attack_attempts": 1,
+      "attack_success": 1,
+      "defend_attempts": 0,
+      "defend_success": 0,
+      "hp_left": 150,
+      "player_died": false,
+      "level": 0,
+      "sessionId": "c69e2f6c-d632-422e-9f5f-2b230b77862c"
+    }
+  },
+  {
+    "event_type": "stage_complete",
+    "timestamp_utc": "2026-05-30T11:25:33.1689828Z",
+    "data": {
+      "fight_id": "70cf8a2f-2533-4dae-9df0-7cdf915a0871",
+      "sessionId": "c69e2f6c-d632-422e-9f5f-2b230b77862c"
+    }
+  },
+  {
+    "event_type": "upgrade_chosen",
+    "timestamp_utc": "2026-05-30T11:25:47.4927004Z",
+    "data": {
+      "level": 2,
+      "type": "stat",
+      "value": "AP+1",
+      "run_id": "77367fdf-47e1-4288-b0ce-5996de6f6021",
+      "sessionId": "c69e2f6c-d632-422e-9f5f-2b230b77862c"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-05-30T11:25:47.4932399Z",
+    "data": {
+      "fight_id": "786c169a-84f1-46ec-99e2-f8ab8c286cdb",
+      "stage_id": "786c169a-84f1-46ec-99e2-f8ab8c286cdb",
+      "start_time": 19.7147636,
+      "sessionId": "c69e2f6c-d632-422e-9f5f-2b230b77862c"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-05-30T11:26:02.9160594Z",
+    "data": {
+      "status_name": "Blindness",
+      "sessionId": "c69e2f6c-d632-422e-9f5f-2b230b77862c",
+      "target_type": "Comeback Fighter (Character)",
+      "source_move": "High Punch"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-30T11:26:02.9160594Z",
+    "data": {
+      "move_name": "High Punch",
+      "sessionId": "c69e2f6c-d632-422e-9f5f-2b230b77862c",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 173442,
+      "target_type": "Comeback Fighter (Character)"
+    }
+  },
+  {
+    "event_type": "fight_end",
+    "timestamp_utc": "2026-05-30T11:26:03.9087095Z",
+    "data": {
+      "fight_id": "786c169a-84f1-46ec-99e2-f8ab8c286cdb",
+      "run_id": "77367fdf-47e1-4288-b0ce-5996de6f6021",
+      "battle_time": 16,
+      "turns": 1,
+      "attack_attempts": 1,
+      "attack_success": 1,
+      "defend_attempts": 0,
+      "defend_success": 0,
+      "hp_left": 155,
+      "player_died": false,
+      "level": 0,
+      "sessionId": "c69e2f6c-d632-422e-9f5f-2b230b77862c"
+    }
+  },
+  {
+    "event_type": "stage_complete",
+    "timestamp_utc": "2026-05-30T11:26:03.9103133Z",
+    "data": {
+      "fight_id": "786c169a-84f1-46ec-99e2-f8ab8c286cdb",
+      "sessionId": "c69e2f6c-d632-422e-9f5f-2b230b77862c"
+    }
+  },
+  {
+    "event_type": "upgrade_chosen",
+    "timestamp_utc": "2026-05-30T11:26:09.1155077Z",
+    "data": {
+      "level": 3,
+      "type": "move_unlock",
+      "value": "Sweep Kick",
+      "run_id": "77367fdf-47e1-4288-b0ce-5996de6f6021",
+      "sessionId": "c69e2f6c-d632-422e-9f5f-2b230b77862c"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-05-30T11:26:09.1174655Z",
+    "data": {
+      "fight_id": "3017f075-0d5a-446b-b3fc-096f839757d5",
+      "stage_id": "3017f075-0d5a-446b-b3fc-096f839757d5",
+      "start_time": 41.33966,
+      "sessionId": "c69e2f6c-d632-422e-9f5f-2b230b77862c"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-30T11:26:22.1748294Z",
+    "data": {
+      "move_name": "High Punch",
+      "sessionId": "c69e2f6c-d632-422e-9f5f-2b230b77862c",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 157466,
+      "target_type": "Dodger (Character)"
+    }
+  },
+  {
+    "event_type": "fight_end",
+    "timestamp_utc": "2026-05-30T11:26:23.1750852Z",
+    "data": {
+      "fight_id": "3017f075-0d5a-446b-b3fc-096f839757d5",
+      "run_id": "77367fdf-47e1-4288-b0ce-5996de6f6021",
+      "battle_time": 14,
+      "turns": 1,
+      "attack_attempts": 1,
+      "attack_success": 1,
+      "defend_attempts": 0,
+      "defend_success": 0,
+      "hp_left": 160,
+      "player_died": false,
+      "level": 0,
+      "sessionId": "c69e2f6c-d632-422e-9f5f-2b230b77862c"
+    }
+  },
+  {
+    "event_type": "stage_complete",
+    "timestamp_utc": "2026-05-30T11:26:23.1776279Z",
+    "data": {
+      "fight_id": "3017f075-0d5a-446b-b3fc-096f839757d5",
+      "sessionId": "c69e2f6c-d632-422e-9f5f-2b230b77862c"
+    }
+  },
+  {
+    "event_type": "upgrade_chosen",
+    "timestamp_utc": "2026-05-30T11:26:29.9192880Z",
+    "data": {
+      "level": 4,
+      "type": "move_unlock",
+      "value": "Counter",
+      "run_id": "77367fdf-47e1-4288-b0ce-5996de6f6021",
+      "sessionId": "c69e2f6c-d632-422e-9f5f-2b230b77862c"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-05-30T11:26:29.9203061Z",
+    "data": {
+      "fight_id": "481ed505-ca99-41d8-9c16-8a3ca573a06c",
+      "stage_id": "481ed505-ca99-41d8-9c16-8a3ca573a06c",
+      "start_time": 62.13907,
+      "sessionId": "c69e2f6c-d632-422e-9f5f-2b230b77862c"
+    }
+  }
+]

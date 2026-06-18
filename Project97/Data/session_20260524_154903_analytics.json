@@ -1,0 +1,42 @@
+[
+  {
+    "event_type": "upgrade_chosen",
+    "timestamp_utc": "2026-05-24T15:49:06.7181600Z",
+    "data": null
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-05-24T15:49:06.7221014Z",
+    "data": null
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-05-24T15:49:13.0707003Z",
+    "data": null
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-24T15:49:13.0707003Z",
+    "data": null
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-24T15:49:14.0670211Z",
+    "data": null
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-05-24T15:49:15.0706883Z",
+    "data": null
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-05-24T15:49:15.0712687Z",
+    "data": null
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-24T15:49:15.0712687Z",
+    "data": null
+  }
+]

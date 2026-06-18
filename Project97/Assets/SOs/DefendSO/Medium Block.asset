@@ -20,4 +20,6 @@ MonoBehaviour:
   damageReductionMultiplier: 0
   deflect: 0
   block: 1
+  duck: 0
+  guard: 0
   dodgeBonusPercent: 0

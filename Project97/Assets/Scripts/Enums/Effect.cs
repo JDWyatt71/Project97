@@ -19,7 +19,7 @@ public static class EffectDefaults
         {Effect.Enraged, 2},
         {Effect.Blindness, 2},
         {Effect.Slow, 3},
-        {Effect.Bind, 4}, //Special case of 2-4, is guaranteed 2 turns then chance of removing after 2nd and 3rd turns.
+        {Effect.Bind, 1}, //applies all 2-4 on one turn
         {Effect.Wind, 1},
         {Effect.Prone, 1},
         {Effect.BrokenBones, -1}, //-1 signifies unlimited turns

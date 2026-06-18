@@ -7,6 +7,8 @@ public class AttackSO : MoveSO
    public Accuracy accuracy;
    public bool ignoresGuard = false;
    public bool catchesDodge = false;
+   public bool unblockable = false;
+   public bool onlyUsableOnProne = false;
    public Scale catchesDodgeChance;
    
 }

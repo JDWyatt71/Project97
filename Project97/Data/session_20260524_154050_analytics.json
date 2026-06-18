@@ -1,0 +1,69 @@
+[
+  {
+    "event_type": "upgrade_chosen",
+    "timestamp_utc": "2026-05-24T15:40:53.4504749Z",
+    "data": {
+      "level": 1,
+      "type": "move_unlock",
+      "value": "Medium Underpunch",
+      "run_id": "4c9c14dc-3ea3-437f-8e5b-b656e82e1aa7",
+      "sessionId": "0cc9b2f9-6741-47ea-a658-9e19ea5275cd"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-05-24T15:40:53.4544038Z",
+    "data": {
+      "fight_id": "14183e57-20f3-4945-b2af-3aa282ade4f9",
+      "stage_id": "14183e57-20f3-4945-b2af-3aa282ade4f9",
+      "start_time": 4.26443624,
+      "sessionId": "0cc9b2f9-6741-47ea-a658-9e19ea5275cd"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-05-24T15:41:02.8406792Z",
+    "data": {
+      "status_name": "Bind",
+      "sessionId": "0cc9b2f9-6741-47ea-a658-9e19ea5275cd",
+      "target_type": "Dojo Challenger (Character)",
+      "source_move": "High Punch"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-24T15:41:02.8417068Z",
+    "data": {
+      "move_name": "High Punch",
+      "sessionId": "0cc9b2f9-6741-47ea-a658-9e19ea5275cd",
+      "user_type": "Player (Character)",
+      "attack_result": "guardedHit",
+      "total_damage": 2,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-24T15:41:03.8360385Z",
+    "data": {
+      "move_name": "Medium Spin Kick",
+      "sessionId": "0cc9b2f9-6741-47ea-a658-9e19ea5275cd",
+      "user_type": "Dojo Challenger (Character)",
+      "attack_result": "hit",
+      "total_damage": 7,
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-24T15:41:04.8363409Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "sessionId": "0cc9b2f9-6741-47ea-a658-9e19ea5275cd",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 3,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  }
+]

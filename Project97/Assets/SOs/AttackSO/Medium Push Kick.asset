@@ -13,13 +13,16 @@ MonoBehaviour:
   m_Name: Medium Push Kick
   m_EditorClassIdentifier: Assembly-CSharp::AttackSO
   moveType: 1
-  sprite: {fileID: 8965127209932636032, guid: 70bf4c8933dfefa4e9b9cba555ca9b0f, type: 3}
+  sprite: {fileID: -8981823224731982955, guid: 601398e1b692e3f4a92509355bf6a2a6, type: 3}
   AP: 3
   height: 2
   effects:
-  - effect: 2
-    chance: 4
-  - effect: 4
+  - effect: 5
     chance: 2
   damage: 1
   accuracy: 2
+  ignoresGuard: 0
+  catchesDodge: 0
+  unblockable: 0
+  onlyUsableOnProne: 0
+  catchesDodgeChance: 0

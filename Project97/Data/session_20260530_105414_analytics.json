@@ -1,0 +1,71 @@
+[
+  {
+    "event_type": "upgrade_chosen",
+    "timestamp_utc": "2026-05-30T10:54:19.6081139Z",
+    "data": {
+      "level": 1,
+      "type": "move_unlock",
+      "value": "High Spin Kick",
+      "run_id": "90ae5618-ad98-43a4-93b8-0822ee154e51",
+      "sessionId": "2b193791-11d4-4bf3-ae6e-e3a684aabc43"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-05-30T10:54:19.6121393Z",
+    "data": {
+      "fight_id": "676280db-a56e-49cd-87d3-786cbed8faf4",
+      "stage_id": "676280db-a56e-49cd-87d3-786cbed8faf4",
+      "start_time": 6.07250738,
+      "sessionId": "2b193791-11d4-4bf3-ae6e-e3a684aabc43"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-05-30T10:54:23.5039667Z",
+    "data": {
+      "status_name": "Bind",
+      "sessionId": "2b193791-11d4-4bf3-ae6e-e3a684aabc43",
+      "target_type": "Dojo Challenger (Character)",
+      "source_move": "Pummel"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-30T10:54:23.5039667Z",
+    "data": {
+      "move_name": "Pummel",
+      "sessionId": "2b193791-11d4-4bf3-ae6e-e3a684aabc43",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 136399,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "fight_end",
+    "timestamp_utc": "2026-05-30T10:54:24.5010493Z",
+    "data": {
+      "fight_id": "676280db-a56e-49cd-87d3-786cbed8faf4",
+      "run_id": "90ae5618-ad98-43a4-93b8-0822ee154e51",
+      "battle_time": 5,
+      "turns": 1,
+      "attack_attempts": 1,
+      "attack_success": 1,
+      "defend_attempts": 0,
+      "defend_success": 0,
+      "hp_left": 150,
+      "player_died": false,
+      "level": 0,
+      "sessionId": "2b193791-11d4-4bf3-ae6e-e3a684aabc43"
+    }
+  },
+  {
+    "event_type": "stage_complete",
+    "timestamp_utc": "2026-05-30T10:54:24.5043418Z",
+    "data": {
+      "fight_id": "676280db-a56e-49cd-87d3-786cbed8faf4",
+      "sessionId": "2b193791-11d4-4bf3-ae6e-e3a684aabc43"
+    }
+  }
+]

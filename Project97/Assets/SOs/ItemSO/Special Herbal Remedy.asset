@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Special Herbal Remedy
   m_EditorClassIdentifier: Assembly-CSharp::ItemSO
   sprite: {fileID: 0}
-  effects: 07000000
+  effects: 000000000400000005000000

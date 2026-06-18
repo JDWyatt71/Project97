@@ -16,11 +16,7 @@ MonoBehaviour:
   sprite: {fileID: -8981823224731982955, guid: 601398e1b692e3f4a92509355bf6a2a6, type: 3}
   AP: 3
   height: 2
-  effects:
-  - effect: 2
-    chance: 3
-  - effect: 3
-    chance: 1
+  effects: []
   damage: 2
   accuracy: 2
   ignoresGuard: 0

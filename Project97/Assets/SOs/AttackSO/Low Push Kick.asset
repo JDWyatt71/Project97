@@ -17,9 +17,10 @@ MonoBehaviour:
   AP: 3
   height: 0
   effects:
-  - effect: 2
-    chance: 4
-  - effect: 4
+  - effect: 3
     chance: 2
   damage: 1
   accuracy: 2
+  ignoresGuard: 0
+  catchesDodge: 0
+  catchesDodgeChance: 0

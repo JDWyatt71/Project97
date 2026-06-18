@@ -1,0 +1,137 @@
+[
+  {
+    "event_type": "upgrade_chosen",
+    "timestamp_utc": "2026-05-24T15:50:09.1516031Z",
+    "data": {
+      "level": 1,
+      "type": "move_unlock",
+      "value": "Low Spin Kick",
+      "run_id": "39f6c208-5256-4080-a79d-4255918dc19d",
+      "sessionId": "870e3e52-8e76-4829-a33a-be68a8d8f2f2"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-05-24T15:50:09.1552171Z",
+    "data": {
+      "fight_id": "d09e8b68-eed9-4594-aa32-33071bcf995b",
+      "stage_id": "d09e8b68-eed9-4594-aa32-33071bcf995b",
+      "start_time": 5.64881229,
+      "sessionId": "870e3e52-8e76-4829-a33a-be68a8d8f2f2"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-24T15:50:18.1711997Z",
+    "data": {
+      "move_name": "High Punch",
+      "sessionId": "870e3e52-8e76-4829-a33a-be68a8d8f2f2",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 3,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-24T15:50:19.1696156Z",
+    "data": {
+      "move_name": "Medium Push Kick",
+      "sessionId": "870e3e52-8e76-4829-a33a-be68a8d8f2f2",
+      "user_type": "Dojo Challenger (Character)",
+      "attack_result": "blocked",
+      "total_damage": 4,
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-24T15:50:20.1710234Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "sessionId": "870e3e52-8e76-4829-a33a-be68a8d8f2f2",
+      "user_type": "Player (Character)",
+      "attack_result": "guardedHit",
+      "total_damage": 2,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-05-24T15:50:30.6547313Z",
+    "data": {
+      "status_name": "Bind",
+      "sessionId": "870e3e52-8e76-4829-a33a-be68a8d8f2f2",
+      "target_type": "Dojo Challenger (Character)",
+      "source_move": "High Punch"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-24T15:50:30.6547313Z",
+    "data": {
+      "move_name": "High Punch",
+      "sessionId": "870e3e52-8e76-4829-a33a-be68a8d8f2f2",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 3,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-24T15:50:31.6523489Z",
+    "data": {
+      "move_name": "Pummel",
+      "sessionId": "870e3e52-8e76-4829-a33a-be68a8d8f2f2",
+      "user_type": "Dojo Challenger (Character)",
+      "attack_result": "hit",
+      "total_damage": 3,
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-05-24T15:50:32.6553199Z",
+    "data": {
+      "status_name": "Blindness",
+      "sessionId": "870e3e52-8e76-4829-a33a-be68a8d8f2f2",
+      "target_type": "Dojo Challenger (Character)",
+      "source_move": "Medium Punch"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-24T15:50:32.6553199Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "sessionId": "870e3e52-8e76-4829-a33a-be68a8d8f2f2",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 3,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-05-24T15:50:33.6566834Z",
+    "data": {
+      "status_name": "Blindness",
+      "sessionId": "870e3e52-8e76-4829-a33a-be68a8d8f2f2",
+      "target_type": "Player (Character)",
+      "source_move": "Low Punch"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-24T15:50:33.6566834Z",
+    "data": {
+      "move_name": "Low Punch",
+      "sessionId": "870e3e52-8e76-4829-a33a-be68a8d8f2f2",
+      "user_type": "Dojo Challenger (Character)",
+      "attack_result": "hit",
+      "total_damage": 3,
+      "target_type": "Player (Character)"
+    }
+  }
+]

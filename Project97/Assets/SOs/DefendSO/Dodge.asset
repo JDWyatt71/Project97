@@ -15,9 +15,10 @@ MonoBehaviour:
   moveType: 3
   sprite: {fileID: 0}
   AP: 2
-  height: 0
+  height: 6
   effects: []
   damageReductionMultiplier: 0
   deflect: 0
   block: 0
+  duck: 0
   dodgeBonusPercent: 8

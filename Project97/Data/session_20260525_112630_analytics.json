@@ -1,0 +1,76 @@
+[
+  {
+    "event_type": "upgrade_chosen",
+    "timestamp_utc": "2026-05-25T11:26:35.6803456Z",
+    "data": {
+      "level": 1,
+      "type": "move_unlock",
+      "value": "Foot Shuffle",
+      "run_id": "4412b241-bcd4-4814-a188-a15d41d2dd86",
+      "sessionId": "77f29d49-06d6-4a9e-b0a2-4cf5ed951f45"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-05-25T11:26:35.6859398Z",
+    "data": {
+      "fight_id": "99ce885a-928e-467f-b5ee-21489aac3e90",
+      "stage_id": "99ce885a-928e-467f-b5ee-21489aac3e90",
+      "start_time": 3.269446,
+      "sessionId": "77f29d49-06d6-4a9e-b0a2-4cf5ed951f45"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-05-25T11:26:41.8845877Z",
+    "data": {
+      "status_name": "Bind",
+      "sessionId": "77f29d49-06d6-4a9e-b0a2-4cf5ed951f45",
+      "target_type": "Dojo Challenger (Character)",
+      "source_move": "Pummel"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-25T11:26:41.8845877Z",
+    "data": {
+      "move_name": "Pummel",
+      "sessionId": "77f29d49-06d6-4a9e-b0a2-4cf5ed951f45",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 3,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-25T11:26:42.8794682Z",
+    "data": {
+      "move_name": "Low Spin Kick",
+      "sessionId": "77f29d49-06d6-4a9e-b0a2-4cf5ed951f45",
+      "user_type": "Dojo Challenger (Character)",
+      "attack_result": "guardedHit",
+      "total_damage": 6,
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-25T11:26:43.8846516Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "sessionId": "77f29d49-06d6-4a9e-b0a2-4cf5ed951f45",
+      "user_type": "Dojo Challenger (Character)",
+      "attack_result": "hit",
+      "total_damage": 3,
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "game_quit",
+    "timestamp_utc": "2026-05-25T11:30:25.2620865Z",
+    "data": {
+      "sessionId": "77f29d49-06d6-4a9e-b0a2-4cf5ed951f45"
+    }
+  }
+]

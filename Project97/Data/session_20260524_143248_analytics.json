@@ -1,0 +1,414 @@
+[
+  {
+    "event_type": "upgrade_chosen",
+    "timestamp_utc": "2026-05-24T14:32:55.9789904Z",
+    "data": {
+      "level": 1,
+      "type": "move_unlock",
+      "value": "Medium Push Kick",
+      "run_id": "34b36169-ac1a-4ba1-aa35-8ca93d3d0cea",
+      "sessionId": "bc440500-5007-4d20-9d2f-8bc686b47e1d"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-05-24T14:32:55.9825230Z",
+    "data": {
+      "fight_id": "615b0840-90af-4304-bd1e-d4c26345466b",
+      "stage_id": "615b0840-90af-4304-bd1e-d4c26345466b",
+      "start_time": 9.271639,
+      "sessionId": "bc440500-5007-4d20-9d2f-8bc686b47e1d"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-05-24T14:33:12.4480548Z",
+    "data": {
+      "status_name": "Blindness",
+      "sessionId": "bc440500-5007-4d20-9d2f-8bc686b47e1d",
+      "target_type": "Dojo Challenger (Character)",
+      "source_move": "High Punch"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-05-24T14:33:12.4521672Z",
+    "data": {
+      "status_name": "Bind",
+      "sessionId": "bc440500-5007-4d20-9d2f-8bc686b47e1d",
+      "target_type": "Dojo Challenger (Character)",
+      "source_move": "High Punch"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-24T14:33:12.4521672Z",
+    "data": {
+      "move_name": "High Punch",
+      "sessionId": "bc440500-5007-4d20-9d2f-8bc686b47e1d",
+      "user_type": "Player (Character)",
+      "attack_result": "guardedHit",
+      "total_damage": 2,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-24T14:33:13.4422904Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "sessionId": "bc440500-5007-4d20-9d2f-8bc686b47e1d",
+      "user_type": "Dojo Challenger (Character)",
+      "attack_result": "hit",
+      "total_damage": 3,
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-24T14:33:14.4434945Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "sessionId": "bc440500-5007-4d20-9d2f-8bc686b47e1d",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 3,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-05-24T14:33:15.4448954Z",
+    "data": {
+      "status_name": "Blindness",
+      "sessionId": "bc440500-5007-4d20-9d2f-8bc686b47e1d",
+      "target_type": "Player (Character)",
+      "source_move": "High Punch"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-24T14:33:15.4448954Z",
+    "data": {
+      "move_name": "High Punch",
+      "sessionId": "bc440500-5007-4d20-9d2f-8bc686b47e1d",
+      "user_type": "Dojo Challenger (Character)",
+      "attack_result": "hit",
+      "total_damage": 3,
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-05-24T14:34:06.1152430Z",
+    "data": {
+      "status_name": "Slow",
+      "sessionId": "bc440500-5007-4d20-9d2f-8bc686b47e1d",
+      "target_type": "Dojo Challenger (Character)",
+      "source_move": "Medium Spin Kick"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-24T14:34:06.1152430Z",
+    "data": {
+      "move_name": "Medium Spin Kick",
+      "sessionId": "bc440500-5007-4d20-9d2f-8bc686b47e1d",
+      "user_type": "Player (Character)",
+      "attack_result": "guardedHit",
+      "total_damage": 5,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-24T14:34:07.1156365Z",
+    "data": {
+      "move_name": "Low Punch",
+      "sessionId": "bc440500-5007-4d20-9d2f-8bc686b47e1d",
+      "user_type": "Dojo Challenger (Character)",
+      "attack_result": "guardedHit",
+      "total_damage": 2,
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-05-24T14:34:08.1185240Z",
+    "data": {
+      "status_name": "Blindness",
+      "sessionId": "bc440500-5007-4d20-9d2f-8bc686b47e1d",
+      "target_type": "Dojo Challenger (Character)",
+      "source_move": "Medium Push Kick"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-05-24T14:34:08.1190721Z",
+    "data": {
+      "status_name": "Bind",
+      "sessionId": "bc440500-5007-4d20-9d2f-8bc686b47e1d",
+      "target_type": "Dojo Challenger (Character)",
+      "source_move": "Medium Push Kick"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-24T14:34:08.1190721Z",
+    "data": {
+      "move_name": "Medium Push Kick",
+      "sessionId": "bc440500-5007-4d20-9d2f-8bc686b47e1d",
+      "user_type": "Player (Character)",
+      "attack_result": "guardedHit",
+      "total_damage": 3,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-24T14:34:09.1200078Z",
+    "data": {
+      "move_name": "High Punch",
+      "sessionId": "bc440500-5007-4d20-9d2f-8bc686b47e1d",
+      "user_type": "Dojo Challenger (Character)",
+      "attack_result": "hit",
+      "total_damage": 3,
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-05-24T14:34:27.1305284Z",
+    "data": {
+      "status_name": "Bind",
+      "sessionId": "bc440500-5007-4d20-9d2f-8bc686b47e1d",
+      "target_type": "Dojo Challenger (Character)",
+      "source_move": "High Punch"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-24T14:34:27.1305284Z",
+    "data": {
+      "move_name": "High Punch",
+      "sessionId": "bc440500-5007-4d20-9d2f-8bc686b47e1d",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 3,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-05-24T14:34:28.1322665Z",
+    "data": {
+      "status_name": "Blindness",
+      "sessionId": "bc440500-5007-4d20-9d2f-8bc686b47e1d",
+      "target_type": "Player (Character)",
+      "source_move": "Medium Punch"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-24T14:34:28.1322665Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "sessionId": "bc440500-5007-4d20-9d2f-8bc686b47e1d",
+      "user_type": "Dojo Challenger (Character)",
+      "attack_result": "hit",
+      "total_damage": 2,
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-24T14:34:29.1322990Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "sessionId": "bc440500-5007-4d20-9d2f-8bc686b47e1d",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 3,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-24T14:34:30.1316173Z",
+    "data": {
+      "move_name": "Medium Push Kick",
+      "sessionId": "bc440500-5007-4d20-9d2f-8bc686b47e1d",
+      "user_type": "Dojo Challenger (Character)",
+      "attack_result": "dodged",
+      "total_damage": 0,
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-05-24T14:35:02.8032388Z",
+    "data": {
+      "status_name": "Bind",
+      "sessionId": "bc440500-5007-4d20-9d2f-8bc686b47e1d",
+      "target_type": "Dojo Challenger (Character)",
+      "source_move": "High Punch"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-24T14:35:02.8032388Z",
+    "data": {
+      "move_name": "High Punch",
+      "sessionId": "bc440500-5007-4d20-9d2f-8bc686b47e1d",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 3,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-24T14:35:03.8028816Z",
+    "data": {
+      "move_name": "Medium Spin Kick",
+      "sessionId": "bc440500-5007-4d20-9d2f-8bc686b47e1d",
+      "user_type": "Dojo Challenger (Character)",
+      "attack_result": "dodged",
+      "total_damage": 0,
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-05-24T14:35:04.8060458Z",
+    "data": {
+      "status_name": "Blindness",
+      "sessionId": "bc440500-5007-4d20-9d2f-8bc686b47e1d",
+      "target_type": "Dojo Challenger (Character)",
+      "source_move": "Medium Push Kick"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-24T14:35:04.8060458Z",
+    "data": {
+      "move_name": "Medium Push Kick",
+      "sessionId": "bc440500-5007-4d20-9d2f-8bc686b47e1d",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 5,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-24T14:35:20.9468846Z",
+    "data": {
+      "move_name": "High Punch",
+      "sessionId": "bc440500-5007-4d20-9d2f-8bc686b47e1d",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 3,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-24T14:35:21.9458599Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "sessionId": "bc440500-5007-4d20-9d2f-8bc686b47e1d",
+      "user_type": "Dojo Challenger (Character)",
+      "attack_result": "dodged",
+      "total_damage": 0,
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-05-24T14:35:22.9487207Z",
+    "data": {
+      "status_name": "Blindness",
+      "sessionId": "bc440500-5007-4d20-9d2f-8bc686b47e1d",
+      "target_type": "Dojo Challenger (Character)",
+      "source_move": "Medium Punch"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-05-24T14:35:22.9487207Z",
+    "data": {
+      "status_name": "Bind",
+      "sessionId": "bc440500-5007-4d20-9d2f-8bc686b47e1d",
+      "target_type": "Dojo Challenger (Character)",
+      "source_move": "Medium Punch"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-24T14:35:22.9487207Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "sessionId": "bc440500-5007-4d20-9d2f-8bc686b47e1d",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 3,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-05-24T14:35:23.9491881Z",
+    "data": {
+      "status_name": "Bind",
+      "sessionId": "bc440500-5007-4d20-9d2f-8bc686b47e1d",
+      "target_type": "Player (Character)",
+      "source_move": "Pummel"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-24T14:35:23.9491881Z",
+    "data": {
+      "move_name": "Pummel",
+      "sessionId": "bc440500-5007-4d20-9d2f-8bc686b47e1d",
+      "user_type": "Dojo Challenger (Character)",
+      "attack_result": "hit",
+      "total_damage": 3,
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "fight_end",
+    "timestamp_utc": "2026-05-24T14:35:39.6380159Z",
+    "data": {
+      "fight_id": "615b0840-90af-4304-bd1e-d4c26345466b",
+      "run_id": "34b36169-ac1a-4ba1-aa35-8ca93d3d0cea",
+      "battle_time": 164,
+      "turns": 6,
+      "attack_attempts": 19,
+      "attack_success": 16,
+      "defend_attempts": 0,
+      "defend_success": 0,
+      "hp_left": 139,
+      "player_died": false,
+      "level": 0,
+      "sessionId": "bc440500-5007-4d20-9d2f-8bc686b47e1d"
+    }
+  },
+  {
+    "event_type": "stage_complete",
+    "timestamp_utc": "2026-05-24T14:35:39.6405210Z",
+    "data": {
+      "fight_id": "615b0840-90af-4304-bd1e-d4c26345466b",
+      "sessionId": "bc440500-5007-4d20-9d2f-8bc686b47e1d"
+    }
+  },
+  {
+    "event_type": "game_quit",
+    "timestamp_utc": "2026-05-24T14:36:24.3875870Z",
+    "data": {
+      "sessionId": "bc440500-5007-4d20-9d2f-8bc686b47e1d"
+    }
+  }
+]

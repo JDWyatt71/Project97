@@ -1,0 +1,68 @@
+[
+  {
+    "event_type": "upgrade_chosen",
+    "timestamp_utc": "2026-05-29T10:58:40.6761492Z",
+    "data": {
+      "level": 1,
+      "type": "move_unlock",
+      "value": "Medium Palm Strike",
+      "run_id": "f4588c30-1194-4e5c-b9ed-44ccac74fa7f",
+      "sessionId": "8b1763be-102b-40bc-973b-33d34c88f6e9"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-05-29T10:58:40.6801095Z",
+    "data": {
+      "fight_id": "f1e01aa4-b65e-498f-ae49-5fcba57767d8",
+      "stage_id": "f1e01aa4-b65e-498f-ae49-5fcba57767d8",
+      "start_time": 8.898155,
+      "sessionId": "8b1763be-102b-40bc-973b-33d34c88f6e9"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-29T10:58:43.9230854Z",
+    "data": {
+      "move_name": "High Punch",
+      "sessionId": "8b1763be-102b-40bc-973b-33d34c88f6e9",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 136559,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "fight_end",
+    "timestamp_utc": "2026-05-29T10:58:44.9190627Z",
+    "data": {
+      "fight_id": "f1e01aa4-b65e-498f-ae49-5fcba57767d8",
+      "run_id": "f4588c30-1194-4e5c-b9ed-44ccac74fa7f",
+      "battle_time": 4,
+      "turns": 1,
+      "attack_attempts": 1,
+      "attack_success": 1,
+      "defend_attempts": 0,
+      "defend_success": 0,
+      "hp_left": 150,
+      "player_died": false,
+      "level": 0,
+      "sessionId": "8b1763be-102b-40bc-973b-33d34c88f6e9"
+    }
+  },
+  {
+    "event_type": "stage_complete",
+    "timestamp_utc": "2026-05-29T10:58:44.9226540Z",
+    "data": {
+      "fight_id": "f1e01aa4-b65e-498f-ae49-5fcba57767d8",
+      "sessionId": "8b1763be-102b-40bc-973b-33d34c88f6e9"
+    }
+  },
+  {
+    "event_type": "game_quit",
+    "timestamp_utc": "2026-05-29T10:58:53.7048818Z",
+    "data": {
+      "sessionId": "8b1763be-102b-40bc-973b-33d34c88f6e9"
+    }
+  }
+]

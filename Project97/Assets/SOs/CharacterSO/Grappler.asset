@@ -41,6 +41,10 @@ MonoBehaviour:
     weight: 1
   - attackSO: {fileID: 11400000, guid: 07ba242d9ca96c44b9855843a16e87f7, type: 2}
     weight: 1
+  - attackSO: {fileID: 11400000, guid: 721dc7116e007df4190c70a89797e1be, type: 2}
+    weight: 3
+  - attackSO: {fileID: 11400000, guid: 963852c9918ebaf45a3172242416e5df, type: 2}
+    weight: 3
   defendChances:
   - defendSO: {fileID: 11400000, guid: 349ac2533ff4d4f4c9533df761f948d0, type: 2}
     probability: 0.3

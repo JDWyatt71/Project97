@@ -15,8 +15,14 @@ MonoBehaviour:
   moveType: 3
   sprite: {fileID: 0}
   AP: 1
-  height: 0
-  effects: []
+  height: 5
+  effects:
+  - effect: 1
+    chance: 0
   damage: 6
   accuracy: 5
   ignoresGuard: 0
+  catchesDodge: 0
+  unblockable: 0
+  onlyUsableOnProne: 0
+  catchesDodgeChance: 0

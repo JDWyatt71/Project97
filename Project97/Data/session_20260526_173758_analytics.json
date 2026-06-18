@@ -1,0 +1,12 @@
+[
+  {
+    "event_type": "upgrade_chosen",
+    "timestamp_utc": "2026-05-26T17:37:59.8404467Z",
+    "data": null
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-05-26T17:37:59.8441734Z",
+    "data": null
+  }
+]

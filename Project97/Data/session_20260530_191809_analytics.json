@@ -1,0 +1,23 @@
+[
+  {
+    "event_type": "upgrade_chosen",
+    "timestamp_utc": "2026-05-30T19:18:18.1735894Z",
+    "data": {
+      "level": 1,
+      "type": "move_unlock",
+      "value": "Guard",
+      "run_id": "ded9069a-e2ef-4153-bc46-c1505ae3306a",
+      "sessionId": "06147e2e-5e89-43b3-8e66-c172151d7427"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-05-30T19:18:18.1771661Z",
+    "data": {
+      "fight_id": "93c1db15-ec14-4216-b364-c257a217e8c0",
+      "stage_id": "93c1db15-ec14-4216-b364-c257a217e8c0",
+      "start_time": 9.684962,
+      "sessionId": "06147e2e-5e89-43b3-8e66-c172151d7427"
+    }
+  }
+]

@@ -1,0 +1,57 @@
+[
+  {
+    "event_type": "upgrade_chosen",
+    "timestamp_utc": "2026-05-25T15:49:34.6216537Z",
+    "data": {
+      "level": 1,
+      "type": "move_unlock",
+      "value": "High Palm Strike",
+      "run_id": "7af5cd19-edb6-4af8-ab36-d5db8c995ca8",
+      "sessionId": "03a4f349-6950-47d0-9619-77cb32cd3fd9"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-05-25T15:49:34.6247280Z",
+    "data": {
+      "fight_id": "45a9320f-75d7-4f0c-ad6c-4ee9b19203f6",
+      "stage_id": "45a9320f-75d7-4f0c-ad6c-4ee9b19203f6",
+      "start_time": 2.895607,
+      "sessionId": "03a4f349-6950-47d0-9619-77cb32cd3fd9"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-05-25T15:49:40.1792576Z",
+    "data": {
+      "status_name": "Bind",
+      "sessionId": "03a4f349-6950-47d0-9619-77cb32cd3fd9",
+      "target_type": "Dojo Challenger (Character)",
+      "source_move": "Pummel"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-25T15:49:40.1792576Z",
+    "data": {
+      "move_name": "Pummel",
+      "sessionId": "03a4f349-6950-47d0-9619-77cb32cd3fd9",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 3,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-25T15:49:41.1756607Z",
+    "data": {
+      "move_name": "Low Spin Kick",
+      "sessionId": "03a4f349-6950-47d0-9619-77cb32cd3fd9",
+      "user_type": "Dojo Challenger (Character)",
+      "attack_result": "guardedHit",
+      "total_damage": 5,
+      "target_type": "Player (Character)"
+    }
+  }
+]

@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: Low Guard
   m_EditorClassIdentifier: Assembly-CSharp::DefendSO
   moveType: 3
-  sprite: {fileID: 0}
+  sprite: {fileID: -6780424450134864398, guid: 9b1d16da2f9da9e418c33aa3b5559ec9, type: 3}
   AP: 1
   height: 0
   effects: []
   damageReductionMultiplier: 0.4
   deflect: 0
   block: 0
+  duck: 0
+  guard: 1
   dodgeBonusPercent: 0

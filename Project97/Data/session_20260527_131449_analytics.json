@@ -1,0 +1,107 @@
+[
+  {
+    "event_type": "upgrade_chosen",
+    "timestamp_utc": "2026-05-27T13:14:51.0941428Z",
+    "data": null
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-05-27T13:14:51.0972272Z",
+    "data": null
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-27T13:14:54.2641561Z",
+    "data": null
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-27T13:14:55.2630032Z",
+    "data": null
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-27T13:14:56.2675564Z",
+    "data": null
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-27T13:14:57.2696008Z",
+    "data": null
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-05-27T13:14:58.2775447Z",
+    "data": null
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-27T13:14:58.2775447Z",
+    "data": null
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-27T13:15:06.0924502Z",
+    "data": null
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-27T13:15:07.0921403Z",
+    "data": null
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-27T13:15:08.0935059Z",
+    "data": null
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-05-27T13:15:09.0963214Z",
+    "data": null
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-27T13:15:09.0963214Z",
+    "data": null
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-05-27T13:15:10.1021699Z",
+    "data": null
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-27T13:15:10.1021699Z",
+    "data": null
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-27T13:15:19.9426963Z",
+    "data": null
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-27T13:15:20.9509969Z",
+    "data": null
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-27T13:15:21.9522576Z",
+    "data": null
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-27T13:15:22.9586074Z",
+    "data": null
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-05-27T13:15:23.9824241Z",
+    "data": null
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-27T13:15:23.9824241Z",
+    "data": null
+  }
+]

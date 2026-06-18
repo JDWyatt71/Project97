@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SelectMoveUI : MonoBehaviour
@@ -20,9 +22,11 @@ public class SelectMoveUI : MonoBehaviour
     public event OnAPChanged APChanged;
     public event Action<MoveSO> OnMoveSelected;
     public event Action<MoveSO> OnMoveDeselected;
-    private int maxAttackMoves = 3;
+    private int maxAttackMoves = 4;
+    private int maxDefendMoves = 2;
     private int attackMoves;
     private int defenseMoves;
+    private bool multipleTypesSelected = false;
     private List<MoveSO> selectedMoves = new List<MoveSO>();
     public List<MoveSO> GetSelectedMoves()
     {
@@ -45,7 +49,14 @@ public class SelectMoveUI : MonoBehaviour
                 pAPRemaining -= move.AP;
                 selectedMoves.Add(move);
                 OnMoveSelected?.Invoke(move);
+
                 selectedObjs.Add(SelectGameObject);
+                //If attack moves of different types are selected, reduces total AP consumed
+                if (!multipleTypesSelected && GetMultipleTypesSelected(selectedMoves))
+                {
+                    multipleTypesSelected = true;
+                    pAPRemaining++;
+                }
                 switch (move)
                 {
                     case AttackSO a:
@@ -66,10 +77,18 @@ public class SelectMoveUI : MonoBehaviour
         else
         {
             SelectGameObject.SetActive(false);
+
             pAPRemaining += move.AP;
             selectedMoves.Remove(move);
             OnMoveDeselected?.Invoke(move);
+
             selectedObjs.Remove(SelectGameObject);
+            //Removes AP bonus if multiple types of attack moves are no longer selected
+            if (multipleTypesSelected && !GetMultipleTypesSelected(selectedMoves))
+            {
+                multipleTypesSelected = false;
+                pAPRemaining--;
+            }
             switch (move)
             {
                 case AttackSO a:
@@ -95,10 +114,12 @@ public class SelectMoveUI : MonoBehaviour
                 limitMet = attackMoves == maxAttackMoves;
                 break;
             case DefendSO d:
-                limitMet = defenseMoves == 1;
+                limitMet = defenseMoves == maxDefendMoves;
                 break;
         }
-        return move.AP <= pAPRemaining && !limitMet; 
+    
+        int bonusAP = !multipleTypesSelected && GetMultipleTypesSelected(selectedMoves, move) ? 1 : 0;
+        return move.AP <= (pAPRemaining + bonusAP) && !limitMet; 
     }
     public bool CanAffordMoves()
     {
@@ -112,6 +133,7 @@ public class SelectMoveUI : MonoBehaviour
 
         defenseMoves = 0;
         attackMoves = 0;
+        multipleTypesSelected = false;
 
         GetComponent<APBarUI>().Setup(this);
         pAPRemaining = GameManager.I.pC.actionPoints;
@@ -127,10 +149,32 @@ public class SelectMoveUI : MonoBehaviour
         foreach(GameObject selectedObj in selectedObjs)
         {
             selectedObj.SetActive(false);
-
         }
         selectedObjs.Clear();
+        if (multipleTypesSelected)
+        {
+            multipleTypesSelected = false;
+            pAPRemaining--;
+        }
 
+    }
+
+    private bool GetMultipleTypesSelected(List<MoveSO> selectedMoves, MoveSO newMove = null)
+    {
+        if (selectedMoves.Count < 2) return false;
+
+        //Adds new move if check is done before it is added to the selected moves list
+        List<MoveSO> selectedMovesCopy = new List<MoveSO>(selectedMoves);
+        if (newMove != null) selectedMovesCopy.Add(newMove);
+
+        //Excludes defensive moves as these are not considered for combo
+        List<AttackSO> selectedASOs = selectedMovesCopy.OfType<AttackSO>().ToList();
+        MoveType firstType = selectedASOs.First().moveType;
+
+        //there is more than one type of attack move selected
+        if (selectedASOs.Any(a => a.moveType != firstType)) return true;
+        
+        return false;
     }
     #endregion
 }

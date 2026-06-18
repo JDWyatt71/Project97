@@ -1,0 +1,148 @@
+[
+  {
+    "event_type": "upgrade_chosen",
+    "timestamp_utc": "2026-06-04T10:25:51.6778398Z",
+    "data": {
+      "level": 1,
+      "type": "move_unlock",
+      "value": "Block",
+      "run_id": "b179a3d9-400e-499a-ad58-7f9a731eb582",
+      "sessionId": "0fbae912-21b7-4130-a5b5-e834d7732360"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-06-04T10:25:51.6808998Z",
+    "data": {
+      "fight_id": "8ae1bee1-82c7-47c7-87d8-bedd802dc4cd",
+      "stage_id": "8ae1bee1-82c7-47c7-87d8-bedd802dc4cd",
+      "start_time": 23.4799919,
+      "sessionId": "0fbae912-21b7-4130-a5b5-e834d7732360"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-06-04T10:25:57.0647155Z",
+    "data": {
+      "move_name": "High Punch",
+      "sessionId": "0fbae912-21b7-4130-a5b5-e834d7732360",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 3,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-06-04T10:25:58.0596959Z",
+    "data": {
+      "move_name": "Low Spin Kick",
+      "sessionId": "0fbae912-21b7-4130-a5b5-e834d7732360",
+      "user_type": "Dojo Challenger (Character)",
+      "attack_result": "blocked",
+      "total_damage": 7,
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-06-04T10:26:05.0256261Z",
+    "data": {
+      "status_name": "Blindness",
+      "sessionId": "0fbae912-21b7-4130-a5b5-e834d7732360",
+      "target_type": "Dojo Challenger (Character)",
+      "source_move": "High Punch"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-06-04T10:26:05.0256261Z",
+    "data": {
+      "move_name": "High Punch",
+      "sessionId": "0fbae912-21b7-4130-a5b5-e834d7732360",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 3,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-06-04T10:26:06.0216492Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "sessionId": "0fbae912-21b7-4130-a5b5-e834d7732360",
+      "user_type": "Dojo Challenger (Character)",
+      "attack_result": "blocked",
+      "total_damage": 2,
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-06-04T10:26:07.0240724Z",
+    "data": {
+      "move_name": "Low Spin Kick",
+      "sessionId": "0fbae912-21b7-4130-a5b5-e834d7732360",
+      "user_type": "Dojo Challenger (Character)",
+      "attack_result": "blocked",
+      "total_damage": 7,
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-06-04T10:26:18.9407283Z",
+    "data": {
+      "move_name": "High Punch",
+      "sessionId": "0fbae912-21b7-4130-a5b5-e834d7732360",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 3,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-06-04T10:26:19.9410836Z",
+    "data": {
+      "move_name": "High Punch",
+      "sessionId": "0fbae912-21b7-4130-a5b5-e834d7732360",
+      "user_type": "Dojo Challenger (Character)",
+      "attack_result": "hit",
+      "total_damage": 3,
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-06-04T10:26:24.1758939Z",
+    "data": {
+      "move_name": "High Punch",
+      "sessionId": "0fbae912-21b7-4130-a5b5-e834d7732360",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 3,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-06-04T10:26:25.1747762Z",
+    "data": {
+      "move_name": "Medium Spin Kick",
+      "sessionId": "0fbae912-21b7-4130-a5b5-e834d7732360",
+      "user_type": "Dojo Challenger (Character)",
+      "attack_result": "blocked",
+      "total_damage": 6,
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "game_quit",
+    "timestamp_utc": "2026-06-04T10:26:31.9149724Z",
+    "data": {
+      "sessionId": "0fbae912-21b7-4130-a5b5-e834d7732360"
+    }
+  }
+]

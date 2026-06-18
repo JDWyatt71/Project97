@@ -18,9 +18,9 @@ MonoBehaviour:
   height: 4
   effects:
   - effect: 8
-    chance: 3
-  - effect: 5
     chance: 2
   damage: 2
   accuracy: 2
   ignoresGuard: 1
+  catchesDodge: 0
+  catchesDodgeChance: 0

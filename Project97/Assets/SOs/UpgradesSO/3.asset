@@ -36,3 +36,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8dc3fa4b48a5b5c48868559f79f753c2, type: 2}
   - {fileID: 11400000, guid: 4689e27e0a9b9444cb5bdeccabf967a7, type: 2}
   - {fileID: 11400000, guid: 8d1bbc6013264894997c1f4a00a1a4d3, type: 2}
+  allDefendAvailable: 1
+  statsUpgradesPossible: 1
+  defendAppears: 1

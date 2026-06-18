@@ -5,6 +5,7 @@ using UnityEngine;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine.UI;
+using Unity.VisualScripting.FullSerializer;
 public class CombatManager
 {
     private FightAnalyticsTracker analytics;
@@ -12,9 +13,14 @@ public class CombatManager
     {
         this.analytics = analytics;
     }
-    public void PerformMovePair(AttackSO a, DefendSO d, Character attacker, Character target, string turnName)
+
+    public List<(string, int)> playerStatusLog = new List<(string, int)>();
+    public List<(string, int)> enemyStatusLog = new List<(string, int)> ();
+    public bool noDefend = false;
+    public void PerformMovePair(AttackSO a, DefendSO d, Character attacker, 
+        Character target, string turnName, bool player)
     {
-        AttackResult status = PerformAttack(attacker, target, a, d);
+        AttackResult status = PerformAttack(attacker, target, player, a, d);
         string strStatus = status.ToString();
         d ??= AssetsDatabase.I?.defaultDefendSO;
 
@@ -25,7 +31,8 @@ public class CombatManager
         //Damage displayed here is approximate, and doesn't factor randomness or defense reduction percentage like TotalDam() calculated.
         string aS = $"Attack: {a.name}, Damage: {a.damage} ≈ {CalculateInitialDamage(GetDamage(a.damage), attacker.attack)}"; 
         string dS;
-        if(d != null){
+        if(d != null) 
+        {
             dS = $"Defend: {d.name}";
         }
         else
@@ -35,7 +42,10 @@ public class CombatManager
 
         Debug.Log($"{turnName}'s Turn:\n{aS}\n{dS}\nAttack {strStatus}");
         CombatEvents.RaiseLogUpdate($"{turnName} used {a.name}! {strStatus.ToUpper()}!");
+
+        
     }
+
     public enum AttackResult
     {
         dodged,
@@ -53,7 +63,7 @@ public class CombatManager
     /// <param name="attackSO"></param>
     /// <param name="defendSO"></param>
     /// <returns></returns>
-    private AttackResult PerformAttack(Character attacker, Character target, AttackSO attackSO, DefendSO defendSO = null)
+    private AttackResult PerformAttack(Character attacker, Character target, bool player, AttackSO attackSO, DefendSO defendSO = null)
     {
         string moveName = attackSO.name;
         analytics.RegisterAttackAttempt();
@@ -61,68 +71,90 @@ public class CombatManager
         if (defendSO == null)
         {
             defendSO = AssetsDatabase.I.defaultDefendSO;
+            noDefend = true;
         }
+        else noDefend = false;
 
-        //Is guarded?
-        int totalDamage;
         int basedam = GetDamage(attackSO.damage);
         float initialDamage = CalculateInitialDamage(basedam, attacker.attack);
-        bool guarded = false;
-        if(attackSO.height == defendSO.height && !attackSO.ignoresGuard){ //Guard
-            totalDamage = TotalDam(initialDamage, 1-defendSO.damageReductionMultiplier);
-            guarded = true;
-        }
-        else //No guard
-        {          
-            totalDamage = TotalDam(initialDamage, 1);
+        int totalDamage = TotalDam(initialDamage, 1, player);
+
+        if (attackSO.onlyUsableOnProne)
+        {
+            if (target.TryGetEffect(Effect.Prone) == null)
+            {
+                //If attack can only be used on prone targets, and target isn't prone, then attack is dodged.
+                GameEvents.RaiseMoveUsed(moveName, GameManager.I.CurrentSessionId, attacker.ToString(), AttackResult.dodged.ToString(), 0, target.ToString());
+                return AttackResult.dodged;
+            }
+            else
+            {
+                //Prone-only attack used on prone target is a guaranteed hit
+                ApplyAttackDamageAndEffects(target, attacker.attack, attackSO, totalDamage, player);
+                GameEvents.RaiseMoveUsed(moveName, GameManager.I.CurrentSessionId, attacker.ToString(), AttackResult.hit.ToString(), totalDamage, target.ToString());
+                return AttackResult.hit;
+            }
         }
 
-        //Is dodge / duck
+        bool guarded = false;
+        bool bypassGuard = attackSO.ignoresGuard && defendSO.guard;
+        bool heightsMatch = HeightsMatch(attackSO, defendSO);
+
+        if (heightsMatch && !bypassGuard) { //Guarded
+            //Apply block damage reduction
+            totalDamage = TotalDam(initialDamage, 1 - defendSO.damageReductionMultiplier, player);
+            guarded = true;            
+        }
+
+        //Is dodge / duck / foot shuffle (check before block)
         float moveAccuracy = CalculateMoveAccuracy(attackSO.accuracy, attacker.accuracy, target.evasion, defendSO.dodgeBonusPercent);
-        if (!UC.RandomEvent(moveAccuracy))
+        if (!UC.RandomEvent(moveAccuracy)) //missed attack -> dodge/counter
         {
-            //Check catches dodge
-            bool caughtDodge = attackSO.catchesDodge && UC.RandomEvent(GetEffectChance(attackSO.catchesDodgeChance));
-            if(!caughtDodge){
+            //dodge evasion bonus
+            float high_evasion_bonus = AssetsDatabase.I.dMoves[0].dodgeBonusPercent;
+            //Check catches dodge (foot shuffle is exempt)
+            bool caughtDodge = attackSO.catchesDodge && defendSO.dodgeBonusPercent >= high_evasion_bonus;
+            if (!caughtDodge)
+            {
                 if (defendSO.duck)
                 {
                     //Ducked successfully 
-                    ApplyAttackDamageAndEffects(attacker, attackSO, totalDamage);
-                    
+                    int counterDamage = TotalDam(initialDamage, 1, player);
+                    ApplyAttackDamageAndEffects(attacker, target.attack, attackSO, counterDamage, player);
+
                     analytics.RegisterDefendSuccess();
 
                     GameEvents.RaiseMoveUsed(moveName, GameManager.I.CurrentSessionId, attacker.ToString(), AttackResult.ducked.ToString(), totalDamage, target.ToString());
                     return AttackResult.ducked;
-                } 
+                }
                 else
                 {
                     GameEvents.RaiseMoveUsed(moveName, GameManager.I.CurrentSessionId, attacker.ToString(), AttackResult.dodged.ToString(), 0, target.ToString());
                     return AttackResult.dodged; //So don't do any damage.
                 }
             }
-            
         }
+        
+        //Is deflected/countered? (prioritised over block if same height chosen)
+        if (defendSO.deflect && heightsMatch && !attackSO.unblockable)
+        {
+            int counterDamage = TotalDam(initialDamage, 1, player);
+            ApplyAttackDamageAndEffects(attacker, target.attack, attackSO, counterDamage, player);
 
+            analytics.RegisterDefendSuccess();
+            GameEvents.RaiseMoveUsed(moveName, GameManager.I.CurrentSessionId, attacker.ToString(), AttackResult.deflected.ToString(), counterDamage, target.ToString());
+            return AttackResult.deflected;
+        }
         //Is block?
-        if(defendSO.block && attackSO.height == defendSO.height && attackSO.moveType != MoveType.Grapple) 
+        if (defendSO.block && heightsMatch && !attackSO.unblockable) 
         {
             analytics.RegisterDefendSuccess();
             GameEvents.RaiseMoveUsed(moveName, GameManager.I.CurrentSessionId, attacker.ToString(), AttackResult.blocked.ToString(), totalDamage, target.ToString());
             return AttackResult.blocked;
         }
-
-        //Is deflected/countered?
-        if (defendSO.deflect && attackSO.moveType != MoveType.Grapple)
-        {
-            ApplyAttackDamageAndEffects(attacker, attackSO, totalDamage);
-
-            analytics.RegisterDefendSuccess();
-            GameEvents.RaiseMoveUsed(moveName, GameManager.I.CurrentSessionId, attacker.ToString(), AttackResult.deflected.ToString(), totalDamage, target.ToString());
-            return AttackResult.deflected;
-        }
         else //Not deflected, hit - is it guardedHit or standard hit
         {
-            ApplyAttackDamageAndEffects(target, attackSO, totalDamage);
+            ApplyAttackDamageAndEffects(target, attacker.attack, attackSO, totalDamage, player);
 
             analytics.RegisterAttackSuccess();
             if (guarded)
@@ -137,7 +169,7 @@ public class CombatManager
         }
     }
 
-    private void ApplyAttackDamageAndEffects(Character target, AttackSO attackSO, int totalDamage)
+    private void ApplyAttackDamageAndEffects(Character target, float binderAttack, AttackSO attackSO, int totalDamage, bool player)
     {
         if (attackSO.height == target.TryGetEffect(Effect.BrokenBones)?.height) //If has broken bones at same height as attack
         {
@@ -146,22 +178,35 @@ public class CombatManager
         target.healthSystem.TakeDamage(totalDamage);
         CombatEvents.RaiseDamageDealt(totalDamage, target);
 
-        ApplyEffects(target, attackSO, attackSO.height);
+        ApplyEffects(target, binderAttack, attackSO, attackSO.height, player);
+    }
+
+    private bool HeightsMatch(AttackSO attackSO, DefendSO defendSO)
+    {
+        return attackSO.height == defendSO.height || attackSO.height == defendSO.getHeightTwo();
     }
     #region Effects
 
-    private void ApplyEffects(Character character, AttackSO attackSO, Scale moveHeight)
+    private void ApplyEffects(Character character, float binderAttack, AttackSO attackSO, Scale moveHeight, bool player)
     {
         foreach(EffectChance eC in attackSO.effects)
         {
+
+            Debug.Log(attackSO.name + ": " + eC.effect + " applied to " + character.name);
             if (UC.RandomEvent(GetEffectChance(eC.chance)))
             {
-                character.AddEffect(eC.effect, moveHeight);
-
+                if (Enum.Equals(eC.effect, Effect.Bind))
+                {
+                    Debug.Log("Bind case");
+                    if (player) playerStatusLog.AddRange(character.DoBind(binderAttack));
+                    else enemyStatusLog.AddRange(character.DoBind(binderAttack));
+                }
+                else
+                {
+                    character.AddEffect(eC.effect, moveHeight);
+                }
+                
                 GameEvents.RaiseStatus(eC.effect.ToString(), GameManager.I.CurrentSessionId, character.ToString(), attackSO.name.ToString());
-
-                //string effectName = eC.effect.name; // once we figure out the effects.
-                //analytics.RegisterEffectApplied(effectName);
             }
         }
     }
@@ -210,10 +255,12 @@ public class CombatManager
         return basedam * attackMultiplier;
     }
     //(where grdred is 1 or 0.6 or 0)
-    private int TotalDam(float initdam, float multiplier)
+    private int TotalDam(float initdam, float multiplier, bool player)
     {
         float rand = UnityEngine.Random.Range( -0.15f*initdam, 0.15f*initdam );
-        float ans = multiplier * ( initdam + rand  );
+        float noDefendMultiplier = (noDefend) ? 1.2f : 1f;
+        float ans = noDefendMultiplier * multiplier * ( initdam + rand  );
+        Debug.Log($"damage: {ans} damage without nodefend {multiplier * (initdam + rand)} nodefend {noDefend}");
         int roundedAns = (int)Mathf.Round( ans );
         return roundedAns;
 

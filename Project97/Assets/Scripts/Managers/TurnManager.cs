@@ -1,10 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
 using Unity.VisualScripting;
+using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.Debug;
+using static UnityEngine.GraphicsBuffer;
 
 [RequireComponent(typeof(MovesUIScreen))]
 public class TurnManager : MonoBehaviour
@@ -132,8 +134,8 @@ public class TurnManager : MonoBehaviour
 
     private void DoEffects()
     {
-        computerCharacter.DoEffects(playerCharacter.attack);
-        playerCharacter.DoEffects(computerCharacter.attack);
+        computerCharacter.DoEffects();
+        playerCharacter.DoEffects();
     }
 
     private IEnumerator Turn(Character pCharacter, Character cCharacter)
@@ -153,8 +155,11 @@ public class TurnManager : MonoBehaviour
         TryRestAction(pCharacter, SelectMoveUI.I.GetCurrentAP());
         //Extracts AttackSO and single DefendSO from pMoves
         List<AttackSO> pAMoves = pMoves.OfType<AttackSO>().ToList();
-        DefendSO pDMove = pMoves.OfType<DefendSO>().FirstOrDefault();
+        List<DefendSO> pDMoves = pMoves.OfType<DefendSO>().ToList();
 
+        DefendSO pDMove = CombineDefendSOs(pDMoves);
+
+        bool prone = pCharacter.TryGetEffect(Effect.Prone) != null;
         List<MoveSO> cMoves = ScheduleRandomMoves(cCharacter);
 
         List<AttackSO> cAMoves = cMoves.OfType<AttackSO>().ToList();
@@ -188,6 +193,7 @@ public class TurnManager : MonoBehaviour
         System.Random rnd = new System.Random();
         int remainingAP = c.actionPoints;
         List<MoveSO> moves = new List<MoveSO>();
+
         if (UC.RandomEvent(c.cSO.defendRate))
         {
             MoveSO defenceMove = UC.GetRandomDefendSO(c.cSO.defendChances, c.GetDMoves()); //It is assumed all defensive moves can be afforded always
@@ -228,24 +234,23 @@ public class TurnManager : MonoBehaviour
             }
 
             //If there are no moves left in the attacking move pool, because none can be afforded, then break
-            if (attackChances.Count == 0) break; 
+            if (attackChances.Count == 0) break;
 
             #region Move selection
             //E.g. There are 3 rare moves, total probability of picking a rare move is 0.15/3. Code implements in two stages: First category selected with 0.15 probability. Then 1/3 chance of specific rare move.
             //Get random category using category weights which is as initialised or 0 when no moves in that category
-            MoveWeight moveWeight = UC.GetWeightedRandomItem(categoryProbabilities); 
 
+            MoveWeight moveWeight = UC.GetWeightedRandomItem(categoryProbabilities);        
             Dictionary<AttackSO, MoveWeight> dict = attackChances.ToDictionary(x => x.attackSO, x => x.weight); //Convert to dictionary
-            List<AttackSO> selectedCategoryMoves = dict.Where(kvp => kvp.Value == moveWeight).Select(kvp => kvp.Key).ToList(); 
-            
-            AttackSO randomAMove = selectedCategoryMoves[UnityEngine.Random.Range(0, selectedCategoryMoves.Count)];
-            MoveSO randomMove = (MoveSO)randomAMove;
-            moves.Add(randomMove);
-            remainingAP -= randomAMove.AP;
+            List<AttackSO> selectedCategoryMoves = dict.Where(kvp => kvp.Value == moveWeight).Select(kvp => kvp.Key).ToList();
+            AttackSO selectedAMove = selectedCategoryMoves[UnityEngine.Random.Range(0, selectedCategoryMoves.Count)];
+            MoveSO selectedMove = (MoveSO)selectedAMove;
+            moves.Add(selectedMove);
+            remainingAP -= selectedMove.AP;
             #endregion
 
             //Remove the randomly selected move from 'attackChances'
-            attackChances.RemoveAll(item => item.attackSO == randomAMove);            
+            attackChances.RemoveAll(item => item.attackSO == selectedAMove);            
         }
         TryRestAction(c, remainingAP);
 
@@ -256,23 +261,56 @@ public class TurnManager : MonoBehaviour
     {
         int maxMoves = Mathf.Max(ms1.Count, ms2.Count);
 
-        for(int i = 0; i < maxMoves; i++)
+        //If no defensive moves for a fighter, apply bonus damage
+        //cM.playerNoDefend = (d1 == null) ? true : false;
+        //cM.enemyNoDefend = (d2 == null) ? true : false;
+        //Debug.Log($"playerNoDefend: {cM.playerNoDefend} enemyNoDefend: {cM.enemyNoDefend}");
+
+        for (int i = 0; i < maxMoves; i++)
         {
+            Debug.Log("Move " + i);
             if(!running) yield break;
-            if (i < ms1.Count)
+            
+
+            if (i < ms1.Count && c1.TryGetEffect(Effect.Prone)==null)
             {
                 //Note: RunningIsFalse event may be triggered in CM which is listened to in this script (running = false; executed).
-                cM.PerformMovePair(ms1[i], d2, c1, c2, c1.name); 
+                cM.PerformMovePair(ms1[i], d2, c1, c2, c1.name, player: true);
+                foreach ((string message, int damage) statusinfo in cM.playerStatusLog)
+                {
+                    CombatEvents.RaiseLogUpdate(statusinfo.message);
+                    if (statusinfo.damage >= 0)
+                    {
+                        c2.healthSystem.TakeDamage(statusinfo.damage);
+                        CombatEvents.RaiseDamageDealt(statusinfo.damage, c2);
+                    }
+                        
+                    yield return new WaitForSeconds(GameManager.I.moveDelay);
+                }
+                cM.playerStatusLog.Clear();
                 OutputHealth(c1, c2);
-
                 yield return new WaitForSeconds(GameManager.I.moveDelay);
             }
 
+            bool proneMoveUsed = false;
 
             if (!running) yield break;
-            if (i < ms2.Count)
+            if (i < ms2.Count && c2.TryGetEffect(Effect.Prone) == null)
             {
-                cM.PerformMovePair(ms2[i], d1, c2, c1, c2.name);
+                (ms2, proneMoveUsed) = ProneMoveSwap(c1, c2, ms2, i, proneMoveUsed);
+                cM.PerformMovePair(ms2[i], d1, c2, c1, c2.name, player: false);
+                foreach ((string message, int damage) statusinfo in cM.enemyStatusLog)
+                {
+                    CombatEvents.RaiseLogUpdate(statusinfo.message);
+                    if (statusinfo.damage >= 0)
+                    {
+                        c1.healthSystem.TakeDamage(statusinfo.damage);
+                        CombatEvents.RaiseDamageDealt(statusinfo.damage, c1);
+                    }
+
+                    yield return new WaitForSeconds(GameManager.I.moveDelay);
+                }
+                cM.enemyStatusLog.Clear();
                 OutputHealth(c1, c2);
 
                 yield return new WaitForSeconds(GameManager.I.moveDelay);
@@ -283,8 +321,55 @@ public class TurnManager : MonoBehaviour
 
     private static void OutputHealth(Character c1, Character c2)
     {
+        if (c1 is not null && c2 is not null)
         Debug.Log($"{c1.name}'s Health: {c1.healthSystem.GetHealth()}, {c2.name}'s Health: {c2.healthSystem.GetHealth()}");
     }
-    
-    
+
+    private DefendSO CombineDefendSOs(List<DefendSO> pDMoves)
+    {
+        switch (pDMoves.Count)
+        {
+            case 0:
+                return null;
+            case 1:
+                return pDMoves[0];
+
+            default:
+                DefendSO d1 = pDMoves[0];
+                DefendSO d2 = pDMoves[1];
+                //DefendSO d3 = new DefendSO(d1);
+                DefendSO d3 = ScriptableObject.CreateInstance<DefendSO>();
+                d3.deflect = d2.deflect || d1.deflect;
+                d3.block = d2.block || d1.block;
+                d3.duck = d2.duck || d1.duck;
+
+                d3.dodgeBonusPercent = Math.Max(d1.dodgeBonusPercent, d2.dodgeBonusPercent);
+                d3.damageReductionMultiplier = Math.Max(d1.damageReductionMultiplier, d2.damageReductionMultiplier);
+
+                d3.height = d1.height;
+                d3.setHeightTwo(d2.height);
+                d3.name = $"{d1.name}+{d2.name}";
+
+                return d3;
+        }   
+    }
+
+    (List<AttackSO>, bool) ProneMoveSwap(Character player, Character enemy, List<AttackSO> eMoves, int index, bool proneMoveUsed)
+    {
+        List<AttackChance> attackChances = new List<AttackChance>(enemy.cSO.attackChances);
+        Debug.Log("Prone Swap");
+        if (player.TryGetEffect(Effect.Prone) != null && !proneMoveUsed
+            && attackChances.Any(a => a.weight == MoveWeight.UseOnProne))
+        {
+            Debug.Log($"{player.TryGetEffect(Effect.Prone)} prone move used: {proneMoveUsed} has {attackChances.Any(a => a.weight == MoveWeight.UseOnProne)}");
+            Dictionary<AttackSO, MoveWeight> dict = attackChances.ToDictionary(x => x.attackSO, x => x.weight); //Convert to dictionary
+            List<AttackSO> selectedCategoryMoves = dict.Where(kvp => kvp.Value == MoveWeight.UseOnProne).Select(kvp => kvp.Key).ToList();
+            AttackSO selectedAMove = selectedCategoryMoves[UnityEngine.Random.Range(0, selectedCategoryMoves.Count)];
+
+            eMoves[index] = selectedAMove;
+            proneMoveUsed = true;
+        }
+        return (eMoves, proneMoveUsed);
+    }
 }
+

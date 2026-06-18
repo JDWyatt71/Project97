@@ -1,7 +1,11 @@
+using NUnit.Framework.Internal;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 [RequireComponent(typeof(HealthSystem))]
 public class Character : MonoBehaviour
 {
@@ -142,7 +146,9 @@ public class Character : MonoBehaviour
     }
     private void TrySetActionPoints(int amount)
     {
-        //Prone effect sets action points to 0 to skip turn, therefore if turn has been skipped do not update action points from another effect.
+        //Prone effect sets action points to 0 to skip turn, therefore if turn has been skipped do not update action points
+        //from another effect.
+        //this may cause issues when prone interacts with bind.
         if(actionPoints != 0) actionPoints = amount;  
     }
     private void SetupMoves(List<AttackSO> initialAMoves, List<DefendSO> initialDMoves, bool sameMovesAsPlayer)
@@ -171,10 +177,6 @@ public class Character : MonoBehaviour
     public void AddEffect(Effect effect, Scale height)
     {
         effects[effect] = new EffectData(EffectDefaults.Durations[effect], AssetsDatabase.I.effectsSprites[(int)effect], height);
-        if(effect == Effect.Bind)
-        {
-            bindDPercentage = 0.03f;
-        }
         OnEffectsChanged?.Invoke(effects);
     }
     public EffectData TryGetEffect(Effect effect)
@@ -189,25 +191,20 @@ public class Character : MonoBehaviour
         effects.Clear();
         OnEffectsChanged?.Invoke(effects);
     }
-    public void DoEffects(float binderAttack)
+    public void DoEffects()
     {
         ResetCurrentStats();
         foreach (Effect effect in effects.Keys.ToList()) //Loops through a copy, so safe to modify dictionary in this loop
         {
+            print(effect);
             DoEffect(effect);
+            //print("evasion: " + evasion + " effect: " + effect);
             effects[effect].duration -= 1;
             if (effects[effect].duration == 0) //Doesn't remove -1 or below which signifies unlimited
             {
                 RemoveEffect(effect);
+                print("effect removed: "+effect);
 
-            }
-            else if(effect == Effect.Bind && effects[effect].duration <= 2)
-            {
-                if (UC.RandomEventPercentage( ((evasion - binderAttack) / 100f) + 0.5f) )
-                {
-                    RemoveEffect(effect);
-                    Debug.Log("Bind removed early");
-                }
             }
         }
     }
@@ -218,7 +215,6 @@ public class Character : MonoBehaviour
         OnEffectsChanged?.Invoke(effects);
     }
 
-    private float bindDPercentage;
     private void DoEffect(Effect effect)
     {
         switch (effect)
@@ -242,8 +238,6 @@ public class Character : MonoBehaviour
                 break;
 
             case Effect.Bind:
-                healthSystem.TakeDamage(Mathf.CeilToInt(bindDPercentage * healthSystem.GetMaxHealth()));
-                bindDPercentage += 0.03f;
                 break;
 
             case Effect.Wind:
@@ -251,14 +245,14 @@ public class Character : MonoBehaviour
                 break;
 
             case Effect.Prone:
-                TrySetActionPoints(0);
+                //TrySetActionPoints(0);
                 break;
 
             case Effect.BrokenBones:
                 //Does nothing at start of turn
                 break;
 
-            case Effect.Bleed:
+            case Effect.Bleed: //need a log print for bleed damage too
                 healthSystem.TakeDamage(5);
                 Debug.Log("5 damage taken to bleed effect");
 
@@ -268,6 +262,36 @@ public class Character : MonoBehaviour
                 Debug.LogError($"{effect} not defined");
                 break;
         }
+    }
+    public List<(string, int)> DoBind(float binderAttack)
+    {
+        List<(string, int)> bindlog= new List<(string, int)>();
+        float bindDPercentage=0.03f;
+        Debug.Log("bind case");
+        for (int i = 0; i < 4; i++)
+        {
+            if (healthSystem.GetHealth() <= 0) break;
+            if (i >= 2)
+            {
+                float escapeChance = 1-(((evasion - binderAttack) / 100f) + 0.5f);
+                Debug.Log(UC.RandomEvent(escapeChance)+" " +escapeChance);
+                if (UC.RandomEvent(((evasion - binderAttack) / 100f) + 0.5f))
+                {
+                    //CombatEvents.RaiseLogUpdate($"{this.name} breaks out of grapple!");
+                    bindlog.Add(($"{this.name} breaks out of grapple!", -1));
+                    break;
+                }
+            }
+            int bindDamage = Mathf.CeilToInt(bindDPercentage * healthSystem.GetMaxHealth());
+            Debug.Log("bindDamage: " + bindDamage);
+            //healthSystem.TakeDamage(bindDamage);
+            bindDPercentage += 0.03f;
+            if (healthSystem.GetHealth() <= 0) break;
+            //CombatEvents.RaiseLogUpdate($"{this.name} is grappled");
+            //CombatEvents.RaiseDamageDealt(bindDamage, this);
+            bindlog.Add(($"{this.name} is grappled", bindDamage));
+        }
+        return bindlog;
     }
     #endregion
 }

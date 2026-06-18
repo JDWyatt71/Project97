@@ -13,13 +13,16 @@ MonoBehaviour:
   m_Name: High Push Kick
   m_EditorClassIdentifier: Assembly-CSharp::AttackSO
   moveType: 1
-  sprite: {fileID: 8965127209932636032, guid: 70bf4c8933dfefa4e9b9cba555ca9b0f, type: 3}
+  sprite: {fileID: 5860735840028902764, guid: 95fcd2317e5329845b41797bcb8440a0, type: 3}
   AP: 3
   height: 4
   effects:
   - effect: 2
-    chance: 4
-  - effect: 4
     chance: 2
   damage: 1
   accuracy: 2
+  ignoresGuard: 0
+  catchesDodge: 0
+  unblockable: 0
+  onlyUsableOnProne: 0
+  catchesDodgeChance: 0

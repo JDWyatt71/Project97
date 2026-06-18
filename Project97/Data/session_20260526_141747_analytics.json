@@ -1,0 +1,88 @@
+[
+  {
+    "event_type": "upgrade_chosen",
+    "timestamp_utc": "2026-05-26T14:17:54.0956254Z",
+    "data": {
+      "level": 1,
+      "type": "move_unlock",
+      "value": "High Push Kick",
+      "run_id": "03636153-c718-4dab-8f66-80c340966f22",
+      "sessionId": "6ec04e9b-b880-4899-9040-d0ad2659e318"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-05-26T14:17:54.0996583Z",
+    "data": {
+      "fight_id": "4cf18530-8a8f-45dd-80ae-493fcb0ff0ad",
+      "stage_id": "4cf18530-8a8f-45dd-80ae-493fcb0ff0ad",
+      "start_time": 9.883081,
+      "sessionId": "6ec04e9b-b880-4899-9040-d0ad2659e318"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-05-26T14:17:57.2390829Z",
+    "data": {
+      "status_name": "Blindness",
+      "sessionId": "6ec04e9b-b880-4899-9040-d0ad2659e318",
+      "target_type": "Dojo Challenger (Character)",
+      "source_move": "High Punch"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-26T14:17:57.2390829Z",
+    "data": {
+      "move_name": "High Punch",
+      "sessionId": "6ec04e9b-b880-4899-9040-d0ad2659e318",
+      "user_type": "Player (Character)",
+      "attack_result": "guardedHit",
+      "total_damage": 2,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-26T14:17:58.2311018Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "sessionId": "6ec04e9b-b880-4899-9040-d0ad2659e318",
+      "user_type": "Dojo Challenger (Character)",
+      "attack_result": "hit",
+      "total_damage": 3,
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-26T14:17:59.2338016Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "sessionId": "6ec04e9b-b880-4899-9040-d0ad2659e318",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 3,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-26T14:18:00.2323807Z",
+    "data": {
+      "move_name": "High Punch",
+      "sessionId": "6ec04e9b-b880-4899-9040-d0ad2659e318",
+      "user_type": "Dojo Challenger (Character)",
+      "attack_result": "hit",
+      "total_damage": 3,
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "game_quit",
+    "timestamp_utc": "2026-05-26T14:18:27.8246587Z",
+    "data": {
+      "sessionId": "6ec04e9b-b880-4899-9040-d0ad2659e318"
+    }
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "event_type": "upgrade_chosen",
+    "timestamp_utc": "2026-05-30T11:02:59.8074831Z",
+    "data": null
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-05-30T11:02:59.8110565Z",
+    "data": null
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-05-30T11:03:02.3339362Z",
+    "data": null
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-05-30T11:03:02.3345581Z",
+    "data": null
+  },
+  {
+    "event_type": "fight_end",
+    "timestamp_utc": "2026-05-30T11:03:03.3283388Z",
+    "data": null
+  },
+  {
+    "event_type": "stage_complete",
+    "timestamp_utc": "2026-05-30T11:03:03.3317501Z",
+    "data": null
+  }
+]

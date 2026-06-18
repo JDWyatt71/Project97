@@ -113,7 +113,7 @@ public class MoveExecutionOrderTests
 
         for (int i = 0; i < order.Count; i++)
         {
-            combatManager.PerformMovePair(order[i], noDefend, attacker, defender, "Test");
+            combatManager.PerformMovePair(order[i], noDefend, attacker, defender, "Test", player: true);
             healthAfterEach.Add(defender.healthSystem.GetHealth());
         }
 

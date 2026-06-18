@@ -1,0 +1,91 @@
+[
+  {
+    "event_type": "upgrade_chosen",
+    "timestamp_utc": "2026-06-04T11:29:18.0521233Z",
+    "data": {
+      "level": 1,
+      "type": "move_unlock",
+      "value": "Block",
+      "run_id": "a84f3d5f-6b2c-46a1-9332-ce88a45be6ac",
+      "sessionId": "bb11e6c6-ce2d-4c2d-800d-bc55154a8927"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-06-04T11:29:18.0551432Z",
+    "data": {
+      "fight_id": "93378c38-a11b-4fd7-b534-aa0557046085",
+      "stage_id": "93378c38-a11b-4fd7-b534-aa0557046085",
+      "start_time": 6.24526167,
+      "sessionId": "bb11e6c6-ce2d-4c2d-800d-bc55154a8927"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-06-04T11:29:21.2760504Z",
+    "data": {
+      "move_name": "High Punch",
+      "sessionId": "bb11e6c6-ce2d-4c2d-800d-bc55154a8927",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 3,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-06-04T11:29:22.2717376Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "sessionId": "bb11e6c6-ce2d-4c2d-800d-bc55154a8927",
+      "user_type": "Dojo Challenger (Character)",
+      "attack_result": "blocked",
+      "total_damage": 3,
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-06-04T11:29:23.2800502Z",
+    "data": {
+      "status_name": "Wind",
+      "sessionId": "bb11e6c6-ce2d-4c2d-800d-bc55154a8927",
+      "target_type": "Dojo Challenger (Character)",
+      "source_move": "Medium Punch"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-06-04T11:29:23.2800502Z",
+    "data": {
+      "move_name": "Medium Punch",
+      "sessionId": "bb11e6c6-ce2d-4c2d-800d-bc55154a8927",
+      "user_type": "Player (Character)",
+      "attack_result": "guardedHit",
+      "total_damage": 2,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-06-04T11:29:24.2790697Z",
+    "data": {
+      "status_name": "Bind",
+      "sessionId": "bb11e6c6-ce2d-4c2d-800d-bc55154a8927",
+      "target_type": "Player (Character)",
+      "source_move": "Pummel"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-06-04T11:29:24.2790697Z",
+    "data": {
+      "move_name": "Pummel",
+      "sessionId": "bb11e6c6-ce2d-4c2d-800d-bc55154a8927",
+      "user_type": "Dojo Challenger (Character)",
+      "attack_result": "guardedHit",
+      "total_damage": 2,
+      "target_type": "Player (Character)"
+    }
+  }
+]

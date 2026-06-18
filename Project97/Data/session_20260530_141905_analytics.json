@@ -1,0 +1,51 @@
+[
+  {
+    "event_type": "upgrade_chosen",
+    "timestamp_utc": "2026-05-30T14:19:07.0583389Z",
+    "data": {
+      "level": 1,
+      "type": "move_unlock",
+      "value": "Pummel",
+      "run_id": "57cb1fe6-acf0-497e-a797-0e9ffbc52c9b",
+      "sessionId": "1a1c8e49-32ab-4708-b09f-e85177f9d595"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-05-30T14:19:07.0598731Z",
+    "data": {
+      "fight_id": "de55fd72-a30f-465c-ac04-4d4a5e17ccc3",
+      "stage_id": "de55fd72-a30f-465c-ac04-4d4a5e17ccc3",
+      "start_time": 2.07612729,
+      "sessionId": "1a1c8e49-32ab-4708-b09f-e85177f9d595"
+    }
+  },
+  {
+    "event_type": "upgrade_chosen",
+    "timestamp_utc": "2026-05-30T14:19:08.6243776Z",
+    "data": {
+      "level": 1,
+      "type": "move_unlock",
+      "value": "High Palm Strike",
+      "run_id": "57cb1fe6-acf0-497e-a797-0e9ffbc52c9b",
+      "sessionId": "1a1c8e49-32ab-4708-b09f-e85177f9d595"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-05-30T14:19:08.6258927Z",
+    "data": {
+      "fight_id": "39f5b05d-1a71-45c1-91d4-23d3ecd6f963",
+      "stage_id": "39f5b05d-1a71-45c1-91d4-23d3ecd6f963",
+      "start_time": 3.6433177,
+      "sessionId": "1a1c8e49-32ab-4708-b09f-e85177f9d595"
+    }
+  },
+  {
+    "event_type": "game_quit",
+    "timestamp_utc": "2026-05-30T14:19:12.7761768Z",
+    "data": {
+      "sessionId": "1a1c8e49-32ab-4708-b09f-e85177f9d595"
+    }
+  }
+]

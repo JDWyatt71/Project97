@@ -1,0 +1,23 @@
+[
+  {
+    "event_type": "upgrade_chosen",
+    "timestamp_utc": "2026-06-06T16:17:54.2835674Z",
+    "data": {
+      "level": 1,
+      "type": "move_unlock",
+      "value": "Foot Shuffle",
+      "run_id": "659d300b-1a4b-42d8-a2c7-c97917272211",
+      "sessionId": "100e5020-122b-40c3-a3b8-f7690a50869c"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-06-06T16:17:54.2891687Z",
+    "data": {
+      "fight_id": "6f2eb274-323f-4ee9-839f-28264dda8109",
+      "stage_id": "6f2eb274-323f-4ee9-839f-28264dda8109",
+      "start_time": 5.233763,
+      "sessionId": "100e5020-122b-40c3-a3b8-f7690a50869c"
+    }
+  }
+]

@@ -1,0 +1,44 @@
+[
+  {
+    "event_type": "upgrade_chosen",
+    "timestamp_utc": "2026-06-03T17:52:02.8227260Z",
+    "data": null
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-06-03T17:52:02.8262799Z",
+    "data": null
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-06-03T17:52:07.6423261Z",
+    "data": null
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-06-03T17:52:08.6466963Z",
+    "data": null
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-06-03T17:52:08.6466963Z",
+    "data": null
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-06-03T17:52:09.6441164Z",
+    "data": null
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-06-03T17:52:09.6441164Z",
+    "data": null
+  },
+  {
+    "event_type": "game_quit",
+    "timestamp_utc": "2026-06-03T18:05:16.7226653Z",
+    "data": {
+      "sessionId": "2f60f30e-9ea8-452d-8f51-b0b772d7bf6c"
+    }
+  }
+]

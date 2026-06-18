@@ -1,0 +1,30 @@
+[
+  {
+    "event_type": "upgrade_chosen",
+    "timestamp_utc": "2026-06-03T18:07:10.8122366Z",
+    "data": {
+      "level": 1,
+      "type": "move_unlock",
+      "value": "Block",
+      "run_id": "4b468242-f499-4b18-8fb5-85150598a87a",
+      "sessionId": "4b23a48e-b80f-4c0d-849b-c5f4b7ac03fc"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-06-03T18:07:10.8161285Z",
+    "data": {
+      "fight_id": "51bb1aa8-5de6-431c-be48-43c746643dcd",
+      "stage_id": "51bb1aa8-5de6-431c-be48-43c746643dcd",
+      "start_time": 13.6085472,
+      "sessionId": "4b23a48e-b80f-4c0d-849b-c5f4b7ac03fc"
+    }
+  },
+  {
+    "event_type": "game_quit",
+    "timestamp_utc": "2026-06-03T18:07:40.2672716Z",
+    "data": {
+      "sessionId": "4b23a48e-b80f-4c0d-849b-c5f4b7ac03fc"
+    }
+  }
+]

@@ -1,0 +1,30 @@
+[
+  {
+    "event_type": "upgrade_chosen",
+    "timestamp_utc": "2026-06-06T11:58:39.1630473Z",
+    "data": {
+      "level": 1,
+      "type": "move_unlock",
+      "value": "Guard",
+      "run_id": "49f353f9-800d-4060-8ae1-571ddad915c1",
+      "sessionId": "11c3a270-a266-4095-8b60-37b9dc38d3e7"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-06-06T11:58:39.1650988Z",
+    "data": {
+      "fight_id": "3a6a92e7-2647-4074-becf-d8d403f8bf58",
+      "stage_id": "3a6a92e7-2647-4074-becf-d8d403f8bf58",
+      "start_time": 5.499545,
+      "sessionId": "11c3a270-a266-4095-8b60-37b9dc38d3e7"
+    }
+  },
+  {
+    "event_type": "game_quit",
+    "timestamp_utc": "2026-06-06T11:58:42.1173183Z",
+    "data": {
+      "sessionId": "11c3a270-a266-4095-8b60-37b9dc38d3e7"
+    }
+  }
+]

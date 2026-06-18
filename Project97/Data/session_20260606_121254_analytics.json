@@ -1,0 +1,23 @@
+[
+  {
+    "event_type": "upgrade_chosen",
+    "timestamp_utc": "2026-06-06T12:12:58.0219392Z",
+    "data": {
+      "level": 1,
+      "type": "move_unlock",
+      "value": "Dodge",
+      "run_id": "dd3b1c56-6786-4e62-add3-cf454c84f856",
+      "sessionId": "8d4325d4-7e1a-4089-9d5d-e523f7c2515a"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-06-06T12:12:58.0254570Z",
+    "data": {
+      "fight_id": "a90facac-d0cf-4b3a-b90f-d6111d63ef84",
+      "stage_id": "a90facac-d0cf-4b3a-b90f-d6111d63ef84",
+      "start_time": 4.4904933,
+      "sessionId": "8d4325d4-7e1a-4089-9d5d-e523f7c2515a"
+    }
+  }
+]

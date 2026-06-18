@@ -26,8 +26,10 @@ public class EffectsUI : MonoBehaviour
             EffectData data = kvp.Value;
 
             GameObject item = Instantiate(AssetsDatabase.I.effectItemPf, effectsContainerTransform);
-
-            item.transform.Find("text").GetComponent<TextMeshProUGUI>().SetText($"{effect}\nDuration: {data.duration}");
+            if (data.duration != -1 )
+                item.transform.Find("text").GetComponent<TextMeshProUGUI>().SetText($"{effect}\nDuration: {data.duration}");
+            else
+                item.transform.Find("text").GetComponent<TextMeshProUGUI>().SetText($"{effect}\nDuration: ∞");
 
             if (data.sprite != null) item.transform.Find("image").GetComponent<Image>().sprite = data.sprite; 
         }

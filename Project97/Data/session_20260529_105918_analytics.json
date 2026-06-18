@@ -1,0 +1,9 @@
+[
+  {
+    "event_type": "game_quit",
+    "timestamp_utc": "2026-05-29T10:59:24.7304863Z",
+    "data": {
+      "sessionId": "8014738b-037b-4489-93cb-b2c3d7a4b728"
+    }
+  }
+]

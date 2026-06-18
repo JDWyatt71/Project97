@@ -1,0 +1,89 @@
+[
+  {
+    "event_type": "upgrade_chosen",
+    "timestamp_utc": "2026-06-18T08:53:09.3815192Z",
+    "data": {
+      "level": 1,
+      "type": "move_unlock",
+      "value": "Block",
+      "run_id": "9aecd91c-5437-499e-a21c-3bf35212f40a",
+      "sessionId": "e173b737-a035-494e-90ff-ca22243a7c7a"
+    }
+  },
+  {
+    "event_type": "fight_start",
+    "timestamp_utc": "2026-06-18T08:53:09.3866127Z",
+    "data": {
+      "fight_id": "9364de8d-2ec1-4fd2-9966-4aecb2f58db7",
+      "stage_id": "9364de8d-2ec1-4fd2-9966-4aecb2f58db7",
+      "start_time": 9.40445,
+      "sessionId": "e173b737-a035-494e-90ff-ca22243a7c7a"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-06-18T08:53:22.4710075Z",
+    "data": {
+      "status_name": "Blindness",
+      "sessionId": "e173b737-a035-494e-90ff-ca22243a7c7a",
+      "target_type": "Dojo Challenger (Character)",
+      "source_move": "High Punch"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-06-18T08:53:22.4726548Z",
+    "data": {
+      "status_name": "Blindness",
+      "sessionId": "e173b737-a035-494e-90ff-ca22243a7c7a",
+      "target_type": "Dojo Challenger (Character)",
+      "source_move": "High Punch"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-06-18T08:53:22.4726548Z",
+    "data": {
+      "move_name": "High Punch",
+      "sessionId": "e173b737-a035-494e-90ff-ca22243a7c7a",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 3,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-06-18T08:53:23.4687587Z",
+    "data": {
+      "move_name": "Medium Spin Kick",
+      "sessionId": "e173b737-a035-494e-90ff-ca22243a7c7a",
+      "user_type": "Dojo Challenger (Character)",
+      "attack_result": "dodged",
+      "total_damage": 0,
+      "target_type": "Player (Character)"
+    }
+  },
+  {
+    "event_type": "status_applied",
+    "timestamp_utc": "2026-06-18T08:53:24.4697250Z",
+    "data": {
+      "status_name": "Blindness",
+      "sessionId": "e173b737-a035-494e-90ff-ca22243a7c7a",
+      "target_type": "Dojo Challenger (Character)",
+      "source_move": "High Spin Kick"
+    }
+  },
+  {
+    "event_type": "move_used",
+    "timestamp_utc": "2026-06-18T08:53:24.4697250Z",
+    "data": {
+      "move_name": "High Spin Kick",
+      "sessionId": "e173b737-a035-494e-90ff-ca22243a7c7a",
+      "user_type": "Player (Character)",
+      "attack_result": "hit",
+      "total_damage": 8,
+      "target_type": "Dojo Challenger (Character)"
+    }
+  }
+]
